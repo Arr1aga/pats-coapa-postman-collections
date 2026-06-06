@@ -1,0 +1,34 @@
+$kind: http-example
+request:
+  url: "{{GATEWAY_URL}}/calendar/2026-06"
+  method: GET
+  headers:
+    Authorization: Bearer {{HC_TOKEN}}
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "month": "2026-06",
+        "month_label": "Junio 2026",
+        "events": [
+          {
+            "id": "019601a0-0000-7000-8000-000000000001",
+            "date": "2026-06-10",
+            "kind": "training",
+            "title": "Entrenamiento Irons",
+            "time": "17:00",
+            "field": "Campo 1",
+            "opponent": null,
+            "category_ids": ["irons"],
+            "series_id": null,
+            "recurrence_weekdays": [],
+            "recurrence_end_date": null
+          }
+        ]
+      }
+order: 1000

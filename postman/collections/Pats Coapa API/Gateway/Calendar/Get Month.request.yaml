@@ -1,0 +1,8 @@
+$kind: http-request
+description: Get all events for a given month (YYYY-MM), JWT required.
+url: "{{GATEWAY_URL}}/calendar/2026-06"
+method: GET
+headers:
+  Authorization: Bearer {{HC_TOKEN}}
+examples: ./.resources/Get Month.resources/examples
+order: 1000

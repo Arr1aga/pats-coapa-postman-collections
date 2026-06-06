@@ -1,0 +1,28 @@
+$kind: http-request
+description: Replace all events for a given month (YYYY-MM). Past events are preserved; only today and future events are replaced.
+url: "{{GATEWAY_URL}}/calendar/2026-07"
+method: PUT
+headers:
+  Authorization: Bearer {{HC_TOKEN}}
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "events": [
+        {
+          "date": "2026-07-15",
+          "kind": "training",
+          "title": "Entrenamiento Irons",
+          "time": "17:00",
+          "field": "Campo 1",
+          "opponent": null,
+          "category_ids": ["irons"],
+          "series_id": null,
+          "recurrence_weekdays": [],
+          "recurrence_end_date": null
+        }
+      ]
+    }
+examples: ./.resources/Replace Month.resources/examples
+order: 2000

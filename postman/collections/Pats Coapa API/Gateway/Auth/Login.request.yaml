@@ -1,4 +1,5 @@
 $kind: http-request
+name: Login
 description: Proxy → auth-service POST /auth/login
 url: "{{GATEWAY_URL}}/auth/login"
 method: POST
@@ -8,8 +9,8 @@ body:
   type: json
   content: |-
     {
-      "email": "tutor@patscoapa.mx",
-      "password": "password123"
+      "email": "tutor1@test.com",
+      "password": "pass123"
     }
 scripts:
   - type: afterResponse

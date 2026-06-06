@@ -1,0 +1,19 @@
+$kind: http-example
+request:
+  url: "{{GATEWAY_URL}}/calendar/2026-07"
+  method: PUT
+  headers:
+    Authorization: Bearer {{PARENT_TOKEN}}
+    Content-Type: application/json
+  body:
+    type: json
+    content: '{"events":[]}'
+response:
+  statusCode: 403
+  statusText: Forbidden
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: '{"code":"FORBIDDEN","message":"Role parent cannot write calendar events"}'
+order: 3000
