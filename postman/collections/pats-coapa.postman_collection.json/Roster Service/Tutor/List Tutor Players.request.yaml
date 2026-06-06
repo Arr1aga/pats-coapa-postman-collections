@@ -1,0 +1,12 @@
+$kind: http-request
+description: List a tutor's registered players (own tutor / admin)
+url: "{{ROSTER_URL}}/tutor/:userId/players"
+method: GET
+pathVariables:
+  userId: usr_abc123
+auth:
+  type: bearer
+  credentials:
+    token: "{{ACCESS_TOKEN}}"
+examples: ./.resources/List Tutor Players.resources/examples
+order: 1000

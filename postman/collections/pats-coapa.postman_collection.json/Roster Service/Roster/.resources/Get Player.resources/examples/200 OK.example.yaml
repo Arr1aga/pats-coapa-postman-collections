@@ -1,0 +1,35 @@
+$kind: http-example
+request:
+  url: "{{ROSTER_URL}}/roster/player/:id"
+  method: GET
+  headers:
+    Authorization: Bearer {{ACCESS_TOKEN}}
+  pathVariables:
+    id: plr_abc123
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "id": "plr_abc123",
+        "categoryId": "rabbits",
+        "name": "Carlos Pérez",
+        "jerseyNumber": 12,
+        "position": "QB",
+        "age": 8,
+        "height": 130,
+        "weight": 35,
+        "size": "S",
+        "status": "active",
+        "tutorName": "Luis Pérez",
+        "tutorPhone": "5512345678",
+        "tutorRelation": "Padre",
+        "medicalAlert": null,
+        "medicalDetail": null,
+        "createdAt": "2026-05-27T10:00:00.000Z"
+      }
+order: 1000

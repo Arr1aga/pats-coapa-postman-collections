@@ -1,0 +1,20 @@
+$kind: http-request
+description: Approve or reject a player (coach of category / admin)
+url: "{{GATEWAY_URL}}/roster/player/:id/status"
+method: PATCH
+headers:
+  Content-Type: application/json
+pathVariables:
+  id: plr_abc123
+body:
+  type: json
+  content: |-
+    {
+      "status": "active"
+    }
+auth:
+  type: bearer
+  credentials:
+    token: "{{ACCESS_TOKEN}}"
+examples: ./.resources/Update Player Status.resources/examples
+order: 5000

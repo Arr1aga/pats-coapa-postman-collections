@@ -1,0 +1,64 @@
+$kind: http-example
+request:
+  url: "{{CALENDAR_URL}}/calendar/:month"
+  method: PUT
+  headers:
+    x-actor-id: "{{HC_USER_ID}}"
+    x-actor-role: head_coach
+    x-actor-categories: "[]"
+    Content-Type: application/json
+  pathVariables:
+    - key: month
+      value: 2026-07
+      description: Month in YYYY-MM format
+  body:
+    type: json
+    content: |-
+      {
+        "events": [
+          {
+            "date": "2026-07-15",
+            "kind": "training",
+            "title": "Entrenamiento Irons",
+            "time": "17:00",
+            "field": "Campo 1",
+            "opponent": null,
+            "categoryIds": [
+              "irons"
+            ],
+            "seriesId": null,
+            "recurrenceWeekdays": [],
+            "recurrenceEndDate": null
+          }
+        ]
+      }
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "month": "2026-07",
+        "month_label": "Julio 2026",
+        "events": [
+          {
+            "id": "019600000000700080000000000002",
+            "date": "2026-07-15",
+            "kind": "training",
+            "title": "Entrenamiento Irons",
+            "time": "17:00",
+            "field": "Campo 1",
+            "opponent": null,
+            "categoryIds": [
+              "irons"
+            ],
+            "seriesId": null,
+            "recurrenceWeekdays": [],
+            "recurrenceEndDate": null
+          }
+        ]
+      }
+order: 1000

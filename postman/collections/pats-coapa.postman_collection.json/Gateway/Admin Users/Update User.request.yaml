@@ -1,0 +1,22 @@
+$kind: http-request
+description: Proxy → auth-service PATCH /admin/users/:id
+url: "{{GATEWAY_URL}}/admin/users/:id"
+method: PATCH
+headers:
+  Content-Type: application/json
+pathVariables:
+  - key: id
+    value: usr_abc123
+    description: User UUID
+body:
+  type: json
+  content: |-
+    {
+      "displayName": "Updated Name"
+    }
+auth:
+  type: bearer
+  credentials:
+    token: "{{ACCESS_TOKEN}}"
+examples: ./.resources/Update User.resources/examples
+order: 3000

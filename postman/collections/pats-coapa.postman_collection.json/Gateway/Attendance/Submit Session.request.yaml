@@ -1,0 +1,8 @@
+$kind: http-request
+description: Stamp submitted_at on the session.
+url: "{{GATEWAY_URL}}/attendance/sessions/rabbits/today/submit"
+method: POST
+headers:
+  Authorization: Bearer {{ACCESS_TOKEN}}
+examples: ./.resources/Submit Session.resources/examples
+order: 3000

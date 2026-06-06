@@ -1,0 +1,25 @@
+$kind: http-example
+request:
+  url: "{{AUTH_URL}}/auth/refresh"
+  method: POST
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "refreshToken": "example"
+      }
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "accessToken": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ1c3JfYWJjMTIzIn0.signature",
+        "refreshToken": "eyJhbGciOiJSUzI1NiJ9.eyJqdGkiOiJydGtfZGVmNDU2In0.signature"
+      }
+order: 1000

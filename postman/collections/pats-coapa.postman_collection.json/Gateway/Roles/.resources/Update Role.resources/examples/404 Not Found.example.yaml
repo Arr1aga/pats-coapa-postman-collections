@@ -1,0 +1,29 @@
+$kind: http-example
+request:
+  url: "{{AUTH_URL}}/roles/:id"
+  method: PUT
+  headers:
+    Content-Type: application/json
+    Authorization: Bearer {{ACCESS_TOKEN}}
+  pathVariables:
+    id: ""
+  body:
+    type: json
+    content: |-
+      {
+        "name": "example",
+        "permissions": ["example"]
+      }
+response:
+  statusCode: 404
+  statusText: Not Found
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "code": "NOT_FOUND",
+        "message": "Role not found"
+      }
+order: 4000

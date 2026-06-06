@@ -1,0 +1,37 @@
+$kind: http-example
+request:
+  url: "{{ROSTER_URL}}/roster/players/:category"
+  method: GET
+  headers:
+    Authorization: Bearer {{ACCESS_TOKEN}}
+  pathVariables:
+    category: rabbits
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "players": [
+          {
+            "id": "plr_abc123",
+            "name": "Carlos Pérez",
+            "jerseyNumber": 12,
+            "position": "QB",
+            "age": 8,
+            "status": "active"
+          },
+          {
+            "id": "plr_def456",
+            "name": "Miguel Torres",
+            "jerseyNumber": 77,
+            "position": "RB",
+            "age": 7,
+            "status": "pending"
+          }
+        ]
+      }
+order: 1000

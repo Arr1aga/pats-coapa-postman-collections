@@ -1,0 +1,24 @@
+$kind: http-request
+description: Proxy → auth-service POST /auth/login
+url: "{{GATEWAY_URL}}/auth/login"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "email": "tutor@patscoapa.mx",
+      "password": "password123"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      if (pm.response.code === 200) {
+        const token = pm.response.json().accessToken;
+        pm.environment.set('ACCESS_TOKEN', token);
+        pm.test('accessToken saved', () => pm.expect(token).to.be.a('string'));
+      }
+    language: text/javascript
+examples: ./.resources/Login.resources/examples
+order: 1000

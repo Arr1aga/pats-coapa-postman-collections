@@ -1,0 +1,29 @@
+$kind: http-example
+request:
+  url: "{{AUTH_URL}}/roles/:id"
+  method: PUT
+  headers:
+    Content-Type: application/json
+    Authorization: Bearer {{ACCESS_TOKEN}}
+  pathVariables:
+    id: ""
+  body:
+    type: json
+    content: |-
+      {
+        "name": "example",
+        "permissions": ["example"]
+      }
+response:
+  statusCode: 403
+  statusText: Forbidden
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "code": "FORBIDDEN",
+        "message": "Permission 'roles:write' required"
+      }
+order: 3000

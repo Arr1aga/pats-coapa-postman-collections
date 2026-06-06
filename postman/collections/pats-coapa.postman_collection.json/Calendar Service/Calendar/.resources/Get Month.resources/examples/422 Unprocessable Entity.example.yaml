@@ -1,0 +1,25 @@
+$kind: http-example
+request:
+  url: "{{CALENDAR_URL}}/calendar/:month"
+  method: GET
+  headers:
+    x-actor-id: "{{HC_USER_ID}}"
+    x-actor-role: head_coach
+    x-actor-categories: "[]"
+  pathVariables:
+    - key: month
+      value: 2026-06
+      description: Month in YYYY-MM format
+response:
+  statusCode: 422
+  statusText: Unprocessable Entity
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "code": "VALIDATION_ERROR",
+        "message": "Invalid month format. Expected YYYY-MM"
+      }
+order: 3000

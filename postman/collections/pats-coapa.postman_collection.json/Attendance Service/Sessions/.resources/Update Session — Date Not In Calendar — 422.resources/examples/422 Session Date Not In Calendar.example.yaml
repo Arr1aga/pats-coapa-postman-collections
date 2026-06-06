@@ -1,0 +1,19 @@
+$kind: http-example
+request:
+  url: "{{GATEWAY_URL}}/attendance/sessions/irons/2026-12-25"
+  method: PUT
+  headers:
+    Authorization: Bearer {{ACCESS_TOKEN}}
+    Content-Type: application/json
+  body:
+    type: json
+    content: '{"marks":[]}'
+response:
+  statusCode: 422
+  statusText: Unprocessable Entity
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: '{"code":"SESSION_DATE_NOT_IN_CALENDAR","message":"Date 2026-12-25 is not an allowed session date for category irons"}'
+order: 1000

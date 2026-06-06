@@ -1,0 +1,27 @@
+$kind: http-example
+request:
+  url: "{{GATEWAY_URL}}/roles"
+  method: GET
+  headers:
+    Authorization: Bearer {{ACCESS_TOKEN}}
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      [
+        {
+          "id": "admin",
+          "name": "Administrador",
+          "permissions": ["*"]
+        },
+        {
+          "id": "head_coach",
+          "name": "Head Coach",
+          "permissions": ["roster:read", "roster:write", "attendance:read", "attendance:write", "payments:read", "users:read"]
+        }
+      ]
+order: 1000

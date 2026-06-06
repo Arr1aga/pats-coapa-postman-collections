@@ -1,0 +1,12 @@
+$kind: http-request
+url: sessions/{{CATEGORY}}/history
+method: GET
+headers:
+  Authorization: Bearer {{ACCESS_TOKEN}}
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("200 list history", () => pm.response.to.have.status(200));
+      pm.test("body is array", () => pm.expect(pm.response.json()).to.be.an('array'));
+    language: text/javascript
+order: 5000

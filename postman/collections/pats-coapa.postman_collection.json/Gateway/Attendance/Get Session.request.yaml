@@ -1,0 +1,8 @@
+$kind: http-request
+description: Get attendance session for a category and date. Returns empty marks when no session exists.
+url: "{{GATEWAY_URL}}/attendance/sessions/rabbits/today"
+method: GET
+headers:
+  Authorization: Bearer {{ACCESS_TOKEN}}
+examples: ./.resources/Get Session.resources/examples
+order: 1000

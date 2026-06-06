@@ -1,0 +1,10 @@
+$kind: http-request
+description: Proxy → auth-service GET /auth/me
+url: "{{GATEWAY_URL}}/auth/me"
+method: GET
+auth:
+  type: bearer
+  credentials:
+    token: "{{ACCESS_TOKEN}}"
+examples: ./.resources/My Profile.resources/examples
+order: 4000

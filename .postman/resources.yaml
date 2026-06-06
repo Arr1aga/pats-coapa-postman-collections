@@ -1,0 +1,23 @@
+workspace:
+  id: 4a1282cd-a52b-4d82-8f73-ebf5877e4b7b
+
+localResources:
+  collections:
+    - ../pats-coapa.e2e.postman_collection.json
+    - ../pats-coapa.postman_collection.json
+    - ../postman/collections/pats-coapa.postman_collection.json
+  environments:
+    - ../postman/environments/Pats Coapa Local.environment.yaml
+    - ../postman/environments/pats-coapa local.environment.yaml
+    - ../postman/environments/pats-coapa ci.environment.yaml
+
+# Each entry here maps a local resource to one or more corresponding objects in Postman Cloud
+
+cloudResources:
+  environments:
+    ../postman/environments/Pats Coapa Local.environment.yaml: 1247469-5530d460-de52-4124-95d8-9402c9c402aa
+    ../postman/environments/pats-coapa local.environment.yaml: 1247469-70d9f5eb-300e-473f-a34c-e2b34cadede7
+    ../postman/environments/pats-coapa ci.environment.yaml: 1247469-d7e4569d-82ed-420f-a188-6cb2b0042d7e
+  collections:
+    ../pats-coapa.postman_collection.json: 1247469-7454a52d-ef61-4685-a6b8-5b5ed5cb48b0
+    ../postman/collections/pats-coapa.postman_collection.json: 1247469-7454a52d-ef61-4685-a6b8-5b5ed5cb48b0

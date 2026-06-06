@@ -1,0 +1,33 @@
+$kind: http-example
+request:
+  url: "{{AUTH_URL}}/auth/login"
+  method: POST
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "email": "user@example.com",
+        "password": "password123"
+      }
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "accessToken": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ1c3JfYWJjMTIzIn0.signature",
+        "refreshToken": "eyJhbGciOiJSUzI1NiJ9.eyJqdGkiOiJydGtfZGVmNDU2In0.signature",
+        "user": {
+          "id": "usr_abc123",
+          "email": "tutor@patscoapa.mx",
+          "displayName": "Ana García",
+          "phone": null,
+          "role": "parent"
+        }
+      }
+order: 1000

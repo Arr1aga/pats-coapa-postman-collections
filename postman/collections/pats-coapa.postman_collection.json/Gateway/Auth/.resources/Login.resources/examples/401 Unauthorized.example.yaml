@@ -1,0 +1,26 @@
+$kind: http-example
+request:
+  url: "{{GATEWAY_URL}}/auth/login"
+  method: POST
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "email": "tutor@patscoapa.mx",
+        "password": "password123"
+      }
+response:
+  statusCode: 401
+  statusText: Unauthorized
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "code": "UNAUTHORIZED",
+        "message": "Invalid credentials"
+      }
+order: 2000

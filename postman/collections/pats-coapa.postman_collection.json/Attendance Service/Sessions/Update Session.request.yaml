@@ -1,0 +1,27 @@
+$kind: http-request
+description: |-
+  Upserts marks into the session by playerId (merge semantics, not full replace).
+
+  Only the marks sent in the body are affected. Existing marks for other players are preserved.
+  Sending a mark for a player that already exists updates their status/timestamp.
+
+  To remove a player mark, use DELETE /attendance/sessions/:category/:date/marks/:playerId.
+url: "{{GATEWAY_URL}}/attendance/sessions/rabbits/today"
+method: PUT
+headers:
+  Authorization: Bearer {{ACCESS_TOKEN}}
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "marks": [
+        {
+          "player_id": "00000000-0000-4000-8000-000000000001",
+          "status": "present",
+          "timestamp": "2026-06-05T18:00:00.000Z"
+        }
+      ]
+    }
+examples: ./.resources/Update Session.resources/examples
+order: 2000

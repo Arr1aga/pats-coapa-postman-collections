@@ -1,0 +1,21 @@
+$kind: http-example
+request:
+  url: "{{ROSTER_URL}}/roster/players/:category"
+  method: GET
+  headers:
+    Authorization: Bearer {{ACCESS_TOKEN}}
+  pathVariables:
+    category: rabbits
+response:
+  statusCode: 403
+  statusText: Forbidden
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "code": "FORBIDDEN",
+        "message": "Permission 'roster:read' required"
+      }
+order: 3000

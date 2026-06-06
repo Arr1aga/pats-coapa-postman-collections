@@ -1,0 +1,27 @@
+$kind: http-example
+request:
+  url: "{{GATEWAY_URL}}/attendance/sessions/rabbits/today/submit"
+  method: POST
+  headers:
+    Authorization: Bearer {{ACCESS_TOKEN}}
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "category_id": "rabbits",
+        "date": "2026-06-05",
+        "marks": [
+          {
+            "player_id": "00000000-0000-4000-8000-000000000001",
+            "status": "present",
+            "timestamp": "2026-06-05T18:00:00.000Z"
+          }
+        ],
+        "submitted_at": "2026-06-05T20:00:00.000Z"
+      }
+order: 1000

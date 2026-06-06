@@ -1,0 +1,15 @@
+$kind: http-example
+request:
+  url: "{{GATEWAY_URL}}/attendance/sessions/rabbits/today/submit"
+  method: POST
+  headers:
+    Authorization: Bearer {{ACCESS_TOKEN}}
+response:
+  statusCode: 403
+  statusText: Forbidden
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: '{"code":"FORBIDDEN","message":"Insufficient permissions for this category"}'
+order: 3000

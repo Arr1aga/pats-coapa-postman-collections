@@ -1,0 +1,10 @@
+$kind: http-request
+description: List all categories with player count
+url: "{{ROSTER_URL}}/roster/categories"
+method: GET
+auth:
+  type: bearer
+  credentials:
+    token: "{{ACCESS_TOKEN}}"
+examples: ./.resources/List Categories.resources/examples
+order: 1000

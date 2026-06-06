@@ -1,0 +1,33 @@
+$kind: http-example
+request:
+  url: "{{AUTH_URL}}/admin/users"
+  method: POST
+  headers:
+    Content-Type: application/json
+    Authorization: Bearer {{ACCESS_TOKEN}}
+  body:
+    type: json
+    content: |-
+      {
+        "email": "user@example.com",
+        "password": "password123",
+        "displayName": "example",
+        "role": "example",
+        "phone": "example"
+      }
+response:
+  statusCode: 201
+  statusText: Created
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "id": "usr_xyz789",
+        "email": "headcoach@patscoapa.mx",
+        "displayName": "Carlos López",
+        "phone": "+52 55 1234 5678",
+        "role": "head_coach"
+      }
+order: 1000

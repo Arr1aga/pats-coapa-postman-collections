@@ -1,0 +1,26 @@
+$kind: http-example
+request:
+  url: "{{AUTH_URL}}/auth/device-token"
+  method: DELETE
+  headers:
+    Content-Type: application/json
+    Authorization: Bearer {{ACCESS_TOKEN}}
+  body:
+    type: json
+    content: |-
+      {
+        "token": "example"
+      }
+response:
+  statusCode: 401
+  statusText: Unauthorized
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "code": "UNAUTHORIZED",
+        "message": "Missing Bearer token"
+      }
+order: 2000

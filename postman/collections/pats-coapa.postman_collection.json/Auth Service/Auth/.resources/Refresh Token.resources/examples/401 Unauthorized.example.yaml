@@ -1,0 +1,25 @@
+$kind: http-example
+request:
+  url: "{{AUTH_URL}}/auth/refresh"
+  method: POST
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "refreshToken": "example"
+      }
+response:
+  statusCode: 401
+  statusText: Unauthorized
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "code": "UNAUTHORIZED",
+        "message": "Refresh token expired or revoked"
+      }
+order: 2000

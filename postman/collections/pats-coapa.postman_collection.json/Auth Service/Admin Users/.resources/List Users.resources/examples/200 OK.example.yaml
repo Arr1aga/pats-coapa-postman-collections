@@ -1,0 +1,31 @@
+$kind: http-example
+request:
+  url: "{{AUTH_URL}}/admin/users"
+  method: GET
+  headers:
+    Authorization: Bearer {{ACCESS_TOKEN}}
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      [
+        {
+          "id": "usr_xyz789",
+          "email": "headcoach@patscoapa.mx",
+          "displayName": "Carlos López",
+          "phone": "+52 55 1234 5678",
+          "role": "head_coach"
+        },
+        {
+          "id": "usr_abc123",
+          "email": "tutor@patscoapa.mx",
+          "displayName": "Ana García",
+          "phone": null,
+          "role": "parent"
+        }
+      ]
+order: 1000

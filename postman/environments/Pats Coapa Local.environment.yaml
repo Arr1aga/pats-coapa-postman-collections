@@ -1,0 +1,18 @@
+owner: "1247469"
+team: "15406782"
+lastUpdatedBy: "1247469"
+lastRevision: 1780708349000
+name: Pats Coapa Local
+color: null
+values:
+  - key: AUTH_URL
+    value: ""
+    enabled: true
+  - key: ACCESS_TOKEN
+    value: ""
+    enabled: true
+  - key: REFRESH_TOKEN
+    value: ""
+    enabled: true
+createdAt: 2026-05-28T21:00:01.000Z
+updatedAt: 2026-06-06T01:12:29.000Z

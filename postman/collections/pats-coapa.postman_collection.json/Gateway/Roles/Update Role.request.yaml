@@ -1,0 +1,21 @@
+$kind: http-request
+description: Update role name or permissions (requires roles:write permission)
+url: "{{GATEWAY_URL}}/roles/:id"
+method: PUT
+headers:
+  Content-Type: application/json
+pathVariables:
+  id: ""
+body:
+  type: json
+  content: |-
+    {
+      "name": "example",
+      "permissions": ["example"]
+    }
+auth:
+  type: bearer
+  credentials:
+    token: "{{ACCESS_TOKEN}}"
+examples: ./.resources/Update Role.resources/examples
+order: 4000

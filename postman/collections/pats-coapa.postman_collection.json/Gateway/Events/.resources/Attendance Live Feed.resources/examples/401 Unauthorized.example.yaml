@@ -1,0 +1,15 @@
+$kind: http-example
+request:
+  url: "{{GATEWAY_URL}}/events/attendance/rabbits/today"
+  method: GET
+  headers:
+    Authorization: Bearer {{ACCESS_TOKEN}}
+response:
+  statusCode: 401
+  statusText: Unauthorized
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: '{"code":"UNAUTHORIZED","message":"Missing Bearer token"}'
+order: 2000

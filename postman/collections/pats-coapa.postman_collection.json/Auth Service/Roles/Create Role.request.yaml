@@ -1,0 +1,20 @@
+$kind: http-request
+description: Create a new role (requires roles:write permission)
+url: "{{AUTH_URL}}/roles"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "id": "example",
+      "name": "example",
+      "permissions": ["example"]
+    }
+auth:
+  type: bearer
+  credentials:
+    token: "{{ACCESS_TOKEN}}"
+examples: ./.resources/Create Role.resources/examples
+order: 2000

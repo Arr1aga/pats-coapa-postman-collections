@@ -1,0 +1,29 @@
+$kind: http-example
+request:
+  url: "{{GATEWAY_URL}}/admin/users"
+  method: POST
+  headers:
+    Content-Type: application/json
+    Authorization: Bearer {{ACCESS_TOKEN}}
+  body:
+    type: json
+    content: |-
+      {
+        "email": "coach@test.com",
+        "displayName": "Coach Test",
+        "role": "coach",
+        "password": "Abcd1234!"
+      }
+response:
+  statusCode: 409
+  statusText: Conflict
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "code": "CONFLICT",
+        "message": "Email already registered"
+      }
+order: 3000

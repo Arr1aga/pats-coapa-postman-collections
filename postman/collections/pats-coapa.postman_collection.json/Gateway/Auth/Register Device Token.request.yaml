@@ -1,0 +1,18 @@
+$kind: http-request
+description: Register FCM/APNS device token for push notifications
+url: "{{GATEWAY_URL}}/auth/device-token"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "token": "example"
+    }
+auth:
+  type: bearer
+  credentials:
+    token: "{{ACCESS_TOKEN}}"
+examples: ./.resources/Register Device Token.resources/examples
+order: 5000

@@ -1,0 +1,28 @@
+$kind: http-example
+request:
+  url: "{{ROSTER_URL}}/roster/player/:id/status"
+  method: PATCH
+  headers:
+    Content-Type: application/json
+    Authorization: Bearer {{ACCESS_TOKEN}}
+  pathVariables:
+    id: plr_abc123
+  body:
+    type: json
+    content: |-
+      {
+        "status": "active"
+      }
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "id": "plr_abc123",
+        "status": "active"
+      }
+order: 1000

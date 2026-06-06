@@ -1,0 +1,31 @@
+$kind: http-example
+request:
+  url: "{{GATEWAY_URL}}/auth/register"
+  method: POST
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "email": "tutor@patscoapa.mx",
+        "password": "password123",
+        "displayName": "Ana García",
+        "phone": "+52 55 1234 5678"
+      }
+response:
+  statusCode: 201
+  statusText: Created
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "id": "usr_abc123",
+        "email": "tutor@patscoapa.mx",
+        "displayName": "Ana García",
+        "phone": null,
+        "role": "parent"
+      }
+order: 1000

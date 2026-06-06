@@ -1,0 +1,22 @@
+$kind: http-example
+request:
+  url: "{{AUTH_URL}}/auth/me"
+  method: GET
+  headers:
+    Authorization: Bearer {{ACCESS_TOKEN}}
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "id": "usr_abc123",
+        "email": "tutor@patscoapa.mx",
+        "displayName": "Ana García",
+        "phone": null,
+        "role": "parent"
+      }
+order: 1000

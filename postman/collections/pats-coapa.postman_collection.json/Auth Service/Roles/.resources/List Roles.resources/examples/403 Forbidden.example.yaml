@@ -1,0 +1,19 @@
+$kind: http-example
+request:
+  url: "{{AUTH_URL}}/roles"
+  method: GET
+  headers:
+    Authorization: Bearer {{ACCESS_TOKEN}}
+response:
+  statusCode: 403
+  statusText: Forbidden
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "code": "FORBIDDEN",
+        "message": "Permission 'roles:write' required"
+      }
+order: 3000

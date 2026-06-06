@@ -1,0 +1,30 @@
+$kind: http-example
+request:
+  url: "{{GATEWAY_URL}}/admin/users/:id"
+  method: PATCH
+  headers:
+    Content-Type: application/json
+    Authorization: Bearer {{ACCESS_TOKEN}}
+  pathVariables:
+    id: usr_abc123
+  body:
+    type: json
+    content: |-
+      {
+        "displayName": "Updated Name"
+      }
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "id": "usr_abc123",
+        "email": "coach@test.com",
+        "displayName": "Updated Name",
+        "role": "coach"
+      }
+order: 1000

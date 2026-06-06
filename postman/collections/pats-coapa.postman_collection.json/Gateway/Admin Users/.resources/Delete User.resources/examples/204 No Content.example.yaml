@@ -1,0 +1,17 @@
+$kind: http-example
+request:
+  url: "{{GATEWAY_URL}}/admin/users/:id"
+  method: DELETE
+  headers:
+    Authorization: Bearer {{ACCESS_TOKEN}}
+  pathVariables:
+    id: usr_abc123
+response:
+  statusCode: 204
+  statusText: No Content
+  headers:
+    Content-Type: application/json
+  body:
+    type: text
+    content: ""
+order: 1000

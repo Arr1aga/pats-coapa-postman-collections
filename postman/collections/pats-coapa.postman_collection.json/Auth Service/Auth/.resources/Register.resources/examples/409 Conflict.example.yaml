@@ -1,0 +1,28 @@
+$kind: http-example
+request:
+  url: "{{AUTH_URL}}/auth/register"
+  method: POST
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "email": "user@example.com",
+        "password": "password123",
+        "displayName": "example",
+        "phone": "example"
+      }
+response:
+  statusCode: 409
+  statusText: Conflict
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "code": "CONFLICT",
+        "message": "Email already registered"
+      }
+order: 2000

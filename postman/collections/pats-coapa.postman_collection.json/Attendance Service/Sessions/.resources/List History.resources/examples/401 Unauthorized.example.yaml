@@ -1,0 +1,13 @@
+$kind: http-example
+request:
+  url: "{{ATTENDANCE_URL}}/attendance/sessions/{{CATEGORY}}/history"
+  method: GET
+response:
+  statusCode: 401
+  statusText: Unauthorized
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: '{"code":"UNAUTHENTICATED","message":"Missing actor identity"}'
+order: 2000

@@ -1,0 +1,47 @@
+$kind: http-example
+request:
+  url: "{{ATTENDANCE_URL}}/attendance/sessions/{{CATEGORY}}/history"
+  method: GET
+  headers:
+    x-actor-id: "{{ACTOR_ID}}"
+    x-actor-role: head_coach
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      [
+        {
+          "category_id": "irons",
+          "date": "2026-06-05",
+          "marks": [
+            {
+              "player_id": "00000000-0000-4000-8000-000000000001",
+              "status": "present",
+              "timestamp": "2026-06-05T18:00:00.000Z"
+            },
+            {
+              "player_id": "00000000-0000-4000-8000-000000000002",
+              "status": "absent",
+              "timestamp": "2026-06-05T18:01:00.000Z"
+            }
+          ],
+          "submitted_at": "2026-06-05T19:00:00.000Z"
+        },
+        {
+          "category_id": "irons",
+          "date": "2026-06-03",
+          "marks": [
+            {
+              "player_id": "00000000-0000-4000-8000-000000000001",
+              "status": "present",
+              "timestamp": "2026-06-03T18:00:00.000Z"
+            }
+          ],
+          "submitted_at": "2026-06-03T19:00:00.000Z"
+        }
+      ]
+order: 1000

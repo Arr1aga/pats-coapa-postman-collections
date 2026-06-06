@@ -1,0 +1,21 @@
+$kind: http-example
+request:
+  url: "{{ROSTER_URL}}/roster/player/:id"
+  method: GET
+  headers:
+    Authorization: Bearer {{ACCESS_TOKEN}}
+  pathVariables:
+    id: plr_abc123
+response:
+  statusCode: 401
+  statusText: Unauthorized
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "code": "UNAUTHENTICATED",
+        "message": "Missing actor identity"
+      }
+order: 2000

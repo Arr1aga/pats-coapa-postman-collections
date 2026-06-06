@@ -1,0 +1,17 @@
+$kind: http-request
+description: Proxy → auth-service POST /auth/register
+url: "{{GATEWAY_URL}}/auth/register"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "email": "tutor@patscoapa.mx",
+      "password": "password123",
+      "displayName": "Ana García",
+      "phone": "+52 55 1234 5678"
+    }
+examples: ./.resources/Register.resources/examples
+order: 2000

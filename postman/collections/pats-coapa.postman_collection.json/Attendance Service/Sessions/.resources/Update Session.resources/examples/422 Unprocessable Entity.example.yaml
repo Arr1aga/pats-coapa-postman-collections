@@ -1,0 +1,28 @@
+$kind: http-example
+request:
+  url: "{{GATEWAY_URL}}/attendance/sessions/rabbits/today"
+  method: PUT
+  headers:
+    Authorization: Bearer {{ACCESS_TOKEN}}
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "marks": [
+          {
+            "player_id": "00000000-0000-4000-8000-000000000001",
+            "status": "present",
+            "timestamp": "2026-06-05T18:00:00.000Z"
+          }
+        ]
+      }
+response:
+  statusCode: 422
+  statusText: Unprocessable Entity
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: "{\"code\":\"VALIDATION_ERROR\",\"message\":\"Unknown category: 'invalid_cat'\"}"
+order: 4000

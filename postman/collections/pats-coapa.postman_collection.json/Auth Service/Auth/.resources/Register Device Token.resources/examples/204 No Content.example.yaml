@@ -1,0 +1,22 @@
+$kind: http-example
+request:
+  url: "{{AUTH_URL}}/auth/device-token"
+  method: POST
+  headers:
+    Content-Type: application/json
+    Authorization: Bearer {{ACCESS_TOKEN}}
+  body:
+    type: json
+    content: |-
+      {
+        "token": "example"
+      }
+response:
+  statusCode: 204
+  statusText: No Content
+  headers:
+    Content-Type: application/json
+  body:
+    type: text
+    content: ""
+order: 1000

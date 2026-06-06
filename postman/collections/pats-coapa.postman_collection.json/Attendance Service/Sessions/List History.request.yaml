@@ -1,0 +1,9 @@
+$kind: http-request
+description: Returns all attendance sessions for the given category, sorted newest-first.
+url: "{{ATTENDANCE_URL}}/attendance/sessions/{{CATEGORY}}/history"
+method: GET
+headers:
+  x-actor-id: "{{ACTOR_ID}}"
+  x-actor-role: head_coach
+examples: ./.resources/List History.resources/examples
+order: 5000

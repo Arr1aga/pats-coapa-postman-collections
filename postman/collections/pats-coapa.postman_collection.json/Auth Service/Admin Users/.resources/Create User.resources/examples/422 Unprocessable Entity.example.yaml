@@ -1,0 +1,30 @@
+$kind: http-example
+request:
+  url: "{{AUTH_URL}}/admin/users"
+  method: POST
+  headers:
+    Content-Type: application/json
+    Authorization: Bearer {{ACCESS_TOKEN}}
+  body:
+    type: json
+    content: |-
+      {
+        "email": "user@example.com",
+        "password": "password123",
+        "displayName": "example",
+        "role": "example",
+        "phone": "example"
+      }
+response:
+  statusCode: 422
+  statusText: Unprocessable Entity
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "code": "VALIDATION_ERROR",
+        "message": "Invalid email"
+      }
+order: 5000
