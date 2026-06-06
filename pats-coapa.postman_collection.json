@@ -6316,6 +6316,291 @@
           ]
         },
         {
+          "name": "Calendar",
+          "description": "Calendar month management proxied through the gateway.",
+          "item": [
+            {
+              "name": "Get Month",
+              "request": {
+                "method": "GET",
+                "description": "Get all events for a given month (YYYY-MM).",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{HC_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{GATEWAY_URL}}/calendar/2026-06",
+                  "host": [
+                    "{{GATEWAY_URL}}"
+                  ],
+                  "path": [
+                    "calendar",
+                    "2026-06"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "200 OK",
+                  "originalRequest": {
+                    "method": "GET",
+                    "description": "Get all events for a given month (YYYY-MM).",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{HC_TOKEN}}"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{GATEWAY_URL}}/calendar/2026-06",
+                      "host": [
+                        "{{GATEWAY_URL}}"
+                      ],
+                      "path": [
+                        "calendar",
+                        "2026-06"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\n  \"month\": \"2026-06\",\n  \"month_label\": \"Junio 2026\",\n  \"events\": []\n}"
+                },
+                {
+                  "name": "401 Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "description": "Get all events for a given month (YYYY-MM).",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{HC_TOKEN}}"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{GATEWAY_URL}}/calendar/2026-06",
+                      "host": [
+                        "{{GATEWAY_URL}}"
+                      ],
+                      "path": [
+                        "calendar",
+                        "2026-06"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\"code\": \"UNAUTHENTICATED\", \"message\": \"Missing or invalid Bearer token\"}"
+                }
+              ]
+            },
+            {
+              "name": "Replace Month",
+              "request": {
+                "method": "PUT",
+                "description": "Replace all events for a given month (YYYY-MM).",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{HC_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"events\": [\n    {\n      \"date\": \"2026-07-15\",\n      \"kind\": \"training\",\n      \"title\": \"Entrenamiento Irons\",\n      \"time\": \"17:00\",\n      \"field\": \"Campo 1\",\n      \"opponent\": null,\n      \"categoryIds\": [\n        \"irons\"\n      ],\n      \"seriesId\": null,\n      \"recurrenceWeekdays\": [],\n      \"recurrenceEndDate\": null\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{GATEWAY_URL}}/calendar/2026-07",
+                  "host": [
+                    "{{GATEWAY_URL}}"
+                  ],
+                  "path": [
+                    "calendar",
+                    "2026-07"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "200 OK",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "description": "Replace all events for a given month (YYYY-MM).",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{HC_TOKEN}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"events\": [\n    {\n      \"date\": \"2026-07-15\",\n      \"kind\": \"training\",\n      \"title\": \"Entrenamiento Irons\",\n      \"time\": \"17:00\",\n      \"field\": \"Campo 1\",\n      \"opponent\": null,\n      \"categoryIds\": [\n        \"irons\"\n      ],\n      \"seriesId\": null,\n      \"recurrenceWeekdays\": [],\n      \"recurrenceEndDate\": null\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{GATEWAY_URL}}/calendar/2026-07",
+                      "host": [
+                        "{{GATEWAY_URL}}"
+                      ],
+                      "path": [
+                        "calendar",
+                        "2026-07"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\n  \"month\": \"2026-07\",\n  \"month_label\": \"Julio 2026\",\n  \"events\": [\n    {\n      \"date\": \"2026-07-15\",\n      \"kind\": \"training\",\n      \"title\": \"Entrenamiento Irons\",\n      \"time\": \"17:00\",\n      \"field\": \"Campo 1\",\n      \"opponent\": null,\n      \"categoryIds\": [\n        \"irons\"\n      ],\n      \"seriesId\": null,\n      \"recurrenceWeekdays\": [],\n      \"recurrenceEndDate\": null\n    }\n  ]\n}"
+                },
+                {
+                  "name": "401 Unauthorized",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "description": "Replace all events for a given month (YYYY-MM).",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{HC_TOKEN}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"events\": [\n    {\n      \"date\": \"2026-07-15\",\n      \"kind\": \"training\",\n      \"title\": \"Entrenamiento Irons\",\n      \"time\": \"17:00\",\n      \"field\": \"Campo 1\",\n      \"opponent\": null,\n      \"categoryIds\": [\n        \"irons\"\n      ],\n      \"seriesId\": null,\n      \"recurrenceWeekdays\": [],\n      \"recurrenceEndDate\": null\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{GATEWAY_URL}}/calendar/2026-07",
+                      "host": [
+                        "{{GATEWAY_URL}}"
+                      ],
+                      "path": [
+                        "calendar",
+                        "2026-07"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\"code\": \"UNAUTHENTICATED\", \"message\": \"Missing or invalid Bearer token\"}"
+                }
+              ]
+            },
+            {
+              "name": "Get Month — Invalid Format — 422",
+              "request": {
+                "method": "GET",
+                "description": "Returns 422 when the month format is invalid.",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{HC_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{GATEWAY_URL}}/calendar/2026-13",
+                  "host": [
+                    "{{GATEWAY_URL}}"
+                  ],
+                  "path": [
+                    "calendar",
+                    "2026-13"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "422 Unprocessable Entity",
+                  "originalRequest": {
+                    "method": "GET",
+                    "description": "Returns 422 when the month format is invalid.",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{HC_TOKEN}}"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{GATEWAY_URL}}/calendar/2026-13",
+                      "host": [
+                        "{{GATEWAY_URL}}"
+                      ],
+                      "path": [
+                        "calendar",
+                        "2026-13"
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity",
+                  "code": 422,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\"code\": \"VALIDATION_ERROR\", \"message\": \"Invalid month format\"}"
+                }
+              ]
+            }
+          ]
+        },
+        {
           "name": "Admin Users",
           "description": "Proxy → auth-service /admin/users routes. Requires admin Bearer token.",
           "item": [
@@ -9476,6 +9761,94 @@
                     }
                   ],
                   "body": "{\"code\":\"VALIDATION_ERROR\",\"message\":\"Unknown category: 'invalid_cat'\"}"
+                }
+              ]
+            },
+            {
+              "id": "ec23338d-2620-4ca0-9010-c4edd2c8822c",
+              "name": "Update Session — Date Not In Calendar — 422",
+              "request": {
+                "method": "PUT",
+                "description": "Returns 422 SESSION_DATE_NOT_IN_CALENDAR when the requested date is not present in the allowed_session_dates list for the category. The allowed_session_dates list is populated by the calendar service when a month is published.",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"marks\":[]}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{GATEWAY_URL}}/attendance/sessions/irons/2026-12-25",
+                  "host": [
+                    "{{GATEWAY_URL}}"
+                  ],
+                  "path": [
+                    "attendance",
+                    "sessions",
+                    "irons",
+                    "2026-12-25"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "422 Session Date Not In Calendar",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{ACCESS_TOKEN}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"marks\":[]}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{GATEWAY_URL}}/attendance/sessions/irons/2026-12-25",
+                      "host": [
+                        "{{GATEWAY_URL}}"
+                      ],
+                      "path": [
+                        "attendance",
+                        "sessions",
+                        "irons",
+                        "2026-12-25"
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity",
+                  "code": 422,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\"code\":\"SESSION_DATE_NOT_IN_CALENDAR\",\"message\":\"Date 2026-12-25 is not an allowed session date for category irons\"}"
                 }
               ]
             }

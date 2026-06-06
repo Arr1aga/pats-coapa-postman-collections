@@ -4234,6 +4234,440 @@
       ]
     },
     {
+      "name": "Calendar Service",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{CALENDAR_URL}}/health",
+              "host": [
+                "{{CALENDAR_URL}}"
+              ],
+              "path": [
+                "health"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('ok', () => pm.expect(pm.response.json().status).to.eql('ok'));",
+                  "pm.test('has version', () => pm.expect(pm.response.json().version).to.be.a('string'));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "PUT Calendar June (head_coach)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "x-actor-id",
+                "value": "{{HC_USER_ID}}"
+              },
+              {
+                "key": "x-actor-role",
+                "value": "head_coach"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{CALENDAR_URL}}/calendar/2026-06",
+              "host": [
+                "{{CALENDAR_URL}}"
+              ],
+              "path": [
+                "calendar",
+                "2026-06"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"events\":[{\"date\":\"2026-06-10\",\"kind\":\"training\",\"title\":\"Entrenamiento Irons\",\"category_ids\":[\"irons\"]},{\"date\":\"2026-06-15\",\"kind\":\"game\",\"title\":\"Partido vs Aztecas\",\"opponent\":\"Aztecas\",\"category_ids\":[\"irons\",\"falcons\"]},{\"date\":\"2026-06-20\",\"kind\":\"meeting\",\"title\":\"Junta de padres\",\"category_ids\":[]}]}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('3 events saved', () => pm.expect(pm.response.json().events).to.have.lengthOf(3));",
+                  "pm.test('month_label español', () => pm.expect(pm.response.json().month_label).to.eql('Junio 2026'));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET Calendar June (head_coach — ve todo)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-actor-id",
+                "value": "{{HC_USER_ID}}"
+              },
+              {
+                "key": "x-actor-role",
+                "value": "head_coach"
+              }
+            ],
+            "url": {
+              "raw": "{{CALENDAR_URL}}/calendar/2026-06",
+              "host": [
+                "{{CALENDAR_URL}}"
+              ],
+              "path": [
+                "calendar",
+                "2026-06"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('3 events', () => pm.expect(pm.response.json().events).to.have.lengthOf(3));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET Calendar June (coach irons — solo sus categorías + globales)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-actor-id",
+                "value": "{{HC_USER_ID}}"
+              },
+              {
+                "key": "x-actor-role",
+                "value": "coach"
+              },
+              {
+                "key": "x-actor-categories",
+                "value": "irons"
+              }
+            ],
+            "url": {
+              "raw": "{{CALENDAR_URL}}/calendar/2026-06",
+              "host": [
+                "{{CALENDAR_URL}}"
+              ],
+              "path": [
+                "calendar",
+                "2026-06"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('ve irons + game irons+falcons + global meeting = 3 eventos', () => pm.expect(pm.response.json().events).to.have.lengthOf(3));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "PUT Calendar mes pasado — 422",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "x-actor-id",
+                "value": "{{HC_USER_ID}}"
+              },
+              {
+                "key": "x-actor-role",
+                "value": "head_coach"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{CALENDAR_URL}}/calendar/2025-01",
+              "host": [
+                "{{CALENDAR_URL}}"
+              ],
+              "path": [
+                "calendar",
+                "2025-01"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"events\":[]}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 422', () => pm.response.to.have.status(422));",
+                  "pm.test('MONTH_IN_THE_PAST', () => pm.expect(pm.response.json().code).to.eql('MONTH_IN_THE_PAST'));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "PUT Calendar como parent — 403",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "x-actor-id",
+                "value": "{{TUTOR_USER_ID}}"
+              },
+              {
+                "key": "x-actor-role",
+                "value": "parent"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{CALENDAR_URL}}/calendar/2026-06",
+              "host": [
+                "{{CALENDAR_URL}}"
+              ],
+              "path": [
+                "calendar",
+                "2026-06"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"events\":[]}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 403', () => pm.response.to.have.status(403));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET Calendar month format inválido — 422",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-actor-id",
+                "value": "{{HC_USER_ID}}"
+              },
+              {
+                "key": "x-actor-role",
+                "value": "head_coach"
+              }
+            ],
+            "url": {
+              "raw": "{{CALENDAR_URL}}/calendar/2026-6",
+              "host": [
+                "{{CALENDAR_URL}}"
+              ],
+              "path": [
+                "calendar",
+                "2026-6"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 422', () => pm.response.to.have.status(422));",
+                  "pm.test('VALIDATION_ERROR', () => pm.expect(pm.response.json().code).to.eql('VALIDATION_ERROR'));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET Calendar sin x-actor-id — 401",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{CALENDAR_URL}}/calendar/2026-06",
+              "host": [
+                "{{CALENDAR_URL}}"
+              ],
+              "path": [
+                "calendar",
+                "2026-06"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 401', () => pm.response.to.have.status(401));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "cal-gw-get-month-01",
+          "name": "Get Month (via Gateway)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{HC_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{GATEWAY_URL}}/calendar/2026-06",
+              "host": [
+                "{{GATEWAY_URL}}"
+              ],
+              "path": [
+                "calendar",
+                "2026-06"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Has month field', () => {",
+                  "  const body = pm.response.json();",
+                  "  pm.expect(body).to.have.property('month', '2026-06');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "cal-gw-get-month-unauth-02",
+          "name": "Get Month Unauthorized (via Gateway)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{GATEWAY_URL}}/calendar/2026-06",
+              "host": [
+                "{{GATEWAY_URL}}"
+              ],
+              "path": [
+                "calendar",
+                "2026-06"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 401', () => pm.response.to.have.status(401));",
+                  "pm.test('Code UNAUTHORIZED', () => {",
+                  "  pm.expect(pm.response.json().code).to.eql('UNAUTHORIZED');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "cal-gw-replace-month-03",
+          "name": "Replace Month (via Gateway)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{HC_TOKEN}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{GATEWAY_URL}}/calendar/2026-07",
+              "host": [
+                "{{GATEWAY_URL}}"
+              ],
+              "path": [
+                "calendar",
+                "2026-07"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"events\":[{\"date\":\"2026-07-15\",\"kind\":\"training\",\"title\":\"Entrenamiento via Gateway\",\"time\":\"17:00\",\"field\":\"Campo 1\",\"opponent\":null,\"categoryIds\":[],\"seriesId\":null,\"recurrenceWeekdays\":[],\"recurrenceEndDate\":null}]}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Has events array', () => {",
+                  "  const body = pm.response.json();",
+                  "  pm.expect(body.events).to.be.an('array');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "Attendance Service",
       "item": [
         {
@@ -4486,6 +4920,107 @@
                 "exec": [
                   "pm.test('status 200', () => pm.response.to.have.status(200));",
                   "pm.test('response is array', () => pm.expect(pm.response.json()).to.be.an('array'));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "id": "4b001b07-4978-4649-a53a-58449decf2e4",
+          "name": "Update Session — Date Not In Calendar — 422",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-actor-id",
+                "value": "{{HC_USER_ID}}",
+                "type": "text"
+              },
+              {
+                "key": "x-actor-role",
+                "value": "head_coach",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"marks\":[]}"
+            },
+            "url": {
+              "raw": "{{ATTENDANCE_URL}}/attendance/sessions/irons/2026-12-25",
+              "host": [
+                "{{ATTENDANCE_URL}}"
+              ],
+              "path": [
+                "attendance",
+                "sessions",
+                "irons",
+                "2026-12-25"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 422', () => pm.response.to.have.status(422));",
+                  "pm.test('SESSION_DATE_NOT_IN_CALENDAR', () => pm.expect(pm.response.json().code).to.eql('SESSION_DATE_NOT_IN_CALENDAR'));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "id": "e7acd3a1-d62b-420c-a5c0-a9645e2c72df",
+          "name": "Update Session — Valid Calendar Date — 200",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-actor-id",
+                "value": "{{HC_USER_ID}}",
+                "type": "text"
+              },
+              {
+                "key": "x-actor-role",
+                "value": "head_coach",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"marks\":[]}"
+            },
+            "url": {
+              "raw": "{{ATTENDANCE_URL}}/attendance/sessions/irons/2026-06-10",
+              "host": [
+                "{{ATTENDANCE_URL}}"
+              ],
+              "path": [
+                "attendance",
+                "sessions",
+                "irons",
+                "2026-06-10"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 200 — date in calendar', () => pm.response.to.have.status(200));"
                 ],
                 "type": "text/javascript"
               }
@@ -5648,329 +6183,6 @@
                   "pm.test(\"422 historia categoria invalida\", () => pm.response.to.have.status(422));"
                 ],
                 "type": "text/javascript"
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Calendar Service",
-      "item": [
-        {
-          "name": "Health Check",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{CALENDAR_URL}}/health",
-              "host": ["{{CALENDAR_URL}}"],
-              "path": ["health"]
-            }
-          },
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test('status 200', () => pm.response.to.have.status(200));",
-                  "pm.test('ok', () => pm.expect(pm.response.json().status).to.eql('ok'));",
-                  "pm.test('has version', () => pm.expect(pm.response.json().version).to.be.a('string'));"
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "name": "PUT Calendar June (head_coach)",
-          "request": {
-            "method": "PUT",
-            "header": [
-              { "key": "x-actor-id", "value": "{{HC_USER_ID}}" },
-              { "key": "x-actor-role", "value": "head_coach" },
-              { "key": "Content-Type", "value": "application/json" }
-            ],
-            "url": {
-              "raw": "{{CALENDAR_URL}}/calendar/2026-06",
-              "host": ["{{CALENDAR_URL}}"],
-              "path": ["calendar", "2026-06"]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\"events\":[{\"date\":\"2026-06-10\",\"kind\":\"training\",\"title\":\"Entrenamiento Irons\",\"category_ids\":[\"irons\"]},{\"date\":\"2026-06-15\",\"kind\":\"game\",\"title\":\"Partido vs Aztecas\",\"opponent\":\"Aztecas\",\"category_ids\":[\"irons\",\"falcons\"]},{\"date\":\"2026-06-20\",\"kind\":\"meeting\",\"title\":\"Junta de padres\",\"category_ids\":[]}]}"
-            }
-          },
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test('status 200', () => pm.response.to.have.status(200));",
-                  "pm.test('3 events saved', () => pm.expect(pm.response.json().events).to.have.lengthOf(3));",
-                  "pm.test('month_label español', () => pm.expect(pm.response.json().month_label).to.eql('Junio 2026'));"
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "name": "GET Calendar June (head_coach — ve todo)",
-          "request": {
-            "method": "GET",
-            "header": [
-              { "key": "x-actor-id", "value": "{{HC_USER_ID}}" },
-              { "key": "x-actor-role", "value": "head_coach" }
-            ],
-            "url": {
-              "raw": "{{CALENDAR_URL}}/calendar/2026-06",
-              "host": ["{{CALENDAR_URL}}"],
-              "path": ["calendar", "2026-06"]
-            }
-          },
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test('status 200', () => pm.response.to.have.status(200));",
-                  "pm.test('3 events', () => pm.expect(pm.response.json().events).to.have.lengthOf(3));"
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "name": "GET Calendar June (coach irons — solo sus categorías + globales)",
-          "request": {
-            "method": "GET",
-            "header": [
-              { "key": "x-actor-id", "value": "{{HC_USER_ID}}" },
-              { "key": "x-actor-role", "value": "coach" },
-              { "key": "x-actor-categories", "value": "irons" }
-            ],
-            "url": {
-              "raw": "{{CALENDAR_URL}}/calendar/2026-06",
-              "host": ["{{CALENDAR_URL}}"],
-              "path": ["calendar", "2026-06"]
-            }
-          },
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test('status 200', () => pm.response.to.have.status(200));",
-                  "pm.test('ve irons + game irons+falcons + global meeting = 3 eventos', () => pm.expect(pm.response.json().events).to.have.lengthOf(3));"
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "name": "PUT Calendar mes pasado — 422",
-          "request": {
-            "method": "PUT",
-            "header": [
-              { "key": "x-actor-id", "value": "{{HC_USER_ID}}" },
-              { "key": "x-actor-role", "value": "head_coach" },
-              { "key": "Content-Type", "value": "application/json" }
-            ],
-            "url": {
-              "raw": "{{CALENDAR_URL}}/calendar/2025-01",
-              "host": ["{{CALENDAR_URL}}"],
-              "path": ["calendar", "2025-01"]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\"events\":[]}"
-            }
-          },
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test('status 422', () => pm.response.to.have.status(422));",
-                  "pm.test('MONTH_IN_THE_PAST', () => pm.expect(pm.response.json().code).to.eql('MONTH_IN_THE_PAST'));"
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "name": "PUT Calendar como parent — 403",
-          "request": {
-            "method": "PUT",
-            "header": [
-              { "key": "x-actor-id", "value": "{{TUTOR_USER_ID}}" },
-              { "key": "x-actor-role", "value": "parent" },
-              { "key": "Content-Type", "value": "application/json" }
-            ],
-            "url": {
-              "raw": "{{CALENDAR_URL}}/calendar/2026-06",
-              "host": ["{{CALENDAR_URL}}"],
-              "path": ["calendar", "2026-06"]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\"events\":[]}"
-            }
-          },
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test('status 403', () => pm.response.to.have.status(403));"
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "name": "GET Calendar month format inválido — 422",
-          "request": {
-            "method": "GET",
-            "header": [
-              { "key": "x-actor-id", "value": "{{HC_USER_ID}}" },
-              { "key": "x-actor-role", "value": "head_coach" }
-            ],
-            "url": {
-              "raw": "{{CALENDAR_URL}}/calendar/2026-6",
-              "host": ["{{CALENDAR_URL}}"],
-              "path": ["calendar", "2026-6"]
-            }
-          },
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test('status 422', () => pm.response.to.have.status(422));",
-                  "pm.test('VALIDATION_ERROR', () => pm.expect(pm.response.json().code).to.eql('VALIDATION_ERROR'));"
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "name": "GET Calendar sin x-actor-id — 401",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{CALENDAR_URL}}/calendar/2026-06",
-              "host": ["{{CALENDAR_URL}}"],
-              "path": ["calendar", "2026-06"]
-            }
-          },
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test('status 401', () => pm.response.to.have.status(401));"
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "id": "cal-gw-get-month-01",
-          "name": "Get Month (via Gateway)",
-          "request": {
-            "method": "GET",
-            "header": [
-              { "key": "Authorization", "value": "Bearer {{HC_TOKEN}}" }
-            ],
-            "url": {
-              "raw": "{{GATEWAY_URL}}/calendar/2026-06",
-              "host": ["{{GATEWAY_URL}}"],
-              "path": ["calendar", "2026-06"]
-            }
-          },
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test('Status 200', () => pm.response.to.have.status(200));",
-                  "pm.test('Has month field', () => {",
-                  "  const body = pm.response.json();",
-                  "  pm.expect(body).to.have.property('month', '2026-06');",
-                  "});"
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "id": "cal-gw-get-month-unauth-02",
-          "name": "Get Month Unauthorized (via Gateway)",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{GATEWAY_URL}}/calendar/2026-06",
-              "host": ["{{GATEWAY_URL}}"],
-              "path": ["calendar", "2026-06"]
-            }
-          },
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test('Status 401', () => pm.response.to.have.status(401));",
-                  "pm.test('Code UNAUTHORIZED', () => {",
-                  "  pm.expect(pm.response.json().code).to.eql('UNAUTHORIZED');",
-                  "});"
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "id": "cal-gw-replace-month-03",
-          "name": "Replace Month (via Gateway)",
-          "request": {
-            "method": "PUT",
-            "header": [
-              { "key": "Authorization", "value": "Bearer {{HC_TOKEN}}" },
-              { "key": "Content-Type", "value": "application/json" }
-            ],
-            "url": {
-              "raw": "{{GATEWAY_URL}}/calendar/2026-07",
-              "host": ["{{GATEWAY_URL}}"],
-              "path": ["calendar", "2026-07"]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\"events\":[{\"date\":\"2026-07-15\",\"kind\":\"training\",\"title\":\"Entrenamiento via Gateway\",\"time\":\"17:00\",\"field\":\"Campo 1\",\"opponent\":null,\"categoryIds\":[],\"seriesId\":null,\"recurrenceWeekdays\":[],\"recurrenceEndDate\":null}]}"
-            }
-          },
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test('Status 200', () => pm.response.to.have.status(200));",
-                  "pm.test('Has events array', () => {",
-                  "  const body = pm.response.json();",
-                  "  pm.expect(body.events).to.be.an('array');",
-                  "});"
-                ]
               }
             }
           ]
