@@ -1,0 +1,10 @@
+{
+  "name": "pats-coapa ci",
+  "values": [
+    { "key": "AUTH_URL",      "value": "http://localhost:3000", "enabled": true },
+    { "key": "GATEWAY_URL",   "value": "http://localhost:3004", "enabled": true },
+    { "key": "ROSTER_URL",    "value": "http://localhost:3001", "enabled": true },
+    { "key": "ADMIN_EMAIL",   "value": "admin@patscoapa.mx",    "enabled": true },
+    { "key": "ADMIN_PASSWORD","value": "REPLACED_BY_CI",        "enabled": true }
+  ]
+}
