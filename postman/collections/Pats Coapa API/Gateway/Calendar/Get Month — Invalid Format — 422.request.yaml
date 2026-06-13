@@ -1,8 +1,0 @@
-$kind: http-request
-description: Demonstrates 422 when the month path parameter has an invalid format (not YYYY-MM).
-url: "{{GATEWAY_URL}}/calendar/2026-13"
-method: GET
-headers:
-  Authorization: Bearer {{HC_TOKEN}}
-examples: ./.resources/Get Month — Invalid Format — 422.resources/examples
-order: 3000

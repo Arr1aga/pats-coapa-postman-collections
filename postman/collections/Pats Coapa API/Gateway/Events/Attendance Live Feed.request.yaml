@@ -1,8 +1,0 @@
-$kind: http-request
-description: Open SSE stream for real-time attendance stats (coaches only)
-url: "{{GATEWAY_URL}}/events/attendance/rabbits/today"
-method: GET
-headers:
-  Authorization: Bearer {{ACCESS_TOKEN}}
-examples: ./.resources/Attendance Live Feed.resources/examples
-order: 1000

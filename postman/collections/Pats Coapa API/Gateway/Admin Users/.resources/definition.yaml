@@ -1,3 +1,0 @@
-$kind: collection
-description: Proxy → auth-service /admin/users routes. Requires admin Bearer token.
-order: 6000

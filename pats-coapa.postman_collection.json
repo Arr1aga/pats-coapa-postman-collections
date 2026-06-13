@@ -1,6 +1,6 @@
 {
   "info": {
-    "name": "Pats Coapa API",
+    "name": "Pats Coapa API Rest",
     "_postman_id": "7454a52d-ef61-4685-a6b8-5b5ed5cb48b0",
     "description": "All Pats Coapa microservices — generated from openapi.yaml",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -9914,6 +9914,36 @@
         {
           "name": "Calendar",
           "item": [
+            {
+              "name": "Resolve Location",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ACCESS_TOKEN}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{CALENDAR_URL}}/calendar/resolve-location?url=https://maps.google.com/?q=example",
+                  "host": [
+                    "{{CALENDAR_URL}}"
+                  ],
+                  "path": [
+                    "calendar",
+                    "resolve-location"
+                  ],
+                  "query": [
+                    {
+                      "key": "url",
+                      "value": "https://maps.google.com/?q=example"
+                    }
+                  ]
+                },
+                "description": "Resolve a location URL to coordinates and a display name."
+              },
+              "response": []
+            },
             {
               "name": "Get Month",
               "request": {

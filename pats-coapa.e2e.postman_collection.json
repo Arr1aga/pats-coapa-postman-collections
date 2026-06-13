@@ -4237,6 +4237,222 @@
       "name": "Calendar Service",
       "item": [
         {
+          "name": "Setup (idempotent)",
+          "item": [
+            {
+              "name": "Setup: Admin Login",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"email\":\"{{ADMIN_EMAIL}}\",\"password\":\"{{ADMIN_PASSWORD}}\"}"
+                },
+                "url": {
+                  "raw": "{{AUTH_URL}}/auth/login",
+                  "host": [
+                    "{{AUTH_URL}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "login"
+                  ]
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('admin login ok', () => pm.response.to.have.status(200));",
+                      "pm.collectionVariables.set('ADMIN_TOKEN', pm.response.json().accessToken);"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Setup: Create head_coach (if not exists)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ADMIN_TOKEN}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"email\":\"hc@test.com\",\"password\":\"pass123\",\"displayName\":\"Head Coach\",\"role\":\"head_coach\"}"
+                },
+                "url": {
+                  "raw": "{{AUTH_URL}}/admin/users",
+                  "host": [
+                    "{{AUTH_URL}}"
+                  ],
+                  "path": [
+                    "admin",
+                    "users"
+                  ]
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "const sc = pm.response.code;",
+                      "pm.test('status 201 or 409', () => pm.expect([201, 409]).to.include(sc));",
+                      "if (sc === 201) pm.collectionVariables.set('HC_USER_ID', pm.response.json().id);"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Setup: Login as head_coach",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"email\":\"hc@test.com\",\"password\":\"pass123\"}"
+                },
+                "url": {
+                  "raw": "{{AUTH_URL}}/auth/login",
+                  "host": [
+                    "{{AUTH_URL}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "login"
+                  ]
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('hc login ok', () => pm.response.to.have.status(200));",
+                      "const tok = pm.response.json().accessToken;",
+                      "pm.collectionVariables.set('HC_TOKEN', tok);",
+                      "pm.sendRequest({",
+                      "  url: pm.environment.get('AUTH_URL') + '/auth/me',",
+                      "  method: 'GET',",
+                      "  header: [{ key: 'Authorization', value: 'Bearer ' + tok }]",
+                      "}, (err, res) => {",
+                      "  if (!err && res.code === 200) pm.collectionVariables.set('HC_USER_ID', res.json().id);",
+                      "});"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Setup: Register tutor (if not exists)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"email\":\"tutor1@test.com\",\"password\":\"pass123\",\"displayName\":\"Ana García\"}"
+                },
+                "url": {
+                  "raw": "{{AUTH_URL}}/auth/register",
+                  "host": [
+                    "{{AUTH_URL}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "register"
+                  ]
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "const sc = pm.response.code;",
+                      "pm.test('status 201 or 409', () => pm.expect([201, 409]).to.include(sc));",
+                      "if (sc === 201) pm.collectionVariables.set('TUTOR_USER_ID', pm.response.json().user.id);"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Setup: Get tutor ID (for 409 re-runs)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"email\":\"tutor1@test.com\",\"password\":\"pass123\"}"
+                },
+                "url": {
+                  "raw": "{{AUTH_URL}}/auth/login",
+                  "host": [
+                    "{{AUTH_URL}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "login"
+                  ]
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('tutor login ok', () => pm.response.to.have.status(200));",
+                      "const tok = pm.response.json().accessToken;",
+                      "pm.sendRequest({",
+                      "  url: pm.environment.get('AUTH_URL') + '/auth/me',",
+                      "  method: 'GET',",
+                      "  header: [{ key: 'Authorization', value: 'Bearer ' + tok }]",
+                      "}, (err, res) => {",
+                      "  if (!err && res.code === 200) pm.collectionVariables.set('TUTOR_USER_ID', res.json().id);",
+                      "});"
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
           "name": "Health Check",
           "request": {
             "method": "GET",
@@ -4484,6 +4700,135 @@
           ]
         },
         {
+          "name": "Resolve Location (head_coach — coords embebidos)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-actor-id",
+                "value": "{{HC_USER_ID}}"
+              },
+              {
+                "key": "x-actor-role",
+                "value": "head_coach"
+              },
+              {
+                "key": "x-actor-categories",
+                "value": ""
+              }
+            ],
+            "url": {
+              "raw": "{{CALENDAR_URL}}/calendar/resolve-location?url=https://maps.google.com/?q=19.4326,-99.1332",
+              "host": [
+                "{{CALENDAR_URL}}"
+              ],
+              "path": [
+                "calendar",
+                "resolve-location"
+              ],
+              "query": [
+                {
+                  "key": "url",
+                  "value": "https://maps.google.com/?q=19.4326,-99.1332"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "const b = pm.response.json();",
+                  "pm.test('has lat', () => pm.expect(b.lat).to.be.a('number'));",
+                  "pm.test('has lng', () => pm.expect(b.lng).to.be.a('number'));",
+                  "pm.test('lat correcto', () => pm.expect(b.lat).to.be.closeTo(19.4326, 0.001));",
+                  "pm.test('lng correcto', () => pm.expect(b.lng).to.be.closeTo(-99.1332, 0.001));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Resolve Location sin url — 422",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-actor-id",
+                "value": "{{HC_USER_ID}}"
+              },
+              {
+                "key": "x-actor-role",
+                "value": "head_coach"
+              },
+              {
+                "key": "x-actor-categories",
+                "value": ""
+              }
+            ],
+            "url": {
+              "raw": "{{CALENDAR_URL}}/calendar/resolve-location",
+              "host": [
+                "{{CALENDAR_URL}}"
+              ],
+              "path": [
+                "calendar",
+                "resolve-location"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 422', () => pm.response.to.have.status(422));",
+                  "pm.test('code VALIDATION_ERROR', () => pm.expect(pm.response.json().code).to.eql('VALIDATION_ERROR'));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Resolve Location sin x-actor-id — 401",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{CALENDAR_URL}}/calendar/resolve-location?url=https://maps.google.com/?q=19.4326,-99.1332",
+              "host": [
+                "{{CALENDAR_URL}}"
+              ],
+              "path": [
+                "calendar",
+                "resolve-location"
+              ],
+              "query": [
+                {
+                  "key": "url",
+                  "value": "https://maps.google.com/?q=19.4326,-99.1332"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 401', () => pm.response.to.have.status(401));",
+                  "pm.test('code UNAUTHENTICATED', () => pm.expect(pm.response.json().code).to.eql('UNAUTHENTICATED'));"
+                ]
+              }
+            }
+          ]
+        },
+        {
           "name": "GET Calendar month format inválido — 422",
           "request": {
             "method": "GET",
@@ -4670,6 +5015,83 @@
     {
       "name": "Attendance Service",
       "item": [
+        {
+          "name": "Setup: Add today to calendar (Attendance needs it)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const now = new Date();",
+                  "const y = now.getFullYear();",
+                  "const m = String(now.getMonth() + 1).padStart(2, '0');",
+                  "const d = String(now.getDate()).padStart(2, '0');",
+                  "const todayDate = `${y}-${m}-${d}`;",
+                  "const currentMonth = `${y}-${m}`;",
+                  "pm.collectionVariables.set('TODAY_DATE', todayDate);",
+                  "pm.collectionVariables.set('CURRENT_MONTH', currentMonth);",
+                  "// Build events: always include today (global), plus fixed June 2026 events if in that month",
+                  "const events = [{ date: todayDate, kind: 'training', title: 'Práctica general', category_ids: [] }];",
+                  "if (currentMonth === '2026-06') {",
+                  "  const fixedJune = [",
+                  "    { date: '2026-06-10', kind: 'training', title: 'Entrenamiento Irons', category_ids: ['irons'] },",
+                  "    { date: '2026-06-15', kind: 'game', title: 'Partido vs Aztecas', opponent: 'Aztecas', category_ids: ['irons', 'falcons'] },",
+                  "    { date: '2026-06-20', kind: 'meeting', title: 'Junta de padres', category_ids: [] }",
+                  "  ];",
+                  "  fixedJune.forEach(e => { if (e.date !== todayDate) events.push(e); });",
+                  "}",
+                  "pm.variables.set('CALENDAR_SETUP_BODY', JSON.stringify({ events }));"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('today added to calendar', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-actor-id",
+                "value": "{{HC_USER_ID}}"
+              },
+              {
+                "key": "x-actor-role",
+                "value": "head_coach"
+              },
+              {
+                "key": "x-actor-categories",
+                "value": ""
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{CALENDAR_SETUP_BODY}}"
+            },
+            "url": {
+              "raw": "{{CALENDAR_URL}}/calendar/{{CURRENT_MONTH}}",
+              "host": [
+                "{{CALENDAR_URL}}"
+              ],
+              "path": [
+                "calendar",
+                "{{CURRENT_MONTH}}"
+              ]
+            }
+          },
+          "response": []
+        },
         {
           "name": "Health Check",
           "request": {
@@ -5066,7 +5488,7 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test('status 201', () => pm.response.to.have.status(201));"
+                  "pm.test('status 201 or 409 (ok on re-runs)', () => pm.expect([201, 409]).to.include(pm.response.code));"
                 ],
                 "type": "text/javascript"
               }
@@ -5145,7 +5567,7 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test('status 201', () => pm.response.to.have.status(201));",
+                  "pm.test('status 201 or 409 (ok on re-runs)', () => pm.expect([201, 409]).to.include(pm.response.code));",
                   "pm.collectionVariables.set('SM_ATT_ID', pm.response.json().id);"
                 ],
                 "type": "text/javascript"

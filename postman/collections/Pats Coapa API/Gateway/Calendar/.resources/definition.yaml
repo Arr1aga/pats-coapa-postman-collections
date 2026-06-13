@@ -1,3 +1,0 @@
-$kind: collection
-description: Calendar endpoints proxied through the gateway.
-order: 6000

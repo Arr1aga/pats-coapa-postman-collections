@@ -1,8 +1,0 @@
-$kind: http-request
-description: Remove a single mark from the session.
-url: "{{GATEWAY_URL}}/attendance/sessions/rabbits/today/marks/{{PLAYER_ID}}"
-method: DELETE
-headers:
-  Authorization: Bearer {{ACCESS_TOKEN}}
-examples: ./.resources/Remove Mark.resources/examples
-order: 4000
