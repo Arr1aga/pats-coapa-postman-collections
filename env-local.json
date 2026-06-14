@@ -32,6 +32,11 @@
       "enabled": true
     },
     {
+      "key": "NOTIFICATIONS_URL",
+      "value": "http://localhost:3007",
+      "enabled": true
+    },
+    {
       "key": "ADMIN_EMAIL",
       "value": "admin@patscoapa.mx",
       "enabled": true

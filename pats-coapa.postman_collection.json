@@ -74,6 +74,11 @@
   {
    "key": "PAYMENTS_URL",
    "value": "http://localhost:3006"
+  },
+  {
+   "key": "NOTIFICATIONS_URL",
+   "value": "http://localhost:3007",
+   "type": "string"
   }
  ],
  "item": [
@@ -11064,6 +11069,179 @@
            ]
           }
          }
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Notifications Service",
+   "item": [
+    {
+     "name": "System",
+     "item": [
+      {
+       "name": "Health Check",
+       "request": {
+        "method": "GET",
+        "description": "Health check",
+        "header": [],
+        "url": {
+         "raw": "{{NOTIFICATIONS_URL}}/health",
+         "host": ["{{NOTIFICATIONS_URL}}"],
+         "path": ["health"]
+        }
+       },
+       "response": [
+        {
+         "name": "200 OK",
+         "originalRequest": {
+          "method": "GET",
+          "header": [],
+          "url": {
+           "raw": "{{NOTIFICATIONS_URL}}/health",
+           "host": ["{{NOTIFICATIONS_URL}}"],
+           "path": ["health"]
+          }
+         },
+         "status": "OK",
+         "code": 200,
+         "_postman_previewlanguage": "json",
+         "header": [{"key": "Content-Type", "value": "application/json"}],
+         "body": "{\"status\":\"ok\",\"timestamp\":\"2026-06-14T10:00:00.000Z\",\"version\":\"0.2.0\"}"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Notifications",
+     "item": [
+      {
+       "name": "List Notifications",
+       "request": {
+        "method": "GET",
+        "description": "Returns paginated bell notifications for the actor. Protected by x-actor-id.",
+        "header": [
+         {"key": "x-actor-id", "value": "{{ACTOR_ID}}"},
+         {"key": "x-actor-role", "value": "head_coach"},
+         {"key": "x-actor-categories", "value": ""}
+        ],
+        "url": {
+         "raw": "{{NOTIFICATIONS_URL}}/notifications",
+         "host": ["{{NOTIFICATIONS_URL}}"],
+         "path": ["notifications"]
+        }
+       },
+       "response": [
+        {
+         "name": "200 OK",
+         "originalRequest": {
+          "method": "GET",
+          "header": [
+           {"key": "x-actor-id", "value": "{{ACTOR_ID}}"},
+           {"key": "x-actor-role", "value": "head_coach"},
+           {"key": "x-actor-categories", "value": ""}
+          ],
+          "url": {
+           "raw": "{{NOTIFICATIONS_URL}}/notifications",
+           "host": ["{{NOTIFICATIONS_URL}}"],
+           "path": ["notifications"]
+          }
+         },
+         "status": "OK",
+         "code": 200,
+         "_postman_previewlanguage": "json",
+         "header": [{"key": "Content-Type", "value": "application/json"}],
+         "body": "{\"items\":[],\"unreadTotal\":0}"
+        }
+       ]
+      },
+      {
+       "name": "Mark Notifications Read",
+       "request": {
+        "method": "PATCH",
+        "description": "Marks notifications as read. Omit ids to mark all as read.",
+        "header": [
+         {"key": "x-actor-id", "value": "{{ACTOR_ID}}"},
+         {"key": "x-actor-role", "value": "head_coach"},
+         {"key": "x-actor-categories", "value": ""},
+         {"key": "Content-Type", "value": "application/json"}
+        ],
+        "body": {
+         "mode": "raw",
+         "raw": "{}"
+        },
+        "url": {
+         "raw": "{{NOTIFICATIONS_URL}}/notifications/read",
+         "host": ["{{NOTIFICATIONS_URL}}"],
+         "path": ["notifications", "read"]
+        }
+       },
+       "response": [
+        {
+         "name": "200 OK",
+         "originalRequest": {
+          "method": "PATCH",
+          "header": [
+           {"key": "x-actor-id", "value": "{{ACTOR_ID}}"},
+           {"key": "x-actor-role", "value": "head_coach"},
+           {"key": "Content-Type", "value": "application/json"}
+          ],
+          "body": {"mode": "raw", "raw": "{}"},
+          "url": {
+           "raw": "{{NOTIFICATIONS_URL}}/notifications/read",
+           "host": ["{{NOTIFICATIONS_URL}}"],
+           "path": ["notifications", "read"]
+          }
+         },
+         "status": "OK",
+         "code": 200,
+         "_postman_previewlanguage": "json",
+         "header": [{"key": "Content-Type", "value": "application/json"}],
+         "body": "{\"unreadTotal\":0}"
+        }
+       ]
+      },
+      {
+       "name": "Get Subscriptions",
+       "request": {
+        "method": "GET",
+        "description": "Returns which category streams the actor is subscribed to.",
+        "header": [
+         {"key": "x-actor-id", "value": "{{ACTOR_ID}}"},
+         {"key": "x-actor-role", "value": "coach"},
+         {"key": "x-actor-categories", "value": "irons"}
+        ],
+        "url": {
+         "raw": "{{NOTIFICATIONS_URL}}/notifications/subscriptions",
+         "host": ["{{NOTIFICATIONS_URL}}"],
+         "path": ["notifications", "subscriptions"]
+        }
+       },
+       "response": [
+        {
+         "name": "200 OK",
+         "originalRequest": {
+          "method": "GET",
+          "header": [
+           {"key": "x-actor-id", "value": "{{ACTOR_ID}}"},
+           {"key": "x-actor-role", "value": "coach"},
+           {"key": "x-actor-categories", "value": "irons"}
+          ],
+          "url": {
+           "raw": "{{NOTIFICATIONS_URL}}/notifications/subscriptions",
+           "host": ["{{NOTIFICATIONS_URL}}"],
+           "path": ["notifications", "subscriptions"]
+          }
+         },
+         "status": "OK",
+         "code": 200,
+         "_postman_previewlanguage": "json",
+         "header": [{"key": "Content-Type", "value": "application/json"}],
+         "body": "{\"categoryIds\":[\"irons\"]}"
         }
        ]
       }

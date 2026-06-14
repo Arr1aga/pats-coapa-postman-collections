@@ -225,6 +225,10 @@
     {
       "key": "CAL_D3",
       "value": ""
+    },
+    {
+      "key": "NOTIFICATIONS_URL",
+      "value": "http://localhost:3007"
     }
   ],
   "item": [
@@ -7257,6 +7261,195 @@
                   "const b = pm.response.json();",
                   "pm.test('extras is array', () => pm.expect(b.extras).to.be.an('array'));",
                   "pm.test('extra was created', () => pm.expect(b.extras.length).to.be.at.least(1));"
+                ]
+              }
+            }
+          ],
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Notifications Service",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{NOTIFICATIONS_URL}}/health",
+              "host": ["{{NOTIFICATIONS_URL}}"],
+              "path": ["health"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('status ok', () => pm.expect(pm.response.json().status).to.eql('ok'));"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "List Notifications",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-actor-id",
+                "value": "{{HC_USER_ID}}",
+                "type": "text"
+              },
+              {
+                "key": "x-actor-role",
+                "value": "head_coach",
+                "type": "text"
+              },
+              {
+                "key": "x-actor-categories",
+                "value": "",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{NOTIFICATIONS_URL}}/notifications",
+              "host": ["{{NOTIFICATIONS_URL}}"],
+              "path": ["notifications"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "const b = pm.response.json();",
+                  "pm.test('has items array', () => pm.expect(b.items).to.be.an('array'));",
+                  "pm.test('has unreadTotal number', () => pm.expect(b.unreadTotal).to.be.a('number'));"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "Mark Notifications Read",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-actor-id",
+                "value": "{{HC_USER_ID}}",
+                "type": "text"
+              },
+              {
+                "key": "x-actor-role",
+                "value": "head_coach",
+                "type": "text"
+              },
+              {
+                "key": "x-actor-categories",
+                "value": "",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{NOTIFICATIONS_URL}}/notifications/read",
+              "host": ["{{NOTIFICATIONS_URL}}"],
+              "path": ["notifications", "read"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "const b = pm.response.json();",
+                  "pm.test('has unreadTotal number', () => pm.expect(b.unreadTotal).to.be.a('number'));"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "Get Subscriptions (Coach)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-actor-id",
+                "value": "{{HC_USER_ID}}",
+                "type": "text"
+              },
+              {
+                "key": "x-actor-role",
+                "value": "coach",
+                "type": "text"
+              },
+              {
+                "key": "x-actor-categories",
+                "value": "irons",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{NOTIFICATIONS_URL}}/notifications/subscriptions",
+              "host": ["{{NOTIFICATIONS_URL}}"],
+              "path": ["notifications", "subscriptions"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "const b = pm.response.json();",
+                  "pm.test('has categoryIds array', () => pm.expect(b.categoryIds).to.be.an('array'));"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "Unauthorized Without Actor Id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{NOTIFICATIONS_URL}}/notifications",
+              "host": ["{{NOTIFICATIONS_URL}}"],
+              "path": ["notifications"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 401', () => pm.response.to.have.status(401));"
                 ]
               }
             }

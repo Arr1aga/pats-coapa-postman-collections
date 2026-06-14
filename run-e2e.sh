@@ -21,15 +21,15 @@ COLLECTION="$ROOT/docs/postman/pats-coapa.e2e.postman_collection.json"
 ENVIRONMENT="$ROOT/docs/postman/env-local.json"
 MONGO="${MONGO_URI:-mongodb://localhost:27017}"
 
-echo "▶ Verificando que los 6 servicios respondan..."
-for p in 3000 3001 3002 3004 3005 3006; do
+echo "▶ Verificando que los 7 servicios respondan..."
+for p in 3000 3001 3002 3004 3005 3006 3007; do
   code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 3 "http://localhost:$p/health" || true)
   if [ "$code" != "200" ]; then
-    echo "  ✗ localhost:$p/health -> ${code:-sin respuesta}. Levanta los 6 servicios antes de correr." >&2
+    echo "  ✗ localhost:$p/health -> ${code:-sin respuesta}. Levanta los 7 servicios antes de correr." >&2
     exit 1
   fi
 done
-echo "  ✓ los 6 servicios OK"
+echo "  ✓ los 7 servicios OK"
 
 echo "▶ Limpiando datos de prueba acumulados (conserva categorías/roles/usuarios/migraciones)..."
 node -e "
@@ -42,6 +42,9 @@ const { MongoClient } = require('$ROOT/pats-coapa-auth/node_modules/mongodb');
     ['calendar_db', 'calendar_events'],
     ['payments_db', 'players'],
     ['payments_db', 'extra_charges'],
+    ['notifications_db', 'notifications'],
+    ['notifications_db', 'notification_reads'],
+    ['notifications_db', 'players'],
   ];
   for (const [db, col] of wipe) {
     const n = await c.db(db).collection(col).deleteMany({});
