@@ -317,7 +317,7 @@
       ]
     },
     {
-      "name": "2. Auth — Flujos Base",
+      "name": "2. Auth \u2014 Flujos Base",
       "item": [
         {
           "name": "Register Tutor",
@@ -349,7 +349,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\"email\":\"tutor1@test.com\",\"password\":\"pass123\",\"displayName\":\"Ana García\"}"
+              "raw": "{\"email\":\"tutor1@test.com\",\"password\":\"pass123\",\"displayName\":\"Ana Garc\u00eda\"}"
             },
             "url": {
               "raw": "{{AUTH_URL}}/auth/register",
@@ -415,7 +415,7 @@
           }
         },
         {
-          "name": "GET /auth/me as Admin — role y permissions",
+          "name": "GET /auth/me as Admin \u2014 role y permissions",
           "event": [
             {
               "listen": "test",
@@ -494,7 +494,7 @@
       ]
     },
     {
-      "name": "3. Auth — Role Guards",
+      "name": "3. Auth \u2014 Role Guards",
       "item": [
         {
           "name": "Create head_coach (admin)",
@@ -590,7 +590,7 @@
           }
         },
         {
-          "name": "GET /admin/users as head_coach — NO admin en lista",
+          "name": "GET /admin/users as head_coach \u2014 NO admin en lista",
           "event": [
             {
               "listen": "test",
@@ -627,7 +627,7 @@
           }
         },
         {
-          "name": "GET /admin/users as admin — SÍ ve admins",
+          "name": "GET /admin/users as admin \u2014 S\u00cd ve admins",
           "event": [
             {
               "listen": "test",
@@ -664,7 +664,7 @@
           }
         },
         {
-          "name": "POST /admin/users role:admin as head_coach — 403",
+          "name": "POST /admin/users role:admin as head_coach \u2014 403",
           "event": [
             {
               "listen": "test",
@@ -706,7 +706,7 @@
           }
         },
         {
-          "name": "POST /admin/users role:coach as head_coach — 201",
+          "name": "POST /admin/users role:coach as head_coach \u2014 201",
           "event": [
             {
               "listen": "test",
@@ -720,7 +720,7 @@
                   "  pm.test('role is coach', () => pm.expect(b.role).to.eql('coach'));",
                   "  pm.collectionVariables.set('COACH_ID', b.id);",
                   "} else {",
-                  "  // Coach already exists — look up their ID",
+                  "  // Coach already exists \u2014 look up their ID",
                   "  const tok = pm.collectionVariables.get('HC_TOKEN') || pm.collectionVariables.get('ADMIN_TOKEN');",
                   "  pm.sendRequest({",
                   "    url: (pm.environment.get('AUTH_URL') || 'http://localhost:3000') + '/admin/users',",
@@ -767,7 +767,7 @@
           }
         },
         {
-          "name": "PATCH coach role:admin as head_coach — 403 (privilege escalation)",
+          "name": "PATCH coach role:admin as head_coach \u2014 403 (privilege escalation)",
           "event": [
             {
               "listen": "test",
@@ -810,7 +810,7 @@
           }
         },
         {
-          "name": "PATCH coach displayName/email/phone as head_coach — 200",
+          "name": "PATCH coach displayName/email/phone as head_coach \u2014 200",
           "event": [
             {
               "listen": "test",
@@ -855,7 +855,7 @@
           }
         },
         {
-          "name": "PATCH admin user as head_coach — 403",
+          "name": "PATCH admin user as head_coach \u2014 403",
           "event": [
             {
               "listen": "test",
@@ -898,7 +898,7 @@
           }
         },
         {
-          "name": "DELETE admin user as head_coach — 403",
+          "name": "DELETE admin user as head_coach \u2014 403",
           "event": [
             {
               "listen": "test",
@@ -935,10 +935,10 @@
       ]
     },
     {
-      "name": "4. Auth — Error Cases",
+      "name": "4. Auth \u2014 Error Cases",
       "item": [
         {
-          "name": "Login wrong password — 401",
+          "name": "Login wrong password \u2014 401",
           "event": [
             {
               "listen": "test",
@@ -975,7 +975,7 @@
           }
         },
         {
-          "name": "GET /auth/me no token — 401",
+          "name": "GET /auth/me no token \u2014 401",
           "event": [
             {
               "listen": "test",
@@ -1003,7 +1003,7 @@
           }
         },
         {
-          "name": "POST /admin/users as tutor (no permission) — 403",
+          "name": "POST /admin/users as tutor (no permission) \u2014 403",
           "event": [
             {
               "listen": "test",
@@ -1045,7 +1045,7 @@
           }
         },
         {
-          "name": "PATCH /admin/users non-existent id — 404",
+          "name": "PATCH /admin/users non-existent id \u2014 404",
           "event": [
             {
               "listen": "test",
@@ -1088,7 +1088,7 @@
           }
         },
         {
-          "name": "POST /auth/register duplicate email — 409",
+          "name": "POST /auth/register duplicate email \u2014 409",
           "event": [
             {
               "listen": "test",
@@ -1126,7 +1126,7 @@
           }
         },
         {
-          "name": "GET /auth/me invalid JWT — 401",
+          "name": "GET /auth/me invalid JWT \u2014 401",
           "event": [
             {
               "listen": "test",
@@ -1159,7 +1159,7 @@
           }
         },
         {
-          "name": "PATCH email to existing one — 409",
+          "name": "PATCH email to existing one \u2014 409",
           "event": [
             {
               "listen": "test",
@@ -1202,7 +1202,7 @@
           }
         },
         {
-          "name": "Google Sign-In — invalid token 401",
+          "name": "Google Sign-In \u2014 invalid token 401",
           "event": [
             {
               "listen": "test",
@@ -1239,7 +1239,7 @@
           }
         },
         {
-          "name": "Apple Sign-In — invalid token 401",
+          "name": "Apple Sign-In \u2014 invalid token 401",
           "event": [
             {
               "listen": "test",
@@ -1281,7 +1281,7 @@
       "name": "5. Roster",
       "item": [
         {
-          "name": "GET /roster/categories — 6 categorías",
+          "name": "GET /roster/categories \u2014 6 categor\u00edas",
           "event": [
             {
               "listen": "test",
@@ -1330,7 +1330,7 @@
           }
         },
         {
-          "name": "POST /roster/players/irons — registrar jugador",
+          "name": "POST /roster/players/irons \u2014 registrar jugador",
           "event": [
             {
               "listen": "prerequest",
@@ -1392,7 +1392,7 @@
           }
         },
         {
-          "name": "GET /roster/players/irons (con X-Actor headers) — coach ve su categoría",
+          "name": "GET /roster/players/irons (con X-Actor headers) \u2014 coach ve su categor\u00eda",
           "event": [
             {
               "listen": "test",
@@ -1444,7 +1444,7 @@
           }
         },
         {
-          "name": "PATCH /roster/player/:id/status active — aprobar jugador",
+          "name": "PATCH /roster/player/:id/status active \u2014 aprobar jugador",
           "event": [
             {
               "listen": "test",
@@ -1502,7 +1502,7 @@
         },
         {
           "id": "9b64d09a-3e5b-465c-b535-4f09ef633e43",
-          "name": "GET /roster/categories sin X-Actor-Id — 401",
+          "name": "GET /roster/categories sin X-Actor-Id \u2014 401",
           "request": {
             "method": "GET",
             "header": [],
@@ -1533,7 +1533,7 @@
           "response": []
         },
         {
-          "name": "Register Player — Idempotency First",
+          "name": "Register Player \u2014 Idempotency First",
           "event": [
             {
               "listen": "prerequest",
@@ -1599,7 +1599,7 @@
           }
         },
         {
-          "name": "Register Player — Idempotency Replay (same key+body)",
+          "name": "Register Player \u2014 Idempotency Replay (same key+body)",
           "event": [
             {
               "listen": "test",
@@ -1655,7 +1655,7 @@
           }
         },
         {
-          "name": "Register Player — Idempotency Key Reuse Conflict (same key, different body)",
+          "name": "Register Player \u2014 Idempotency Key Reuse Conflict (same key, different body)",
           "event": [
             {
               "listen": "test",
@@ -1715,7 +1715,7 @@
       "name": "6. Gateway",
       "item": [
         {
-          "name": "Login via Gateway — captura token",
+          "name": "Login via Gateway \u2014 captura token",
           "event": [
             {
               "listen": "test",
@@ -1755,7 +1755,7 @@
           }
         },
         {
-          "name": "GET /auth/me via Gateway — JWT válido",
+          "name": "GET /auth/me via Gateway \u2014 JWT v\u00e1lido",
           "event": [
             {
               "listen": "test",
@@ -1827,7 +1827,7 @@
           }
         },
         {
-          "name": "GET /auth/me via Gateway sin token — 401",
+          "name": "GET /auth/me via Gateway sin token \u2014 401",
           "event": [
             {
               "listen": "test",
@@ -1856,7 +1856,7 @@
         },
         {
           "id": "73662dca-a363-4009-b262-e2910de723c6",
-          "name": "POST /auth/register via Gateway — nuevo tutor",
+          "name": "POST /auth/register via Gateway \u2014 nuevo tutor",
           "request": {
             "method": "POST",
             "header": [
@@ -1912,7 +1912,7 @@
         },
         {
           "id": "dd8e0624-1dec-4681-8266-97ea8cdfc1a8",
-          "name": "POST /auth/refresh via Gateway — nuevo access token",
+          "name": "POST /auth/refresh via Gateway \u2014 nuevo access token",
           "request": {
             "method": "POST",
             "header": [
@@ -1960,7 +1960,7 @@
         },
         {
           "id": "3f5b7134-b052-4dae-b9ad-228308eb361b",
-          "name": "GET /admin/users via Gateway — admin ve lista",
+          "name": "GET /admin/users via Gateway \u2014 admin ve lista",
           "request": {
             "method": "GET",
             "header": [
@@ -1997,7 +1997,7 @@
         },
         {
           "id": "20c0e71b-8815-4340-b082-742c9755efa3",
-          "name": "POST /admin/users via Gateway as head_coach — 403",
+          "name": "POST /admin/users via Gateway as head_coach \u2014 403",
           "request": {
             "method": "POST",
             "header": [
@@ -2047,7 +2047,7 @@
         },
         {
           "id": "c891568d-65cb-4b87-8109-50e3c8035ae2",
-          "name": "GET /roles via Gateway — admin ve roles",
+          "name": "GET /roles via Gateway \u2014 admin ve roles",
           "request": {
             "method": "GET",
             "header": [
@@ -2083,7 +2083,7 @@
         },
         {
           "id": "02fd4af4-7a41-41b0-b389-8e870e229611",
-          "name": "GET /attendance/sessions via Gateway — 200 (upstream activo)",
+          "name": "GET /attendance/sessions via Gateway \u2014 200 (upstream activo)",
           "request": {
             "method": "GET",
             "header": [
@@ -2125,7 +2125,7 @@
       "name": "7. Roles CRUD",
       "item": [
         {
-          "name": "GET /roles as admin — lista todos los roles",
+          "name": "GET /roles as admin \u2014 lista todos los roles",
           "event": [
             {
               "listen": "test",
@@ -2161,7 +2161,7 @@
           }
         },
         {
-          "name": "POST /roles as admin — crear rol temporal",
+          "name": "POST /roles as admin \u2014 crear rol temporal",
           "event": [
             {
               "listen": "prerequest",
@@ -2253,7 +2253,7 @@
           }
         },
         {
-          "name": "PUT /roles/:id as admin — actualizar permisos",
+          "name": "PUT /roles/:id as admin \u2014 actualizar permisos",
           "event": [
             {
               "listen": "test",
@@ -2296,7 +2296,7 @@
           }
         },
         {
-          "name": "DELETE /roles/:id as admin — sin usuarios asignados → 204",
+          "name": "DELETE /roles/:id as admin \u2014 sin usuarios asignados \u2192 204",
           "event": [
             {
               "listen": "test",
@@ -2329,7 +2329,7 @@
           }
         },
         {
-          "name": "GET /roles as head_coach — 403 (sin roles:read)",
+          "name": "GET /roles as head_coach \u2014 403 (sin roles:read)",
           "event": [
             {
               "listen": "test",
@@ -2362,7 +2362,7 @@
           }
         },
         {
-          "name": "POST /roles as head_coach — 403 (sin roles:write)",
+          "name": "POST /roles as head_coach \u2014 403 (sin roles:write)",
           "event": [
             {
               "listen": "test",
@@ -2405,7 +2405,7 @@
       ]
     },
     {
-      "name": "8. Staff — Access Control",
+      "name": "8. Staff \u2014 Access Control",
       "item": [
         {
           "name": "Create staff user (admin)",
@@ -2500,7 +2500,7 @@
           }
         },
         {
-          "name": "GET /admin/users as staff — 200, sin admins",
+          "name": "GET /admin/users as staff \u2014 200, sin admins",
           "event": [
             {
               "listen": "test",
@@ -2536,7 +2536,7 @@
           }
         },
         {
-          "name": "POST /admin/users as staff — 403 (sin users:write)",
+          "name": "POST /admin/users as staff \u2014 403 (sin users:write)",
           "event": [
             {
               "listen": "test",
@@ -2660,7 +2660,7 @@
           }
         },
         {
-          "name": "GET /admin/users as staff_admin — 403 (sin users:read)",
+          "name": "GET /admin/users as staff_admin \u2014 403 (sin users:read)",
           "event": [
             {
               "listen": "test",
@@ -2776,7 +2776,7 @@
           }
         },
         {
-          "name": "GET /admin/users as staff_manager — 403 (sin users:read)",
+          "name": "GET /admin/users as staff_manager \u2014 403 (sin users:read)",
           "event": [
             {
               "listen": "test",
@@ -2812,7 +2812,7 @@
       ]
     },
     {
-      "name": "9. Coach — Roster Category Restriction",
+      "name": "9. Coach \u2014 Roster Category Restriction",
       "item": [
         {
           "name": "Login as coach",
@@ -2862,7 +2862,7 @@
         },
         {
           "id": "7c0c2ee4-0876-4a6d-86fa-63dca94e2699",
-          "name": "POST /roster/players/irons (tutor) — crea jugador para que coach apruebe",
+          "name": "POST /roster/players/irons (tutor) \u2014 crea jugador para que coach apruebe",
           "request": {
             "method": "POST",
             "header": [
@@ -2931,7 +2931,7 @@
         },
         {
           "id": "c40cac3f-2235-4932-86c3-f7850f3653e7",
-          "name": "PATCH /roster/player/:id/status active como coach — 200 (categoría asignada)",
+          "name": "PATCH /roster/player/:id/status active como coach \u2014 200 (categor\u00eda asignada)",
           "request": {
             "method": "PATCH",
             "header": [
@@ -2991,7 +2991,7 @@
         },
         {
           "id": "fdc3d31c-8b38-4725-b0ea-2894beff02bc",
-          "name": "PATCH /roster/player/:id/status active como coach (ya activo) — 409",
+          "name": "PATCH /roster/player/:id/status active como coach (ya activo) \u2014 409",
           "request": {
             "method": "PATCH",
             "header": [
@@ -3049,7 +3049,7 @@
         },
         {
           "id": "914e32b7-e049-444a-adc1-32ebd22fcf9b",
-          "name": "POST /roster/players/irons (tutor) — crea jugador para flujo rejected→active",
+          "name": "POST /roster/players/irons (tutor) \u2014 crea jugador para flujo rejected\u2192active",
           "request": {
             "method": "POST",
             "header": [
@@ -3118,7 +3118,7 @@
         },
         {
           "id": "a0c20cf8-3ec4-473e-ba28-0a9584557393",
-          "name": "PATCH /roster/player/:id/status rejected — pending→rejected — 200",
+          "name": "PATCH /roster/player/:id/status rejected \u2014 pending\u2192rejected \u2014 200",
           "request": {
             "method": "PATCH",
             "header": [
@@ -3178,7 +3178,7 @@
         },
         {
           "id": "b9b82743-bcd9-4de7-a030-f0a564ad1a3c",
-          "name": "PATCH /roster/player/:id/status active — rejected→active (reactivación) — 200",
+          "name": "PATCH /roster/player/:id/status active \u2014 rejected\u2192active (reactivaci\u00f3n) \u2014 200",
           "request": {
             "method": "PATCH",
             "header": [
@@ -3238,7 +3238,7 @@
         },
         {
           "id": "72b093d8-8052-42a6-9e04-354f7fb9984e",
-          "name": "PATCH /roster/player/:id/status inactive — active→inactive — 200",
+          "name": "PATCH /roster/player/:id/status inactive \u2014 active\u2192inactive \u2014 200",
           "request": {
             "method": "PATCH",
             "header": [
@@ -3298,7 +3298,7 @@
         },
         {
           "id": "9a920255-85f1-4704-ade5-5bd68e5ab897",
-          "name": "PATCH /roster/player/:id/status active — inactive→active — 200",
+          "name": "PATCH /roster/player/:id/status active \u2014 inactive\u2192active \u2014 200",
           "request": {
             "method": "PATCH",
             "header": [
@@ -3357,7 +3357,7 @@
           "response": []
         },
         {
-          "name": "GET /roster/players/irons as coach (assigned to irons) — 200",
+          "name": "GET /roster/players/irons as coach (assigned to irons) \u2014 200",
           "event": [
             {
               "listen": "test",
@@ -3406,7 +3406,7 @@
           }
         },
         {
-          "name": "GET /roster/players/falcons as coach (NO asignado a falcons) — 403",
+          "name": "GET /roster/players/falcons as coach (NO asignado a falcons) \u2014 403",
           "event": [
             {
               "listen": "test",
@@ -3453,7 +3453,7 @@
           }
         },
         {
-          "name": "GET /admin/users as coach — 403 (sin users:read)",
+          "name": "GET /admin/users as coach \u2014 403 (sin users:read)",
           "event": [
             {
               "listen": "test",
@@ -3488,10 +3488,10 @@
       ]
     },
     {
-      "name": "10. Tutor — Ownership",
+      "name": "10. Tutor \u2014 Ownership",
       "item": [
         {
-          "name": "GET /tutor/:id/players as tutor — ve sus jugadores",
+          "name": "GET /tutor/:id/players as tutor \u2014 ve sus jugadores",
           "event": [
             {
               "listen": "test",
@@ -3543,7 +3543,7 @@
           }
         },
         {
-          "name": "GET /tutor/:id/players as tutor — otro tutor → 403",
+          "name": "GET /tutor/:id/players as tutor \u2014 otro tutor \u2192 403",
           "event": [
             {
               "listen": "test",
@@ -3590,7 +3590,7 @@
           }
         },
         {
-          "name": "GET /roster/player/:id as tutor (owner) — ve su jugador",
+          "name": "GET /roster/player/:id as tutor (owner) \u2014 ve su jugador",
           "event": [
             {
               "listen": "test",
@@ -3639,7 +3639,7 @@
           }
         },
         {
-          "name": "GET /roster/player/:id as coach (diferente categoría) — 403",
+          "name": "GET /roster/player/:id as coach (diferente categor\u00eda) \u2014 403",
           "event": [
             {
               "listen": "test",
@@ -3691,7 +3691,7 @@
       "name": "11. Device Tokens",
       "item": [
         {
-          "name": "POST /auth/device-token — registrar token (tutor)",
+          "name": "POST /auth/device-token \u2014 registrar token (tutor)",
           "event": [
             {
               "listen": "test",
@@ -3732,7 +3732,7 @@
           }
         },
         {
-          "name": "DELETE /auth/device-token — remover token (tutor)",
+          "name": "DELETE /auth/device-token \u2014 remover token (tutor)",
           "event": [
             {
               "listen": "test",
@@ -3773,7 +3773,7 @@
           }
         },
         {
-          "name": "POST /auth/device-token sin auth — 401",
+          "name": "POST /auth/device-token sin auth \u2014 401",
           "event": [
             {
               "listen": "test",
@@ -3815,7 +3815,7 @@
       "name": "12. Soft Delete",
       "item": [
         {
-          "name": "DELETE /admin/users/:id (staff) as admin — 204",
+          "name": "DELETE /admin/users/:id (staff) as admin \u2014 204",
           "event": [
             {
               "listen": "test",
@@ -3849,7 +3849,7 @@
           }
         },
         {
-          "name": "Login como usuario soft-deleted — 401",
+          "name": "Login como usuario soft-deleted \u2014 401",
           "event": [
             {
               "listen": "test",
@@ -3886,7 +3886,7 @@
           }
         },
         {
-          "name": "GET /admin/users — usuario soft-deleted no aparece",
+          "name": "GET /admin/users \u2014 usuario soft-deleted no aparece",
           "event": [
             {
               "listen": "test",
@@ -3926,11 +3926,11 @@
     },
     {
       "id": "315c7fe1-8282-438f-b9df-338d6026ea3f",
-      "name": "13. Gateway — Roster E2E",
+      "name": "13. Gateway \u2014 Roster E2E",
       "item": [
         {
           "id": "af0506b5-f921-42d9-9225-c19d2ddef80d",
-          "name": "POST /roster/players/falcons via Gateway (tutor) — 201",
+          "name": "POST /roster/players/falcons via Gateway (tutor) \u2014 201",
           "request": {
             "method": "POST",
             "header": [
@@ -3991,7 +3991,7 @@
         },
         {
           "id": "97909e4e-60e6-4df4-84f5-4aabb643dd80",
-          "name": "GET /roster/players/falcons via Gateway (admin) — 200",
+          "name": "GET /roster/players/falcons via Gateway (admin) \u2014 200",
           "request": {
             "method": "GET",
             "header": [
@@ -4083,7 +4083,7 @@
         },
         {
           "id": "1782830a-b7a4-444d-84f6-6a41998a4fa9",
-          "name": "GET /tutor/:id/players via Gateway (tutor) — 200",
+          "name": "GET /tutor/:id/players via Gateway (tutor) \u2014 200",
           "request": {
             "method": "GET",
             "header": [
@@ -4123,7 +4123,7 @@
         },
         {
           "id": "96c46049-e8e4-4c8a-b8e2-1ab0d0826975",
-          "name": "POST /roster/players/falcons via Gateway (coach) — 403",
+          "name": "POST /roster/players/falcons via Gateway (coach) \u2014 403",
           "request": {
             "method": "POST",
             "header": [
@@ -4174,7 +4174,7 @@
         },
         {
           "id": "d5d432f0-4e04-46db-8a4b-1118227da9f0",
-          "name": "GET /roster/categories via Gateway sin token — 401",
+          "name": "GET /roster/categories via Gateway sin token \u2014 401",
           "request": {
             "method": "GET",
             "header": [],
@@ -4208,11 +4208,11 @@
     },
     {
       "id": "aaf2f035-8f15-41e0-97a4-f223bcd7ab5b",
-      "name": "14. Staff & Staff-Manager — Roster Access",
+      "name": "14. Staff & Staff-Manager \u2014 Roster Access",
       "item": [
         {
           "id": "93c09f9f-a629-427f-86c6-1f1b2a9da454",
-          "name": "GET /roster/categories como staff via Gateway — 200",
+          "name": "GET /roster/categories como staff via Gateway \u2014 200",
           "request": {
             "method": "GET",
             "header": [
@@ -4239,7 +4239,7 @@
                 "type": "text/javascript",
                 "exec": [
                   "pm.test('status 200', () => pm.response.to.have.status(200));",
-                  "pm.test('6 categorías', () => pm.expect(pm.response.json().categories).to.have.length(6));"
+                  "pm.test('6 categor\u00edas', () => pm.expect(pm.response.json().categories).to.have.length(6));"
                 ]
               }
             }
@@ -4248,7 +4248,7 @@
         },
         {
           "id": "6339da60-f411-4754-a22b-fc8ed385c972",
-          "name": "GET /roster/players/irons como staff via Gateway — 403 (sin categorías asignadas)",
+          "name": "GET /roster/players/irons como staff via Gateway \u2014 403 (sin categor\u00edas asignadas)",
           "request": {
             "method": "GET",
             "header": [
@@ -4285,7 +4285,7 @@
         },
         {
           "id": "7a342b6e-041c-4b19-bd10-ece1ea79cd7d",
-          "name": "POST /roster/players/irons como staff via Gateway — 403 (role no permitido para registrar)",
+          "name": "POST /roster/players/irons como staff via Gateway \u2014 403 (role no permitido para registrar)",
           "request": {
             "method": "POST",
             "header": [
@@ -4344,7 +4344,7 @@
         },
         {
           "id": "356d7569-b49c-48ba-8321-32053920dc97",
-          "name": "GET /roster/categories como staff_admin via Gateway — 200",
+          "name": "GET /roster/categories como staff_admin via Gateway \u2014 200",
           "request": {
             "method": "GET",
             "header": [
@@ -4371,7 +4371,7 @@
                 "type": "text/javascript",
                 "exec": [
                   "pm.test('status 200', () => pm.response.to.have.status(200));",
-                  "pm.test('6 categorías', () => pm.expect(pm.response.json().categories).to.have.length(6));"
+                  "pm.test('6 categor\u00edas', () => pm.expect(pm.response.json().categories).to.have.length(6));"
                 ]
               }
             }
@@ -4380,7 +4380,7 @@
         },
         {
           "id": "3ead1c8c-45c3-48d6-88b4-0f4b91de9dbe",
-          "name": "GET /roster/players/irons como staff_admin via Gateway — 403 (sin categorías asignadas)",
+          "name": "GET /roster/players/irons como staff_admin via Gateway \u2014 403 (sin categor\u00edas asignadas)",
           "request": {
             "method": "GET",
             "header": [
@@ -4417,7 +4417,7 @@
         },
         {
           "id": "a48ae0be-721b-4255-beaa-92ee2254ef6d",
-          "name": "GET /roster/categories como staff_manager via Gateway — 200",
+          "name": "GET /roster/categories como staff_manager via Gateway \u2014 200",
           "request": {
             "method": "GET",
             "header": [
@@ -4444,7 +4444,7 @@
                 "type": "text/javascript",
                 "exec": [
                   "pm.test('status 200', () => pm.response.to.have.status(200));",
-                  "pm.test('6 categorías', () => pm.expect(pm.response.json().categories).to.have.length(6));"
+                  "pm.test('6 categor\u00edas', () => pm.expect(pm.response.json().categories).to.have.length(6));"
                 ]
               }
             }
@@ -4453,7 +4453,7 @@
         },
         {
           "id": "a089aca7-f4af-41b2-817f-1a86d373cfc4",
-          "name": "POST /roster/players/irons como staff_manager via Gateway — 201 (puede registrar jugadores)",
+          "name": "POST /roster/players/irons como staff_manager via Gateway \u2014 201 (puede registrar jugadores)",
           "request": {
             "method": "POST",
             "header": [
@@ -4512,7 +4512,7 @@
         },
         {
           "id": "a96252df-e2d0-4a26-b9bf-47beeb53762b",
-          "name": "GET /roster/players/irons como staff_manager via Gateway — 403 (puede registrar pero no listar sin categoría)",
+          "name": "GET /roster/players/irons como staff_manager via Gateway \u2014 403 (puede registrar pero no listar sin categor\u00eda)",
           "request": {
             "method": "GET",
             "header": [
@@ -4694,7 +4694,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\"email\":\"tutor1@test.com\",\"password\":\"pass123\",\"displayName\":\"Ana García\"}"
+                  "raw": "{\"email\":\"tutor1@test.com\",\"password\":\"pass123\",\"displayName\":\"Ana Garc\u00eda\"}"
                 },
                 "url": {
                   "raw": "{{AUTH_URL}}/auth/register",
@@ -4838,14 +4838,14 @@
                 "exec": [
                   "pm.test('status 200', () => pm.response.to.have.status(200));",
                   "pm.test('3 events saved', () => pm.expect(pm.response.json().events).to.have.lengthOf(3));",
-                  "pm.test('month_label español', () => pm.expect(pm.response.json().month_label).to.eql(pm.collectionVariables.get('CAL_MONTH_LABEL')));"
+                  "pm.test('month_label espa\u00f1ol', () => pm.expect(pm.response.json().month_label).to.eql(pm.collectionVariables.get('CAL_MONTH_LABEL')));"
                 ]
               }
             }
           ]
         },
         {
-          "name": "GET Calendar June (head_coach — ve todo)",
+          "name": "GET Calendar June (head_coach \u2014 ve todo)",
           "request": {
             "method": "GET",
             "header": [
@@ -4883,7 +4883,7 @@
           ]
         },
         {
-          "name": "GET Calendar June (coach irons — solo sus categorías + globales)",
+          "name": "GET Calendar June (coach irons \u2014 solo sus categor\u00edas + globales)",
           "request": {
             "method": "GET",
             "header": [
@@ -4925,7 +4925,7 @@
           ]
         },
         {
-          "name": "PUT Calendar mes pasado — 422",
+          "name": "PUT Calendar mes pasado \u2014 422",
           "request": {
             "method": "PUT",
             "header": [
@@ -4971,7 +4971,7 @@
           ]
         },
         {
-          "name": "PUT Calendar como parent — 403",
+          "name": "PUT Calendar como parent \u2014 403",
           "request": {
             "method": "PUT",
             "header": [
@@ -5016,7 +5016,7 @@
           ]
         },
         {
-          "name": "Resolve Location (head_coach — coords embebidos)",
+          "name": "Resolve Location (head_coach \u2014 coords embebidos)",
           "request": {
             "method": "GET",
             "header": [
@@ -5068,7 +5068,7 @@
           ]
         },
         {
-          "name": "Resolve Location sin url — 422",
+          "name": "Resolve Location sin url \u2014 422",
           "request": {
             "method": "GET",
             "header": [
@@ -5110,7 +5110,7 @@
           ]
         },
         {
-          "name": "Resolve Location sin x-actor-id — 401",
+          "name": "Resolve Location sin x-actor-id \u2014 401",
           "request": {
             "method": "GET",
             "header": [],
@@ -5145,7 +5145,7 @@
           ]
         },
         {
-          "name": "GET Calendar month format inválido — 422",
+          "name": "GET Calendar month format inv\u00e1lido \u2014 422",
           "request": {
             "method": "GET",
             "header": [
@@ -5183,7 +5183,7 @@
           ]
         },
         {
-          "name": "GET Calendar sin x-actor-id — 401",
+          "name": "GET Calendar sin x-actor-id \u2014 401",
           "request": {
             "method": "GET",
             "header": [],
@@ -5346,7 +5346,7 @@
                   "pm.collectionVariables.set('TODAY_DATE', todayDate);",
                   "pm.collectionVariables.set('CURRENT_MONTH', currentMonth);",
                   "// Always add today as a global training day so today-sessions are valid in attendance.",
-                  "const events = [{ date: todayDate, kind: 'training', title: 'Práctica general', category_ids: [] }];",
+                  "const events = [{ date: todayDate, kind: 'training', title: 'Pr\u00e1ctica general', category_ids: [] }];",
                   "pm.variables.set('CALENDAR_SETUP_BODY', JSON.stringify({ events }));"
                 ]
               }
@@ -5656,7 +5656,7 @@
         },
         {
           "id": "4b001b07-4978-4649-a53a-58449decf2e4",
-          "name": "Update Session — Date Not In Calendar — 422",
+          "name": "Update Session \u2014 Date Not In Calendar \u2014 422",
           "request": {
             "method": "PUT",
             "header": [
@@ -5707,7 +5707,7 @@
         },
         {
           "id": "e7acd3a1-d62b-420c-a5c0-a9645e2c72df",
-          "name": "Update Session — Valid Calendar Date — 200",
+          "name": "Update Session \u2014 Valid Calendar Date \u2014 200",
           "request": {
             "method": "PUT",
             "header": [
@@ -5748,7 +5748,7 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test('Status 200 — date in calendar', () => pm.response.to.have.status(200));"
+                  "pm.test('Status 200 \u2014 date in calendar', () => pm.response.to.have.status(200));"
                 ],
                 "type": "text/javascript"
               }
@@ -5756,7 +5756,7 @@
           ]
         },
         {
-          "name": "Submit Session — Idempotency First",
+          "name": "Submit Session \u2014 Idempotency First",
           "event": [
             {
               "listen": "prerequest",
@@ -5814,7 +5814,7 @@
           }
         },
         {
-          "name": "Submit Session — Idempotency Replay (same key)",
+          "name": "Submit Session \u2014 Idempotency Replay (same key)",
           "event": [
             {
               "listen": "test",
@@ -5865,10 +5865,10 @@
       ]
     },
     {
-      "name": "15. Attendance — Gateway — Role Guards",
+      "name": "15. Attendance \u2014 Gateway \u2014 Role Guards",
       "item": [
         {
-          "name": "Create Coach con categoría irons (admin)",
+          "name": "Create Coach con categor\u00eda irons (admin)",
           "request": {
             "method": "POST",
             "header": [
@@ -5909,7 +5909,7 @@
           ]
         },
         {
-          "name": "Login como Coach con categoría irons",
+          "name": "Login como Coach con categor\u00eda irons",
           "request": {
             "method": "POST",
             "header": [
@@ -5947,7 +5947,7 @@
           ]
         },
         {
-          "name": "Create SM con categoría irons (admin)",
+          "name": "Create SM con categor\u00eda irons (admin)",
           "request": {
             "method": "POST",
             "header": [
@@ -5989,7 +5989,7 @@
           ]
         },
         {
-          "name": "Login como SM con categoría irons",
+          "name": "Login como SM con categor\u00eda irons",
           "request": {
             "method": "POST",
             "header": [
@@ -6027,7 +6027,7 @@
           ]
         },
         {
-          "name": "GET irons/today como admin — 200",
+          "name": "GET irons/today como admin \u2014 200",
           "request": {
             "method": "GET",
             "header": [
@@ -6066,7 +6066,7 @@
           ]
         },
         {
-          "name": "GET rabbits/today como head_coach — 200",
+          "name": "GET rabbits/today como head_coach \u2014 200",
           "request": {
             "method": "GET",
             "header": [
@@ -6102,7 +6102,7 @@
           ]
         },
         {
-          "name": "PUT rabbits/today — marcar player-001=present — 200",
+          "name": "PUT rabbits/today \u2014 marcar player-001=present \u2014 200",
           "request": {
             "method": "PUT",
             "header": [
@@ -6148,7 +6148,7 @@
           ]
         },
         {
-          "name": "PUT rabbits/today — merge player-002=late (player-001 debe preservarse) — 200",
+          "name": "PUT rabbits/today \u2014 merge player-002=late (player-001 debe preservarse) \u2014 200",
           "request": {
             "method": "PUT",
             "header": [
@@ -6195,7 +6195,7 @@
           ]
         },
         {
-          "name": "DELETE rabbits/today/marks/player-002 como head_coach — 200",
+          "name": "DELETE rabbits/today/marks/player-002 como head_coach \u2014 200",
           "request": {
             "method": "DELETE",
             "header": [
@@ -6237,7 +6237,7 @@
           ]
         },
         {
-          "name": "PUT rabbits/today — re-add player-002=absent para submit — 200",
+          "name": "PUT rabbits/today \u2014 re-add player-002=absent para submit \u2014 200",
           "request": {
             "method": "PUT",
             "header": [
@@ -6282,7 +6282,7 @@
           ]
         },
         {
-          "name": "PUT rabbits/today — player_id duplicado — 422",
+          "name": "PUT rabbits/today \u2014 player_id duplicado \u2014 422",
           "request": {
             "method": "PUT",
             "header": [
@@ -6326,7 +6326,7 @@
           ]
         },
         {
-          "name": "POST rabbits/today/submit como head_coach — 200",
+          "name": "POST rabbits/today/submit como head_coach \u2014 200",
           "request": {
             "method": "POST",
             "header": [
@@ -6364,7 +6364,7 @@
           ]
         },
         {
-          "name": "GET irons/today como coach (asignado) — 200",
+          "name": "GET irons/today como coach (asignado) \u2014 200",
           "request": {
             "method": "GET",
             "header": [
@@ -6400,7 +6400,7 @@
           ]
         },
         {
-          "name": "PUT irons/today como coach (asignado) — 200",
+          "name": "PUT irons/today como coach (asignado) \u2014 200",
           "request": {
             "method": "PUT",
             "header": [
@@ -6445,7 +6445,7 @@
           ]
         },
         {
-          "name": "GET rabbits/today como coach (NO asignado) — 403",
+          "name": "GET rabbits/today como coach (NO asignado) \u2014 403",
           "request": {
             "method": "GET",
             "header": [
@@ -6480,7 +6480,7 @@
           ]
         },
         {
-          "name": "POST rabbits/today/submit como coach (NO asignado) — 403",
+          "name": "POST rabbits/today/submit como coach (NO asignado) \u2014 403",
           "request": {
             "method": "POST",
             "header": [
@@ -6516,7 +6516,7 @@
           ]
         },
         {
-          "name": "GET irons/today como staff_manager con categoria — 200",
+          "name": "GET irons/today como staff_manager con categoria \u2014 200",
           "request": {
             "method": "GET",
             "header": [
@@ -6551,7 +6551,7 @@
           ]
         },
         {
-          "name": "PUT irons/today como staff_manager con categoria — 200",
+          "name": "PUT irons/today como staff_manager con categoria \u2014 200",
           "request": {
             "method": "PUT",
             "header": [
@@ -6594,7 +6594,7 @@
           ]
         },
         {
-          "name": "GET rabbits/today como staff_manager con categoria (NO asignado) — 403",
+          "name": "GET rabbits/today como staff_manager con categoria (NO asignado) \u2014 403",
           "request": {
             "method": "GET",
             "header": [
@@ -6629,7 +6629,7 @@
           ]
         },
         {
-          "name": "GET irons/today como staff_manager SIN categorias — 403",
+          "name": "GET irons/today como staff_manager SIN categorias \u2014 403",
           "request": {
             "method": "GET",
             "header": [
@@ -6664,7 +6664,7 @@
           ]
         },
         {
-          "name": "GET rabbits/today como tutor (parent) — 403",
+          "name": "GET rabbits/today como tutor (parent) \u2014 403",
           "request": {
             "method": "GET",
             "header": [
@@ -6699,7 +6699,7 @@
           ]
         },
         {
-          "name": "GET rabbits/today sin token — 401",
+          "name": "GET rabbits/today sin token \u2014 401",
           "request": {
             "method": "GET",
             "header": [],
@@ -6729,7 +6729,7 @@
           ]
         },
         {
-          "name": "GET categoria invalida — 422",
+          "name": "GET categoria invalida \u2014 422",
           "request": {
             "method": "GET",
             "header": [
@@ -6765,7 +6765,7 @@
           ]
         },
         {
-          "name": "GET irons/history como head_coach — 200",
+          "name": "GET irons/history como head_coach \u2014 200",
           "request": {
             "method": "GET",
             "header": [
@@ -6803,7 +6803,7 @@
           ]
         },
         {
-          "name": "GET irons/history como coach (asignado) — 200",
+          "name": "GET irons/history como coach (asignado) \u2014 200",
           "request": {
             "method": "GET",
             "header": [
@@ -6841,7 +6841,7 @@
           ]
         },
         {
-          "name": "GET rabbits/history como coach (NO asignado) — 403",
+          "name": "GET rabbits/history como coach (NO asignado) \u2014 403",
           "request": {
             "method": "GET",
             "header": [
@@ -6878,7 +6878,7 @@
           ]
         },
         {
-          "name": "GET irons/history como staff_manager con categoria — 200",
+          "name": "GET irons/history como staff_manager con categoria \u2014 200",
           "request": {
             "method": "GET",
             "header": [
@@ -6916,7 +6916,7 @@
           ]
         },
         {
-          "name": "GET rabbits/history como staff_manager (NO asignado) — 403",
+          "name": "GET rabbits/history como staff_manager (NO asignado) \u2014 403",
           "request": {
             "method": "GET",
             "header": [
@@ -6953,7 +6953,7 @@
           ]
         },
         {
-          "name": "GET rabbits/history como parent — 403",
+          "name": "GET rabbits/history como parent \u2014 403",
           "request": {
             "method": "GET",
             "header": [
@@ -6990,7 +6990,7 @@
           ]
         },
         {
-          "name": "GET invalid_cat/history — 422",
+          "name": "GET invalid_cat/history \u2014 422",
           "request": {
             "method": "GET",
             "header": [
@@ -7279,8 +7279,12 @@
             "header": [],
             "url": {
               "raw": "{{NOTIFICATIONS_URL}}/health",
-              "host": ["{{NOTIFICATIONS_URL}}"],
-              "path": ["health"]
+              "host": [
+                "{{NOTIFICATIONS_URL}}"
+              ],
+              "path": [
+                "health"
+              ]
             }
           },
           "event": [
@@ -7320,8 +7324,12 @@
             ],
             "url": {
               "raw": "{{NOTIFICATIONS_URL}}/notifications",
-              "host": ["{{NOTIFICATIONS_URL}}"],
-              "path": ["notifications"]
+              "host": [
+                "{{NOTIFICATIONS_URL}}"
+              ],
+              "path": [
+                "notifications"
+              ]
             }
           },
           "event": [
@@ -7371,8 +7379,13 @@
             },
             "url": {
               "raw": "{{NOTIFICATIONS_URL}}/notifications/read",
-              "host": ["{{NOTIFICATIONS_URL}}"],
-              "path": ["notifications", "read"]
+              "host": [
+                "{{NOTIFICATIONS_URL}}"
+              ],
+              "path": [
+                "notifications",
+                "read"
+              ]
             }
           },
           "event": [
@@ -7413,8 +7426,13 @@
             ],
             "url": {
               "raw": "{{NOTIFICATIONS_URL}}/notifications/subscriptions",
-              "host": ["{{NOTIFICATIONS_URL}}"],
-              "path": ["notifications", "subscriptions"]
+              "host": [
+                "{{NOTIFICATIONS_URL}}"
+              ],
+              "path": [
+                "notifications",
+                "subscriptions"
+              ]
             }
           },
           "event": [
@@ -7433,14 +7451,66 @@
           "response": []
         },
         {
+          "name": "Get Subscriptions (Tutor)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-actor-id",
+                "value": "{{TUTOR_USER_ID}}",
+                "type": "text"
+              },
+              {
+                "key": "x-actor-role",
+                "value": "parent",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{NOTIFICATIONS_URL}}/notifications/subscriptions",
+              "host": [
+                "{{NOTIFICATIONS_URL}}"
+              ],
+              "path": [
+                "notifications",
+                "subscriptions"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('response is valid JSON', () => {",
+                  "  const b = pm.response.json();",
+                  "  pm.expect(b).to.be.an('object');",
+                  "});",
+                  "pm.test('categoryIds is an array', () => {",
+                  "  const b = pm.response.json();",
+                  "  pm.expect(b.categoryIds).to.be.an('array');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
           "name": "Unauthorized Without Actor Id",
           "request": {
             "method": "GET",
             "header": [],
             "url": {
               "raw": "{{NOTIFICATIONS_URL}}/notifications",
-              "host": ["{{NOTIFICATIONS_URL}}"],
-              "path": ["notifications"]
+              "host": [
+                "{{NOTIFICATIONS_URL}}"
+              ],
+              "path": [
+                "notifications"
+              ]
             }
           },
           "event": [
