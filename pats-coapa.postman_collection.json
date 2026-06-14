@@ -70,6 +70,10 @@
    "key": "SUBMIT_AT",
    "value": "",
    "type": "string"
+  },
+  {
+   "key": "PAYMENTS_URL",
+   "value": "http://localhost:3006"
   }
  ],
  "item": [
@@ -10693,6 +10697,373 @@
           }
          ],
          "body": "{\n  \"code\": \"MONTH_IN_THE_PAST\",\n  \"message\": \"Cannot replace events for a past month\"\n}"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Payments Service",
+   "item": [
+    {
+     "name": "System",
+     "item": [
+      {
+       "name": "Health Check",
+       "request": {
+        "method": "GET",
+        "description": "Health check",
+        "header": [],
+        "url": {
+         "raw": "{{GATEWAY_URL}}/health",
+         "host": [
+          "{{GATEWAY_URL}}"
+         ],
+         "path": [
+          "health"
+         ]
+        }
+       },
+       "response": [
+        {
+         "name": "200 OK",
+         "status": "OK",
+         "code": 200,
+         "_postman_previewlanguage": "json",
+         "header": [
+          {
+           "key": "Content-Type",
+           "value": "application/json"
+          }
+         ],
+         "body": "{\"status\":\"ok\",\"timestamp\":\"2026-06-13T10:00:00.000Z\"}",
+         "originalRequest": {
+          "method": "GET",
+          "description": "Health check",
+          "header": [],
+          "url": {
+           "raw": "{{GATEWAY_URL}}/health",
+           "host": [
+            "{{GATEWAY_URL}}"
+           ],
+           "path": [
+            "health"
+           ]
+          }
+         }
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Payments",
+     "item": [
+      {
+       "name": "Get Month",
+       "request": {
+        "method": "GET",
+        "description": "Returns the monthly payments roster for the given month (YYYY-MM). Each row is a player with a `paid` flag. Roles with payments r/w (admin, head_coach, staff, staff_admin, staff_manager) read; parent reads its own; coach is forbidden.",
+        "header": [
+         {
+          "key": "Authorization",
+          "value": "Bearer {{ACCESS_TOKEN}}"
+         }
+        ],
+        "url": {
+         "raw": "{{GATEWAY_URL}}/payments/2026-06",
+         "host": [
+          "{{GATEWAY_URL}}"
+         ],
+         "path": [
+          "payments",
+          "2026-06"
+         ]
+        }
+       },
+       "response": [
+        {
+         "name": "200 OK",
+         "status": "OK",
+         "code": 200,
+         "_postman_previewlanguage": "json",
+         "header": [
+          {
+           "key": "Content-Type",
+           "value": "application/json"
+          }
+         ],
+         "body": "{\n  \"month\": \"2026-06\",\n  \"month_label\": \"Junio 2026\",\n  \"payments\": [\n    {\n      \"id\": \"00000000-0000-7000-8000-000000000001\",\n      \"player_id\": \"00000000-0000-4000-8000-000000000001\",\n      \"player_name\": \"Player One\",\n      \"category_id\": \"falcons\",\n      \"amount\": 800,\n      \"paid\": true\n    },\n    {\n      \"id\": \"00000000-0000-7000-8000-000000000002\",\n      \"player_id\": \"00000000-0000-4000-8000-000000000002\",\n      \"player_name\": \"Player Two\",\n      \"category_id\": \"falcons\",\n      \"amount\": 800,\n      \"paid\": false\n    }\n  ]\n}",
+         "originalRequest": {
+          "method": "GET",
+          "description": "Returns the monthly payments roster for the given month (YYYY-MM). Each row is a player with a `paid` flag. Roles with payments r/w (admin, head_coach, staff, staff_admin, staff_manager) read; parent reads its own; coach is forbidden.",
+          "header": [
+           {
+            "key": "Authorization",
+            "value": "Bearer {{ACCESS_TOKEN}}"
+           }
+          ],
+          "url": {
+           "raw": "{{GATEWAY_URL}}/payments/2026-06",
+           "host": [
+            "{{GATEWAY_URL}}"
+           ],
+           "path": [
+            "payments",
+            "2026-06"
+           ]
+          }
+         }
+        },
+        {
+         "name": "403 Forbidden",
+         "status": "Forbidden",
+         "code": 403,
+         "_postman_previewlanguage": "json",
+         "header": [
+          {
+           "key": "Content-Type",
+           "value": "application/json"
+          }
+         ],
+         "body": "{\"code\":\"FORBIDDEN\",\"message\":\"Insufficient permissions\"}",
+         "originalRequest": {
+          "method": "GET",
+          "description": "Returns the monthly payments roster for the given month (YYYY-MM). Each row is a player with a `paid` flag. Roles with payments r/w (admin, head_coach, staff, staff_admin, staff_manager) read; parent reads its own; coach is forbidden.",
+          "header": [
+           {
+            "key": "Authorization",
+            "value": "Bearer {{ACCESS_TOKEN}}"
+           }
+          ],
+          "url": {
+           "raw": "{{GATEWAY_URL}}/payments/2026-06",
+           "host": [
+            "{{GATEWAY_URL}}"
+           ],
+           "path": [
+            "payments",
+            "2026-06"
+           ]
+          }
+         }
+        }
+       ]
+      },
+      {
+       "name": "Mark Payment Paid",
+       "request": {
+        "method": "PUT",
+        "description": "Toggles the `paid` flag for one or more payment rows in the given month. Idempotent per row.",
+        "header": [
+         {
+          "key": "Authorization",
+          "value": "Bearer {{ACCESS_TOKEN}}"
+         },
+         {
+          "key": "Content-Type",
+          "value": "application/json"
+         }
+        ],
+        "body": {
+         "mode": "raw",
+         "raw": "{\n  \"month\": \"2026-06\",\n  \"payments\": [\n    {\n      \"id\": \"00000000-0000-7000-8000-000000000002\",\n      \"paid\": true\n    }\n  ]\n}"
+        },
+        "url": {
+         "raw": "{{GATEWAY_URL}}/payments/2026-06",
+         "host": [
+          "{{GATEWAY_URL}}"
+         ],
+         "path": [
+          "payments",
+          "2026-06"
+         ]
+        }
+       },
+       "response": [
+        {
+         "name": "200 OK",
+         "status": "OK",
+         "code": 200,
+         "_postman_previewlanguage": "json",
+         "header": [
+          {
+           "key": "Content-Type",
+           "value": "application/json"
+          }
+         ],
+         "body": "{\n  \"month\": \"2026-06\",\n  \"month_label\": \"Junio 2026\",\n  \"payments\": [\n    {\n      \"id\": \"00000000-0000-7000-8000-000000000001\",\n      \"player_id\": \"00000000-0000-4000-8000-000000000001\",\n      \"player_name\": \"Player One\",\n      \"category_id\": \"falcons\",\n      \"amount\": 800,\n      \"paid\": true\n    },\n    {\n      \"id\": \"00000000-0000-7000-8000-000000000002\",\n      \"player_id\": \"00000000-0000-4000-8000-000000000002\",\n      \"player_name\": \"Player Two\",\n      \"category_id\": \"falcons\",\n      \"amount\": 800,\n      \"paid\": false\n    }\n  ]\n}",
+         "originalRequest": {
+          "method": "PUT",
+          "description": "Toggles the `paid` flag for one or more payment rows in the given month. Idempotent per row.",
+          "header": [
+           {
+            "key": "Authorization",
+            "value": "Bearer {{ACCESS_TOKEN}}"
+           },
+           {
+            "key": "Content-Type",
+            "value": "application/json"
+           }
+          ],
+          "body": {
+           "mode": "raw",
+           "raw": "{\n  \"month\": \"2026-06\",\n  \"payments\": [\n    {\n      \"id\": \"00000000-0000-7000-8000-000000000002\",\n      \"paid\": true\n    }\n  ]\n}"
+          },
+          "url": {
+           "raw": "{{GATEWAY_URL}}/payments/2026-06",
+           "host": [
+            "{{GATEWAY_URL}}"
+           ],
+           "path": [
+            "payments",
+            "2026-06"
+           ]
+          }
+         }
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Extras",
+     "item": [
+      {
+       "name": "Get Extras",
+       "request": {
+        "method": "GET",
+        "description": "Returns the extra charges for the given category. Each extra has per-player `items` with a `paid` flag. `from_directiva` flags charges that apply to the whole directiva.",
+        "header": [
+         {
+          "key": "Authorization",
+          "value": "Bearer {{ACCESS_TOKEN}}"
+         }
+        ],
+        "url": {
+         "raw": "{{GATEWAY_URL}}/payments/extras/falcons",
+         "host": [
+          "{{GATEWAY_URL}}"
+         ],
+         "path": [
+          "payments",
+          "extras",
+          "falcons"
+         ]
+        }
+       },
+       "response": [
+        {
+         "name": "200 OK",
+         "status": "OK",
+         "code": 200,
+         "_postman_previewlanguage": "json",
+         "header": [
+          {
+           "key": "Content-Type",
+           "value": "application/json"
+          }
+         ],
+         "body": "{\n  \"category_id\": \"falcons\",\n  \"extras\": [\n    {\n      \"id\": \"00000000-0000-7000-8000-000000000010\",\n      \"name\": \"Uniforme de juego\",\n      \"amount\": 1500,\n      \"due_date\": \"2026-06-30\",\n      \"from_directiva\": false,\n      \"items\": [\n        {\n          \"player_id\": \"00000000-0000-4000-8000-000000000001\",\n          \"paid\": false\n        }\n      ]\n    }\n  ]\n}",
+         "originalRequest": {
+          "method": "GET",
+          "description": "Returns the extra charges for the given category. Each extra has per-player `items` with a `paid` flag. `from_directiva` flags charges that apply to the whole directiva.",
+          "header": [
+           {
+            "key": "Authorization",
+            "value": "Bearer {{ACCESS_TOKEN}}"
+           }
+          ],
+          "url": {
+           "raw": "{{GATEWAY_URL}}/payments/extras/falcons",
+           "host": [
+            "{{GATEWAY_URL}}"
+           ],
+           "path": [
+            "payments",
+            "extras",
+            "falcons"
+           ]
+          }
+         }
+        }
+       ]
+      },
+      {
+       "name": "Create Extra Charge",
+       "request": {
+        "method": "PUT",
+        "description": "Replaces the full set of extra charges for the given category. Send the complete desired list; omitted extras are removed.",
+        "header": [
+         {
+          "key": "Authorization",
+          "value": "Bearer {{ACCESS_TOKEN}}"
+         },
+         {
+          "key": "Content-Type",
+          "value": "application/json"
+         }
+        ],
+        "body": {
+         "mode": "raw",
+         "raw": "{\n  \"category_id\": \"falcons\",\n  \"extras\": [\n    {\n      \"name\": \"Uniforme de juego\",\n      \"amount\": 1500,\n      \"due_date\": \"2026-06-30\",\n      \"from_directiva\": false,\n      \"items\": []\n    }\n  ]\n}"
+        },
+        "url": {
+         "raw": "{{GATEWAY_URL}}/payments/extras/falcons",
+         "host": [
+          "{{GATEWAY_URL}}"
+         ],
+         "path": [
+          "payments",
+          "extras",
+          "falcons"
+         ]
+        }
+       },
+       "response": [
+        {
+         "name": "200 OK",
+         "status": "OK",
+         "code": 200,
+         "_postman_previewlanguage": "json",
+         "header": [
+          {
+           "key": "Content-Type",
+           "value": "application/json"
+          }
+         ],
+         "body": "{\n  \"category_id\": \"falcons\",\n  \"extras\": [\n    {\n      \"id\": \"00000000-0000-7000-8000-000000000010\",\n      \"name\": \"Uniforme de juego\",\n      \"amount\": 1500,\n      \"due_date\": \"2026-06-30\",\n      \"from_directiva\": false,\n      \"items\": [\n        {\n          \"player_id\": \"00000000-0000-4000-8000-000000000001\",\n          \"paid\": false\n        }\n      ]\n    }\n  ]\n}",
+         "originalRequest": {
+          "method": "PUT",
+          "description": "Replaces the full set of extra charges for the given category. Send the complete desired list; omitted extras are removed.",
+          "header": [
+           {
+            "key": "Authorization",
+            "value": "Bearer {{ACCESS_TOKEN}}"
+           },
+           {
+            "key": "Content-Type",
+            "value": "application/json"
+           }
+          ],
+          "body": {
+           "mode": "raw",
+           "raw": "{\n  \"category_id\": \"falcons\",\n  \"extras\": [\n    {\n      \"name\": \"Uniforme de juego\",\n      \"amount\": 1500,\n      \"due_date\": \"2026-06-30\",\n      \"from_directiva\": false,\n      \"items\": []\n    }\n  ]\n}"
+          },
+          "url": {
+           "raw": "{{GATEWAY_URL}}/payments/extras/falcons",
+           "host": [
+            "{{GATEWAY_URL}}"
+           ],
+           "path": [
+            "payments",
+            "extras",
+            "falcons"
+           ]
+          }
+         }
         }
        ]
       }

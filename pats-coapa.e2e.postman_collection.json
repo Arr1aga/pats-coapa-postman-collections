@@ -189,6 +189,14 @@
    "key": "SUBMIT_AT",
    "value": "",
    "type": "string"
+  },
+  {
+   "key": "PAYMENTS_URL",
+   "value": "http://localhost:3006"
+  },
+  {
+   "key": "PAYMENT_ROW_ID",
+   "value": ""
   }
  ],
  "item": [
@@ -6917,6 +6925,247 @@
        }
       }
      ]
+    }
+   ]
+  },
+  {
+   "name": "Payments Service",
+   "item": [
+    {
+     "name": "Health Check",
+     "request": {
+      "method": "GET",
+      "header": [],
+      "url": {
+       "raw": "{{PAYMENTS_URL}}/health",
+       "host": [
+        "{{PAYMENTS_URL}}"
+       ],
+       "path": [
+        "health"
+       ]
+      }
+     },
+     "event": [
+      {
+       "listen": "test",
+       "script": {
+        "type": "text/javascript",
+        "exec": [
+         "pm.test('status 200', () => pm.response.to.have.status(200));",
+         "pm.test('status ok', () => pm.expect(pm.response.json().status).to.eql('ok'));"
+        ]
+       }
+      }
+     ],
+     "response": []
+    },
+    {
+     "name": "Get Month",
+     "request": {
+      "method": "GET",
+      "header": [
+       {
+        "key": "x-actor-id",
+        "value": "{{HC_USER_ID}}",
+        "type": "text"
+       },
+       {
+        "key": "x-actor-role",
+        "value": "head_coach",
+        "type": "text"
+       }
+      ],
+      "url": {
+       "raw": "{{PAYMENTS_URL}}/payments/2026-06",
+       "host": [
+        "{{PAYMENTS_URL}}"
+       ],
+       "path": [
+        "payments",
+        "2026-06"
+       ]
+      }
+     },
+     "event": [
+      {
+       "listen": "test",
+       "script": {
+        "type": "text/javascript",
+        "exec": [
+         "pm.test('status 200', () => pm.response.to.have.status(200));",
+         "const b = pm.response.json();",
+         "pm.test('has month', () => pm.expect(b.month).to.eql('2026-06'));",
+         "pm.test('payments is array', () => pm.expect(b.payments).to.be.an('array'));",
+         "if (Array.isArray(b.payments) && b.payments.length > 0 && b.payments[0].id) {",
+         "  pm.collectionVariables.set('PAYMENT_ROW_ID', b.payments[0].id);",
+         "}"
+        ]
+       }
+      }
+     ],
+     "response": []
+    },
+    {
+     "name": "Mark Payment Paid",
+     "request": {
+      "method": "PUT",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "x-actor-id",
+        "value": "{{HC_USER_ID}}",
+        "type": "text"
+       },
+       {
+        "key": "x-actor-role",
+        "value": "head_coach",
+        "type": "text"
+       }
+      ],
+      "body": {
+       "mode": "raw",
+       "raw": "{\n  \"month\": \"2026-06\",\n  \"payments\": [\n    { \"id\": \"{{PAYMENT_ROW_ID}}\", \"paid\": true }\n  ]\n}"
+      },
+      "url": {
+       "raw": "{{PAYMENTS_URL}}/payments/2026-06",
+       "host": [
+        "{{PAYMENTS_URL}}"
+       ],
+       "path": [
+        "payments",
+        "2026-06"
+       ]
+      }
+     },
+     "event": [
+      {
+       "listen": "prerequest",
+       "script": {
+        "type": "text/javascript",
+        "exec": [
+         "// Mark Payment Paid depends on a payment id resolved by 'Get Month'.",
+         "// If PAYMENT_ROW_ID is empty, skip cleanly so the run does not fail on a fresh DB.",
+         "const id = pm.collectionVariables.get('PAYMENT_ROW_ID');",
+         "if (!id) {",
+         "  console.log('No PAYMENT_ROW_ID resolved from Get Month; skipping Mark Payment Paid');",
+         "  pm.execution.skipRequest();",
+         "}"
+        ]
+       }
+      },
+      {
+       "listen": "test",
+       "script": {
+        "type": "text/javascript",
+        "exec": [
+         "pm.test('status 200', () => pm.response.to.have.status(200));",
+         "const b = pm.response.json();",
+         "pm.test('payments is array', () => pm.expect(b.payments).to.be.an('array'));"
+        ]
+       }
+      }
+     ],
+     "response": []
+    },
+    {
+     "name": "Get Extras",
+     "request": {
+      "method": "GET",
+      "header": [
+       {
+        "key": "x-actor-id",
+        "value": "{{HC_USER_ID}}",
+        "type": "text"
+       },
+       {
+        "key": "x-actor-role",
+        "value": "head_coach",
+        "type": "text"
+       }
+      ],
+      "url": {
+       "raw": "{{PAYMENTS_URL}}/payments/extras/falcons",
+       "host": [
+        "{{PAYMENTS_URL}}"
+       ],
+       "path": [
+        "payments",
+        "extras",
+        "falcons"
+       ]
+      }
+     },
+     "event": [
+      {
+       "listen": "test",
+       "script": {
+        "type": "text/javascript",
+        "exec": [
+         "pm.test('status 200', () => pm.response.to.have.status(200));",
+         "const b = pm.response.json();",
+         "pm.test('has category_id', () => pm.expect(b.category_id).to.eql('falcons'));",
+         "pm.test('extras is array', () => pm.expect(b.extras).to.be.an('array'));"
+        ]
+       }
+      }
+     ],
+     "response": []
+    },
+    {
+     "name": "Create Extra Charge",
+     "request": {
+      "method": "PUT",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "x-actor-id",
+        "value": "{{HC_USER_ID}}",
+        "type": "text"
+       },
+       {
+        "key": "x-actor-role",
+        "value": "head_coach",
+        "type": "text"
+       }
+      ],
+      "body": {
+       "mode": "raw",
+       "raw": "{\n  \"category_id\": \"falcons\",\n  \"extras\": [\n    {\n      \"name\": \"Uniforme de juego\",\n      \"amount\": 1500,\n      \"due_date\": \"2026-06-30\",\n      \"from_directiva\": false,\n      \"items\": []\n    }\n  ]\n}"
+      },
+      "url": {
+       "raw": "{{PAYMENTS_URL}}/payments/extras/falcons",
+       "host": [
+        "{{PAYMENTS_URL}}"
+       ],
+       "path": [
+        "payments",
+        "extras",
+        "falcons"
+       ]
+      }
+     },
+     "event": [
+      {
+       "listen": "test",
+       "script": {
+        "type": "text/javascript",
+        "exec": [
+         "pm.test('status 200', () => pm.response.to.have.status(200));",
+         "const b = pm.response.json();",
+         "pm.test('extras is array', () => pm.expect(b.extras).to.be.an('array'));",
+         "pm.test('extra was created', () => pm.expect(b.extras.length).to.be.at.least(1));"
+        ]
+       }
+      }
+     ],
+     "response": []
     }
    ]
   }
