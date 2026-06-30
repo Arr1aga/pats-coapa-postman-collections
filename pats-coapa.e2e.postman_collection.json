@@ -2129,7 +2129,22 @@
                 "exec": [
                   "pm.test('status 200', () => pm.response.to.have.status(200));",
                   "pm.test('has items array', () => pm.expect(pm.response.json().items).to.be.an('array'));",
-                  "pm.test('has unreadTotal', () => pm.expect(pm.response.json().unreadTotal).to.be.a('number'));"
+                  "pm.test('has unreadTotal', () => pm.expect(pm.response.json().unreadTotal).to.be.a('number'));",
+                  "pm.test('items carry a data context object', () => {",
+                  "  const items = pm.response.json().items;",
+                  "  if (items.length > 0) {",
+                  "    pm.expect(items[0]).to.have.property('data');",
+                  "    pm.expect(items[0].data).to.be.an('object');",
+                  "  }",
+                  "});",
+                  "pm.test('player_registered notif has categoryId + playerId in data', () => {",
+                  "  const items = pm.response.json().items;",
+                  "  const n = items.find((i) => i.kind === 'player_registered');",
+                  "  if (n) {",
+                  "    pm.expect(n.data).to.have.property('categoryId');",
+                  "    pm.expect(n.data).to.have.property('playerId');",
+                  "  }",
+                  "});"
                 ]
               }
             }
@@ -7477,7 +7492,22 @@
                   "pm.test('status 200', () => pm.response.to.have.status(200));",
                   "const b = pm.response.json();",
                   "pm.test('has items array', () => pm.expect(b.items).to.be.an('array'));",
-                  "pm.test('has unreadTotal number', () => pm.expect(b.unreadTotal).to.be.a('number'));"
+                  "pm.test('has unreadTotal number', () => pm.expect(b.unreadTotal).to.be.a('number'));",
+                  "pm.test('items carry a data context object', () => {",
+                  "  const items = b.items;",
+                  "  if (items.length > 0) {",
+                  "    pm.expect(items[0]).to.have.property('data');",
+                  "    pm.expect(items[0].data).to.be.an('object');",
+                  "  }",
+                  "});",
+                  "pm.test('player_registered notif has categoryId + playerId in data', () => {",
+                  "  const items = b.items;",
+                  "  const n = items.find((i) => i.kind === 'player_registered');",
+                  "  if (n) {",
+                  "    pm.expect(n.data).to.have.property('categoryId');",
+                  "    pm.expect(n.data).to.have.property('playerId');",
+                  "  }",
+                  "});"
                 ]
               }
             }

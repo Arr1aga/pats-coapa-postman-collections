@@ -7771,7 +7771,7 @@
            "value": "application/json"
           }
          ],
-         "body": "{\n  \"items\": [\n    {\n      \"id\": \"019f16c3-619f-7888-9001-28cf8163798d\",\n      \"kind\": \"player_registered\",\n      \"title\": \"Nuevo jugador pendiente\",\n      \"body\": \"Juan P\u00e9rez \u2014 falcons \u2014 pendiente de aprobaci\u00f3n\",\n      \"refId\": \"019f16c3-6195-733c-bed5-0c3f5a786c0a\",\n      \"read\": false,\n      \"createdAt\": \"2026-06-30T04:22:11.103Z\"\n    }\n  ],\n  \"unreadTotal\": 1\n}"
+         "body": "{\n  \"items\": [\n    {\n      \"id\": \"019f16c3-619f-7888-9001-28cf8163798d\",\n      \"kind\": \"player_registered\",\n      \"title\": \"Nuevo jugador pendiente\",\n      \"body\": \"Juan P\u00e9rez \u2014 falcons \u2014 pendiente de aprobaci\u00f3n\",\n      \"refId\": \"019f16c3-6195-733c-bed5-0c3f5a786c0a\",\n      \"data\": {\n        \"categoryId\": \"falcons\",\n        \"playerId\": \"019f16c3-6195-733c-bed5-0c3f5a786c0a\"\n      },\n      \"read\": false,\n      \"createdAt\": \"2026-06-30T04:22:11.103Z\"\n    }\n  ],\n  \"unreadTotal\": 1\n}"
         },
         {
          "name": "401 Unauthorized",
@@ -11592,7 +11592,7 @@
            "value": "application/json"
           }
          ],
-         "body": "{\"items\":[],\"unreadTotal\":0}"
+         "body": "{\n  \"items\": [\n    {\n      \"id\": \"019f16c3-619f-7888-9001-28cf8163798d\",\n      \"kind\": \"player_registered\",\n      \"title\": \"Nuevo jugador pendiente\",\n      \"body\": \"Juan Pérez — falcons — pendiente de aprobación\",\n      \"refId\": \"019f16c3-6195-733c-bed5-0c3f5a786c0a\",\n      \"data\": {\n        \"categoryId\": \"falcons\",\n        \"playerId\": \"019f16c3-6195-733c-bed5-0c3f5a786c0a\"\n      },\n      \"read\": false,\n      \"createdAt\": \"2026-06-30T04:22:11.103Z\"\n    }\n  ],\n  \"unreadTotal\": 1\n}"
         }
        ]
       },
