@@ -7713,6 +7713,221 @@
      ]
     },
     {
+     "name": "Notifications",
+     "item": [
+      {
+       "name": "List Notifications",
+       "request": {
+        "method": "GET",
+        "description": "Proxy \u2192 notifications-service GET /notifications (bell list + unread count)",
+        "header": [],
+        "url": {
+         "raw": "{{GATEWAY_URL}}/notifications",
+         "host": [
+          "{{GATEWAY_URL}}"
+         ],
+         "path": [
+          "notifications"
+         ]
+        },
+        "auth": {
+         "type": "bearer",
+         "bearer": [
+          {
+           "key": "token",
+           "value": "{{ACCESS_TOKEN}}",
+           "type": "string"
+          }
+         ]
+        }
+       },
+       "response": [
+        {
+         "name": "200 OK",
+         "originalRequest": {
+          "method": "GET",
+          "header": [
+           {
+            "key": "Authorization",
+            "value": "Bearer {{ACCESS_TOKEN}}"
+           }
+          ],
+          "url": {
+           "raw": "{{GATEWAY_URL}}/notifications",
+           "host": [
+            "{{GATEWAY_URL}}"
+           ],
+           "path": [
+            "notifications"
+           ]
+          }
+         },
+         "status": "OK",
+         "code": 200,
+         "_postman_previewlanguage": "json",
+         "header": [
+          {
+           "key": "Content-Type",
+           "value": "application/json"
+          }
+         ],
+         "body": "{\n  \"items\": [\n    {\n      \"id\": \"019f16c3-619f-7888-9001-28cf8163798d\",\n      \"kind\": \"player_registered\",\n      \"title\": \"Nuevo jugador pendiente\",\n      \"body\": \"Juan P\u00e9rez \u2014 falcons \u2014 pendiente de aprobaci\u00f3n\",\n      \"refId\": \"019f16c3-6195-733c-bed5-0c3f5a786c0a\",\n      \"read\": false,\n      \"createdAt\": \"2026-06-30T04:22:11.103Z\"\n    }\n  ],\n  \"unreadTotal\": 1\n}"
+        },
+        {
+         "name": "401 Unauthorized",
+         "originalRequest": {
+          "method": "GET",
+          "header": [
+           {
+            "key": "Authorization",
+            "value": "Bearer {{ACCESS_TOKEN}}"
+           }
+          ],
+          "url": {
+           "raw": "{{GATEWAY_URL}}/notifications",
+           "host": [
+            "{{GATEWAY_URL}}"
+           ],
+           "path": [
+            "notifications"
+           ]
+          }
+         },
+         "status": "Unauthorized",
+         "code": 401,
+         "_postman_previewlanguage": "json",
+         "header": [
+          {
+           "key": "Content-Type",
+           "value": "application/json"
+          }
+         ],
+         "body": "{\n  \"code\": \"UNAUTHORIZED\",\n  \"message\": \"Missing Bearer token\"\n}"
+        }
+       ]
+      },
+      {
+       "name": "Mark Notifications Read",
+       "request": {
+        "method": "PATCH",
+        "description": "Proxy \u2192 notifications-service PATCH /notifications/read (empty ids = mark all)",
+        "header": [
+         {
+          "key": "Content-Type",
+          "value": "application/json"
+         }
+        ],
+        "body": {
+         "mode": "raw",
+         "raw": "{\n  \"ids\": []\n}"
+        },
+        "url": {
+         "raw": "{{GATEWAY_URL}}/notifications/read",
+         "host": [
+          "{{GATEWAY_URL}}"
+         ],
+         "path": [
+          "notifications",
+          "read"
+         ]
+        },
+        "auth": {
+         "type": "bearer",
+         "bearer": [
+          {
+           "key": "token",
+           "value": "{{ACCESS_TOKEN}}",
+           "type": "string"
+          }
+         ]
+        }
+       },
+       "response": [
+        {
+         "name": "200 OK",
+         "originalRequest": {
+          "method": "PATCH",
+          "header": [
+           {
+            "key": "Authorization",
+            "value": "Bearer {{ACCESS_TOKEN}}"
+           },
+           {
+            "key": "Content-Type",
+            "value": "application/json"
+           }
+          ],
+          "body": {
+           "mode": "raw",
+           "raw": "{\n  \"ids\": []\n}"
+          },
+          "url": {
+           "raw": "{{GATEWAY_URL}}/notifications/read",
+           "host": [
+            "{{GATEWAY_URL}}"
+           ],
+           "path": [
+            "notifications",
+            "read"
+           ]
+          }
+         },
+         "status": "OK",
+         "code": 200,
+         "_postman_previewlanguage": "json",
+         "header": [
+          {
+           "key": "Content-Type",
+           "value": "application/json"
+          }
+         ],
+         "body": "{\n  \"unreadTotal\": 0\n}"
+        },
+        {
+         "name": "401 Unauthorized",
+         "originalRequest": {
+          "method": "PATCH",
+          "header": [
+           {
+            "key": "Authorization",
+            "value": "Bearer {{ACCESS_TOKEN}}"
+           },
+           {
+            "key": "Content-Type",
+            "value": "application/json"
+           }
+          ],
+          "body": {
+           "mode": "raw",
+           "raw": "{\n  \"ids\": []\n}"
+          },
+          "url": {
+           "raw": "{{GATEWAY_URL}}/notifications/read",
+           "host": [
+            "{{GATEWAY_URL}}"
+           ],
+           "path": [
+            "notifications",
+            "read"
+           ]
+          }
+         },
+         "status": "Unauthorized",
+         "code": 401,
+         "_postman_previewlanguage": "json",
+         "header": [
+          {
+           "key": "Content-Type",
+           "value": "application/json"
+          }
+         ],
+         "body": "{\n  \"code\": \"UNAUTHORIZED\",\n  \"message\": \"Missing Bearer token\"\n}"
+        }
+       ]
+      }
+     ]
+    },
+    {
      "name": "Events",
      "item": [
       {
@@ -7794,6 +8009,184 @@
             "attendance",
             "rabbits",
             "today"
+           ]
+          }
+         },
+         "status": "Unauthorized",
+         "code": 401,
+         "_postman_previewlanguage": "json",
+         "header": [
+          {
+           "key": "Content-Type",
+           "value": "application/json"
+          }
+         ],
+         "body": "{\"code\":\"UNAUTHORIZED\",\"message\":\"Missing Bearer token\"}"
+        }
+       ]
+      },
+      {
+       "name": "Dashboard Live Feed",
+       "request": {
+        "method": "GET",
+        "description": "Open SSE stream for real-time attendance dashboard stats (admin/head_coach all categories, coach own; parent \u2192 403)",
+        "header": [
+         {
+          "key": "Authorization",
+          "value": "Bearer {{ACCESS_TOKEN}}"
+         }
+        ],
+        "url": {
+         "raw": "{{GATEWAY_URL}}/events/dashboard",
+         "host": [
+          "{{GATEWAY_URL}}"
+         ],
+         "path": [
+          "events",
+          "dashboard"
+         ]
+        }
+       },
+       "response": [
+        {
+         "name": "200 OK",
+         "originalRequest": {
+          "method": "GET",
+          "header": [
+           {
+            "key": "Authorization",
+            "value": "Bearer {{ACCESS_TOKEN}}"
+           }
+          ],
+          "url": {
+           "raw": "{{GATEWAY_URL}}/events/dashboard",
+           "host": [
+            "{{GATEWAY_URL}}"
+           ],
+           "path": [
+            "events",
+            "dashboard"
+           ]
+          }
+         },
+         "status": "OK",
+         "code": 200,
+         "_postman_previewlanguage": "json",
+         "header": [
+          {
+           "key": "Content-Type",
+           "value": "text/event-stream"
+          }
+         ],
+         "body": "event: attendance.updated\ndata: {\"category\":\"falcons\",\"date\":\"2026-06-30\",\"present\":8,\"late\":1,\"absent\":1,\"totalMarked\":10,\"presentPct\":80}\n\n"
+        },
+        {
+         "name": "401 Unauthorized",
+         "originalRequest": {
+          "method": "GET",
+          "header": [
+           {
+            "key": "Authorization",
+            "value": "Bearer {{ACCESS_TOKEN}}"
+           }
+          ],
+          "url": {
+           "raw": "{{GATEWAY_URL}}/events/dashboard",
+           "host": [
+            "{{GATEWAY_URL}}"
+           ],
+           "path": [
+            "events",
+            "dashboard"
+           ]
+          }
+         },
+         "status": "Unauthorized",
+         "code": 401,
+         "_postman_previewlanguage": "json",
+         "header": [
+          {
+           "key": "Content-Type",
+           "value": "application/json"
+          }
+         ],
+         "body": "{\"code\":\"UNAUTHORIZED\",\"message\":\"Missing Bearer token\"}"
+        }
+       ]
+      },
+      {
+       "name": "Notifications Live Feed",
+       "request": {
+        "method": "GET",
+        "description": "Open SSE stream for real-time notification badge updates (any authenticated user, filtered by audience)",
+        "header": [
+         {
+          "key": "Authorization",
+          "value": "Bearer {{ACCESS_TOKEN}}"
+         }
+        ],
+        "url": {
+         "raw": "{{GATEWAY_URL}}/events/notifications",
+         "host": [
+          "{{GATEWAY_URL}}"
+         ],
+         "path": [
+          "events",
+          "notifications"
+         ]
+        }
+       },
+       "response": [
+        {
+         "name": "200 OK",
+         "originalRequest": {
+          "method": "GET",
+          "header": [
+           {
+            "key": "Authorization",
+            "value": "Bearer {{ACCESS_TOKEN}}"
+           }
+          ],
+          "url": {
+           "raw": "{{GATEWAY_URL}}/events/notifications",
+           "host": [
+            "{{GATEWAY_URL}}"
+           ],
+           "path": [
+            "events",
+            "notifications"
+           ]
+          }
+         },
+         "status": "OK",
+         "code": 200,
+         "_postman_previewlanguage": "json",
+         "header": [
+          {
+           "key": "Content-Type",
+           "value": "text/event-stream"
+          }
+         ],
+         "body": "event: notification.new\ndata: {\"item\":{\"id\":\"n1\",\"kind\":\"player_registered\",\"title\":\"Nuevo jugador pendiente\"}}\n\n"
+        },
+        {
+         "name": "401 Unauthorized",
+         "originalRequest": {
+          "method": "GET",
+          "header": [
+           {
+            "key": "Authorization",
+            "value": "Bearer {{ACCESS_TOKEN}}"
+           }
+          ],
+          "url": {
+           "raw": "{{GATEWAY_URL}}/events/notifications",
+           "host": [
+            "{{GATEWAY_URL}}"
+           ],
+           "path": [
+            "events",
+            "notifications"
            ]
           }
          },
@@ -11090,8 +11483,12 @@
         "header": [],
         "url": {
          "raw": "{{NOTIFICATIONS_URL}}/health",
-         "host": ["{{NOTIFICATIONS_URL}}"],
-         "path": ["health"]
+         "host": [
+          "{{NOTIFICATIONS_URL}}"
+         ],
+         "path": [
+          "health"
+         ]
         }
        },
        "response": [
@@ -11102,14 +11499,23 @@
           "header": [],
           "url": {
            "raw": "{{NOTIFICATIONS_URL}}/health",
-           "host": ["{{NOTIFICATIONS_URL}}"],
-           "path": ["health"]
+           "host": [
+            "{{NOTIFICATIONS_URL}}"
+           ],
+           "path": [
+            "health"
+           ]
           }
          },
          "status": "OK",
          "code": 200,
          "_postman_previewlanguage": "json",
-         "header": [{"key": "Content-Type", "value": "application/json"}],
+         "header": [
+          {
+           "key": "Content-Type",
+           "value": "application/json"
+          }
+         ],
          "body": "{\"status\":\"ok\",\"timestamp\":\"2026-06-14T10:00:00.000Z\",\"version\":\"0.2.0\"}"
         }
        ]
@@ -11125,14 +11531,27 @@
         "method": "GET",
         "description": "Returns paginated bell notifications for the actor. Protected by x-actor-id.",
         "header": [
-         {"key": "x-actor-id", "value": "{{ACTOR_ID}}"},
-         {"key": "x-actor-role", "value": "head_coach"},
-         {"key": "x-actor-categories", "value": ""}
+         {
+          "key": "x-actor-id",
+          "value": "{{ACTOR_ID}}"
+         },
+         {
+          "key": "x-actor-role",
+          "value": "head_coach"
+         },
+         {
+          "key": "x-actor-categories",
+          "value": ""
+         }
         ],
         "url": {
          "raw": "{{NOTIFICATIONS_URL}}/notifications",
-         "host": ["{{NOTIFICATIONS_URL}}"],
-         "path": ["notifications"]
+         "host": [
+          "{{NOTIFICATIONS_URL}}"
+         ],
+         "path": [
+          "notifications"
+         ]
         }
        },
        "response": [
@@ -11141,20 +11560,38 @@
          "originalRequest": {
           "method": "GET",
           "header": [
-           {"key": "x-actor-id", "value": "{{ACTOR_ID}}"},
-           {"key": "x-actor-role", "value": "head_coach"},
-           {"key": "x-actor-categories", "value": ""}
+           {
+            "key": "x-actor-id",
+            "value": "{{ACTOR_ID}}"
+           },
+           {
+            "key": "x-actor-role",
+            "value": "head_coach"
+           },
+           {
+            "key": "x-actor-categories",
+            "value": ""
+           }
           ],
           "url": {
            "raw": "{{NOTIFICATIONS_URL}}/notifications",
-           "host": ["{{NOTIFICATIONS_URL}}"],
-           "path": ["notifications"]
+           "host": [
+            "{{NOTIFICATIONS_URL}}"
+           ],
+           "path": [
+            "notifications"
+           ]
           }
          },
          "status": "OK",
          "code": 200,
          "_postman_previewlanguage": "json",
-         "header": [{"key": "Content-Type", "value": "application/json"}],
+         "header": [
+          {
+           "key": "Content-Type",
+           "value": "application/json"
+          }
+         ],
          "body": "{\"items\":[],\"unreadTotal\":0}"
         }
        ]
@@ -11165,10 +11602,22 @@
         "method": "PATCH",
         "description": "Marks notifications as read. Omit ids to mark all as read.",
         "header": [
-         {"key": "x-actor-id", "value": "{{ACTOR_ID}}"},
-         {"key": "x-actor-role", "value": "head_coach"},
-         {"key": "x-actor-categories", "value": ""},
-         {"key": "Content-Type", "value": "application/json"}
+         {
+          "key": "x-actor-id",
+          "value": "{{ACTOR_ID}}"
+         },
+         {
+          "key": "x-actor-role",
+          "value": "head_coach"
+         },
+         {
+          "key": "x-actor-categories",
+          "value": ""
+         },
+         {
+          "key": "Content-Type",
+          "value": "application/json"
+         }
         ],
         "body": {
          "mode": "raw",
@@ -11176,8 +11625,13 @@
         },
         "url": {
          "raw": "{{NOTIFICATIONS_URL}}/notifications/read",
-         "host": ["{{NOTIFICATIONS_URL}}"],
-         "path": ["notifications", "read"]
+         "host": [
+          "{{NOTIFICATIONS_URL}}"
+         ],
+         "path": [
+          "notifications",
+          "read"
+         ]
         }
        },
        "response": [
@@ -11186,21 +11640,43 @@
          "originalRequest": {
           "method": "PATCH",
           "header": [
-           {"key": "x-actor-id", "value": "{{ACTOR_ID}}"},
-           {"key": "x-actor-role", "value": "head_coach"},
-           {"key": "Content-Type", "value": "application/json"}
+           {
+            "key": "x-actor-id",
+            "value": "{{ACTOR_ID}}"
+           },
+           {
+            "key": "x-actor-role",
+            "value": "head_coach"
+           },
+           {
+            "key": "Content-Type",
+            "value": "application/json"
+           }
           ],
-          "body": {"mode": "raw", "raw": "{}"},
+          "body": {
+           "mode": "raw",
+           "raw": "{}"
+          },
           "url": {
            "raw": "{{NOTIFICATIONS_URL}}/notifications/read",
-           "host": ["{{NOTIFICATIONS_URL}}"],
-           "path": ["notifications", "read"]
+           "host": [
+            "{{NOTIFICATIONS_URL}}"
+           ],
+           "path": [
+            "notifications",
+            "read"
+           ]
           }
          },
          "status": "OK",
          "code": 200,
          "_postman_previewlanguage": "json",
-         "header": [{"key": "Content-Type", "value": "application/json"}],
+         "header": [
+          {
+           "key": "Content-Type",
+           "value": "application/json"
+          }
+         ],
          "body": "{\"unreadTotal\":0}"
         }
        ]
@@ -11211,14 +11687,28 @@
         "method": "GET",
         "description": "Returns which category streams the actor is subscribed to.",
         "header": [
-         {"key": "x-actor-id", "value": "{{ACTOR_ID}}"},
-         {"key": "x-actor-role", "value": "coach"},
-         {"key": "x-actor-categories", "value": "irons"}
+         {
+          "key": "x-actor-id",
+          "value": "{{ACTOR_ID}}"
+         },
+         {
+          "key": "x-actor-role",
+          "value": "coach"
+         },
+         {
+          "key": "x-actor-categories",
+          "value": "irons"
+         }
         ],
         "url": {
          "raw": "{{NOTIFICATIONS_URL}}/notifications/subscriptions",
-         "host": ["{{NOTIFICATIONS_URL}}"],
-         "path": ["notifications", "subscriptions"]
+         "host": [
+          "{{NOTIFICATIONS_URL}}"
+         ],
+         "path": [
+          "notifications",
+          "subscriptions"
+         ]
         }
        },
        "response": [
@@ -11227,20 +11717,39 @@
          "originalRequest": {
           "method": "GET",
           "header": [
-           {"key": "x-actor-id", "value": "{{ACTOR_ID}}"},
-           {"key": "x-actor-role", "value": "coach"},
-           {"key": "x-actor-categories", "value": "irons"}
+           {
+            "key": "x-actor-id",
+            "value": "{{ACTOR_ID}}"
+           },
+           {
+            "key": "x-actor-role",
+            "value": "coach"
+           },
+           {
+            "key": "x-actor-categories",
+            "value": "irons"
+           }
           ],
           "url": {
            "raw": "{{NOTIFICATIONS_URL}}/notifications/subscriptions",
-           "host": ["{{NOTIFICATIONS_URL}}"],
-           "path": ["notifications", "subscriptions"]
+           "host": [
+            "{{NOTIFICATIONS_URL}}"
+           ],
+           "path": [
+            "notifications",
+            "subscriptions"
+           ]
           }
          },
          "status": "OK",
          "code": 200,
          "_postman_previewlanguage": "json",
-         "header": [{"key": "Content-Type", "value": "application/json"}],
+         "header": [
+          {
+           "key": "Content-Type",
+           "value": "application/json"
+          }
+         ],
          "body": "{\"categoryIds\":[\"irons\"]}"
         }
        ]
