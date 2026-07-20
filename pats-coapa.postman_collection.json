@@ -2857,6 +2857,267 @@
        ]
       }
      ]
+    },
+    {
+     "name": "Internal",
+     "item": [
+      {
+       "name": "List Internal Users",
+       "request": {
+        "method": "GET",
+        "description": "Resolve internal users for the push directory. Intra-cluster only, not exposed by the gateway. Filter by userId, or by category (optionally narrowed with roles).",
+        "header": [
+         {
+          "key": "x-actor-id",
+          "value": "{{ACTOR_ID}}"
+         }
+        ],
+        "url": {
+         "raw": "{{AUTH_URL}}/internal/users?category=falcons&roles=coach,head_coach",
+         "host": [
+          "{{AUTH_URL}}"
+         ],
+         "path": [
+          "internal",
+          "users"
+         ],
+         "query": [
+          {
+           "key": "category",
+           "value": "falcons"
+          },
+          {
+           "key": "roles",
+           "value": "coach,head_coach"
+          }
+         ]
+        }
+       },
+       "response": [
+        {
+         "name": "200 OK",
+         "originalRequest": {
+          "method": "GET",
+          "header": [
+           {
+            "key": "x-actor-id",
+            "value": "{{ACTOR_ID}}"
+           }
+          ],
+          "url": {
+           "raw": "{{AUTH_URL}}/internal/users?category=falcons&roles=coach,head_coach",
+           "host": [
+            "{{AUTH_URL}}"
+           ],
+           "path": [
+            "internal",
+            "users"
+           ],
+           "query": [
+            {
+             "key": "category",
+             "value": "falcons"
+            },
+            {
+             "key": "roles",
+             "value": "coach,head_coach"
+            }
+           ]
+          }
+         },
+         "status": "OK",
+         "code": 200,
+         "_postman_previewlanguage": "json",
+         "header": [
+          {
+           "key": "Content-Type",
+           "value": "application/json"
+          }
+         ],
+         "body": "[\n  {\n    \"userId\": \"usr_xyz789\",\n    \"deviceTokens\": [\n      \"fcm_a1b2c3d4e5f6\",\n      \"fcm_g7h8i9j0k1l2\"\n    ]\n  },\n  {\n    \"userId\": \"usr_abc123\",\n    \"deviceTokens\": [\n      \"fcm_m3n4o5p6q7r8\"\n    ]\n  }\n]"
+        },
+        {
+         "name": "401 Unauthorized",
+         "originalRequest": {
+          "method": "GET",
+          "header": [],
+          "url": {
+           "raw": "{{AUTH_URL}}/internal/users?category=falcons&roles=coach,head_coach",
+           "host": [
+            "{{AUTH_URL}}"
+           ],
+           "path": [
+            "internal",
+            "users"
+           ],
+           "query": [
+            {
+             "key": "category",
+             "value": "falcons"
+            },
+            {
+             "key": "roles",
+             "value": "coach,head_coach"
+            }
+           ]
+          }
+         },
+         "status": "Unauthorized",
+         "code": 401,
+         "_postman_previewlanguage": "json",
+         "header": [
+          {
+           "key": "Content-Type",
+           "value": "application/json"
+          }
+         ],
+         "body": "{\n  \"code\": \"UNAUTHENTICATED\",\n  \"message\": \"Missing actor identity\"\n}"
+        }
+       ]
+      },
+      {
+       "name": "Remove Device Token (Internal)",
+       "request": {
+        "method": "DELETE",
+        "description": "Invalidate a device token detected as invalid by FCM. Intra-cluster only, not exposed by the gateway.",
+        "header": [
+         {
+          "key": "x-actor-id",
+          "value": "{{ACTOR_ID}}"
+         },
+         {
+          "key": "Content-Type",
+          "value": "application/json"
+         }
+        ],
+        "body": {
+         "mode": "raw",
+         "raw": "{\n  \"token\": \"fcm_a1b2c3d4e5f6\"\n}",
+         "options": {
+          "raw": {
+           "language": "json"
+          }
+         }
+        },
+        "url": {
+         "raw": "{{AUTH_URL}}/internal/users/:id/device-tokens",
+         "host": [
+          "{{AUTH_URL}}"
+         ],
+         "path": [
+          "internal",
+          "users",
+          ":id",
+          "device-tokens"
+         ],
+         "variable": [
+          {
+           "key": "id",
+           "value": "{{ACTOR_ID}}"
+          }
+         ]
+        }
+       },
+       "response": [
+        {
+         "name": "204 No Content",
+         "originalRequest": {
+          "method": "DELETE",
+          "header": [
+           {
+            "key": "x-actor-id",
+            "value": "{{ACTOR_ID}}"
+           },
+           {
+            "key": "Content-Type",
+            "value": "application/json"
+           }
+          ],
+          "body": {
+           "mode": "raw",
+           "raw": "{\n  \"token\": \"fcm_a1b2c3d4e5f6\"\n}",
+           "options": {
+            "raw": {
+             "language": "json"
+            }
+           }
+          },
+          "url": {
+           "raw": "{{AUTH_URL}}/internal/users/:id/device-tokens",
+           "host": [
+            "{{AUTH_URL}}"
+           ],
+           "path": [
+            "internal",
+            "users",
+            ":id",
+            "device-tokens"
+           ],
+           "variable": [
+            {
+             "key": "id",
+             "value": "{{ACTOR_ID}}"
+            }
+           ]
+          }
+         },
+         "status": "No Content",
+         "code": 204,
+         "header": [],
+         "body": ""
+        },
+        {
+         "name": "401 Unauthorized",
+         "originalRequest": {
+          "method": "DELETE",
+          "header": [
+           {
+            "key": "Content-Type",
+            "value": "application/json"
+           }
+          ],
+          "body": {
+           "mode": "raw",
+           "raw": "{\n  \"token\": \"fcm_a1b2c3d4e5f6\"\n}",
+           "options": {
+            "raw": {
+             "language": "json"
+            }
+           }
+          },
+          "url": {
+           "raw": "{{AUTH_URL}}/internal/users/:id/device-tokens",
+           "host": [
+            "{{AUTH_URL}}"
+           ],
+           "path": [
+            "internal",
+            "users",
+            ":id",
+            "device-tokens"
+           ],
+           "variable": [
+            {
+             "key": "id",
+             "value": "{{ACTOR_ID}}"
+            }
+           ]
+          }
+         },
+         "status": "Unauthorized",
+         "code": 401,
+         "_postman_previewlanguage": "json",
+         "header": [
+          {
+           "key": "Content-Type",
+           "value": "application/json"
+          }
+         ],
+         "body": "{\n  \"code\": \"UNAUTHENTICATED\",\n  \"message\": \"Missing actor identity\"\n}"
+        }
+       ]
+      }
+     ]
     }
    ]
   },
@@ -11592,7 +11853,7 @@
            "value": "application/json"
           }
          ],
-         "body": "{\n  \"items\": [\n    {\n      \"id\": \"019f16c3-619f-7888-9001-28cf8163798d\",\n      \"kind\": \"player_registered\",\n      \"title\": \"Nuevo jugador pendiente\",\n      \"body\": \"Juan Pérez — falcons — pendiente de aprobación\",\n      \"refId\": \"019f16c3-6195-733c-bed5-0c3f5a786c0a\",\n      \"data\": {\n        \"categoryId\": \"falcons\",\n        \"playerId\": \"019f16c3-6195-733c-bed5-0c3f5a786c0a\"\n      },\n      \"read\": false,\n      \"createdAt\": \"2026-06-30T04:22:11.103Z\"\n    }\n  ],\n  \"unreadTotal\": 1\n}"
+         "body": "{\n  \"items\": [\n    {\n      \"id\": \"019f16c3-619f-7888-9001-28cf8163798d\",\n      \"kind\": \"player_registered\",\n      \"title\": \"Nuevo jugador pendiente\",\n      \"body\": \"Juan P\u00e9rez \u2014 falcons \u2014 pendiente de aprobaci\u00f3n\",\n      \"refId\": \"019f16c3-6195-733c-bed5-0c3f5a786c0a\",\n      \"data\": {\n        \"categoryId\": \"falcons\",\n        \"playerId\": \"019f16c3-6195-733c-bed5-0c3f5a786c0a\"\n      },\n      \"read\": false,\n      \"createdAt\": \"2026-06-30T04:22:11.103Z\"\n    }\n  ],\n  \"unreadTotal\": 1\n}"
         }
        ]
       },
