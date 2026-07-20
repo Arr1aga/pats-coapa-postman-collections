@@ -11753,6 +11753,87 @@
          "body": "{\"categoryIds\":[\"irons\"]}"
         }
        ]
+      },
+      {
+       "name": "Send Manual Notification",
+       "request": {
+        "method": "POST",
+        "description": "Sends a manual notification to a specific user; human actors require x-actor-role admin or head_coach.",
+        "header": [
+         {
+          "key": "x-actor-id",
+          "value": "{{ACTOR_ID}}"
+         },
+         {
+          "key": "x-actor-role",
+          "value": "admin"
+         },
+         {
+          "key": "Content-Type",
+          "value": "application/json"
+         }
+        ],
+        "body": {
+         "mode": "raw",
+         "raw": "{\n  \"userId\": \"{{ACTOR_ID}}\",\n  \"title\": \"Manual notice\",\n  \"body\": \"This is a manually sent notification.\",\n  \"sourceEventId\": \"manual-notify-example-001\"\n}"
+        },
+        "url": {
+         "raw": "{{NOTIFICATIONS_URL}}/notifications/send",
+         "host": [
+          "{{NOTIFICATIONS_URL}}"
+         ],
+         "path": [
+          "notifications",
+          "send"
+         ]
+        }
+       },
+       "response": [
+        {
+         "name": "201 Created",
+         "originalRequest": {
+          "method": "POST",
+          "header": [
+           {
+            "key": "x-actor-id",
+            "value": "{{ACTOR_ID}}"
+           },
+           {
+            "key": "x-actor-role",
+            "value": "admin"
+           },
+           {
+            "key": "Content-Type",
+            "value": "application/json"
+           }
+          ],
+          "body": {
+           "mode": "raw",
+           "raw": "{\n  \"userId\": \"{{ACTOR_ID}}\",\n  \"title\": \"Manual notice\",\n  \"body\": \"This is a manually sent notification.\",\n  \"sourceEventId\": \"manual-notify-example-001\"\n}"
+          },
+          "url": {
+           "raw": "{{NOTIFICATIONS_URL}}/notifications/send",
+           "host": [
+            "{{NOTIFICATIONS_URL}}"
+           ],
+           "path": [
+            "notifications",
+            "send"
+           ]
+          }
+         },
+         "status": "Created",
+         "code": 201,
+         "_postman_previewlanguage": "json",
+         "header": [
+          {
+           "key": "Content-Type",
+           "value": "application/json"
+          }
+         ],
+         "body": "{\"sourceEventId\":\"manual-notify-example-001\"}"
+        }
+       ]
       }
      ]
     }

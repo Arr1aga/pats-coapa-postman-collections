@@ -7665,6 +7665,106 @@
           "response": []
         },
         {
+          "name": "Send Manual Notification",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-actor-id",
+                "value": "{{HC_USER_ID}}",
+                "type": "text"
+              },
+              {
+                "key": "x-actor-role",
+                "value": "admin",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"{{TUTOR_USER_ID}}\",\n  \"title\": \"Manual notice\",\n  \"body\": \"This is a manually sent notification (E2E test).\",\n  \"sourceEventId\": \"e2e-manual-notify-{{$guid}}\"\n}"
+            },
+            "url": {
+              "raw": "{{NOTIFICATIONS_URL}}/notifications/send",
+              "host": [
+                "{{NOTIFICATIONS_URL}}"
+              ],
+              "path": [
+                "notifications",
+                "send"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 201', () => pm.response.to.have.status(201));",
+                  "pm.test('Echoes sourceEventId', () => {",
+                  "  const body = pm.response.json();",
+                  "  pm.expect(body.sourceEventId).to.be.a('string');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "Send Manual Notification — Forbidden Role",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-actor-id",
+                "value": "{{TUTOR_USER_ID}}",
+                "type": "text"
+              },
+              {
+                "key": "x-actor-role",
+                "value": "parent",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"{{TUTOR_USER_ID}}\",\n  \"title\": \"Manual notice\",\n  \"body\": \"This is a manually sent notification (E2E test).\",\n  \"sourceEventId\": \"e2e-manual-notify-forbidden-{{$guid}}\"\n}"
+            },
+            "url": {
+              "raw": "{{NOTIFICATIONS_URL}}/notifications/send",
+              "host": [
+                "{{NOTIFICATIONS_URL}}"
+              ],
+              "path": [
+                "notifications",
+                "send"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 403', () => pm.response.to.have.status(403));"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
           "name": "Unauthorized Without Actor Id",
           "request": {
             "method": "GET",
