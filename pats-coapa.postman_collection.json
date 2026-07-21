@@ -2865,7 +2865,7 @@
        "name": "List Internal Users",
        "request": {
         "method": "GET",
-        "description": "Resolve internal users for the push directory. Intra-cluster only, not exposed by the gateway. Filter by userId, or by category (optionally narrowed with roles).",
+        "description": "Resolve internal users for the push directory. Intra-cluster only, not exposed by the gateway. Filter by userId, by category (optionally narrowed with roles), or pass all=true to broadcast to every non-deleted user unfiltered. At least one of userId, category, or all=true must be provided. Precedence when multiple are given: userId, then all, then category/roles.",
         "header": [
          {
           "key": "x-actor-id",
@@ -2958,6 +2958,108 @@
             {
              "key": "roles",
              "value": "coach,head_coach"
+            }
+           ]
+          }
+         },
+         "status": "Unauthorized",
+         "code": 401,
+         "_postman_previewlanguage": "json",
+         "header": [
+          {
+           "key": "Content-Type",
+           "value": "application/json"
+          }
+         ],
+         "body": "{\n  \"code\": \"UNAUTHENTICATED\",\n  \"message\": \"Missing actor identity\"\n}"
+        }
+       ]
+      },
+      {
+       "name": "List Internal Users (Broadcast)",
+       "request": {
+        "method": "GET",
+        "description": "Resolve every non-deleted user, unfiltered \u2014 used for broadcast notifications (e.g. global calendar events). Intra-cluster only, not exposed by the gateway. When all=true is present, userId/category/roles are ignored.",
+        "header": [
+         {
+          "key": "x-actor-id",
+          "value": "{{ACTOR_ID}}"
+         }
+        ],
+        "url": {
+         "raw": "{{AUTH_URL}}/internal/users?all=true",
+         "host": [
+          "{{AUTH_URL}}"
+         ],
+         "path": [
+          "internal",
+          "users"
+         ],
+         "query": [
+          {
+           "key": "all",
+           "value": "true"
+          }
+         ]
+        }
+       },
+       "response": [
+        {
+         "name": "200 OK",
+         "originalRequest": {
+          "method": "GET",
+          "header": [
+           {
+            "key": "x-actor-id",
+            "value": "{{ACTOR_ID}}"
+           }
+          ],
+          "url": {
+           "raw": "{{AUTH_URL}}/internal/users?all=true",
+           "host": [
+            "{{AUTH_URL}}"
+           ],
+           "path": [
+            "internal",
+            "users"
+           ],
+           "query": [
+            {
+             "key": "all",
+             "value": "true"
+            }
+           ]
+          }
+         },
+         "status": "OK",
+         "code": 200,
+         "_postman_previewlanguage": "json",
+         "header": [
+          {
+           "key": "Content-Type",
+           "value": "application/json"
+          }
+         ],
+         "body": "[\n  {\n    \"userId\": \"usr_xyz789\",\n    \"deviceTokens\": [\n      \"fcm_a1b2c3d4e5f6\",\n      \"fcm_g7h8i9j0k1l2\"\n    ]\n  },\n  {\n    \"userId\": \"usr_abc123\",\n    \"deviceTokens\": [\n      \"fcm_m3n4o5p6q7r8\"\n    ]\n  }\n]"
+        },
+        {
+         "name": "401 Unauthorized",
+         "originalRequest": {
+          "method": "GET",
+          "header": [],
+          "url": {
+           "raw": "{{AUTH_URL}}/internal/users?all=true",
+           "host": [
+            "{{AUTH_URL}}"
+           ],
+           "path": [
+            "internal",
+            "users"
+           ],
+           "query": [
+            {
+             "key": "all",
+             "value": "true"
             }
            ]
           }
@@ -12093,6 +12195,261 @@
           }
          ],
          "body": "{\"sourceEventId\":\"manual-notify-example-001\"}"
+        }
+       ]
+      },
+      {
+       "name": "Seed Debug Notifications (Dev-only)",
+       "request": {
+        "method": "POST",
+        "description": "Dev-only: creates one notification of each of the 8 NotificationKind values, all targeted at a single userId \u2014 used for manual QA of the push notification branding pipeline on a real device. Gated by ENABLE_DEBUG_SEED (false by default in every environment); when disabled, the route is not registered and returns 404. Same actor-role gate as /notifications/send (admin/head_coach, or x-actor-id: system:<service>).",
+        "header": [
+         {
+          "key": "x-actor-id",
+          "value": "{{ACTOR_ID}}"
+         },
+         {
+          "key": "x-actor-role",
+          "value": "admin"
+         },
+         {
+          "key": "Content-Type",
+          "value": "application/json"
+         }
+        ],
+        "body": {
+         "mode": "raw",
+         "raw": "{\n  \"userId\": \"{{ACTOR_ID}}\"\n}"
+        },
+        "url": {
+         "raw": "{{NOTIFICATIONS_URL}}/notifications/debug/seed",
+         "host": [
+          "{{NOTIFICATIONS_URL}}"
+         ],
+         "path": [
+          "notifications",
+          "debug",
+          "seed"
+         ]
+        }
+       },
+       "response": [
+        {
+         "name": "201 Created",
+         "originalRequest": {
+          "method": "POST",
+          "header": [
+           {
+            "key": "x-actor-id",
+            "value": "{{ACTOR_ID}}"
+           },
+           {
+            "key": "x-actor-role",
+            "value": "admin"
+           },
+           {
+            "key": "Content-Type",
+            "value": "application/json"
+           }
+          ],
+          "body": {
+           "mode": "raw",
+           "raw": "{\n  \"userId\": \"{{ACTOR_ID}}\"\n}"
+          },
+          "url": {
+           "raw": "{{NOTIFICATIONS_URL}}/notifications/debug/seed",
+           "host": [
+            "{{NOTIFICATIONS_URL}}"
+           ],
+           "path": [
+            "notifications",
+            "debug",
+            "seed"
+           ]
+          }
+         },
+         "status": "Created",
+         "code": 201,
+         "_postman_previewlanguage": "json",
+         "header": [
+          {
+           "key": "Content-Type",
+           "value": "application/json"
+          }
+         ],
+         "body": "{\n  \"created\": [\n    { \"kind\": \"player_registered\", \"sourceEventId\": \"debug-seed-0198c2e4-aaaa-7000-8000-000000000001\" },\n    { \"kind\": \"player_approved\", \"sourceEventId\": \"debug-seed-0198c2e4-aaaa-7000-8000-000000000002\" },\n    { \"kind\": \"player_rejected\", \"sourceEventId\": \"debug-seed-0198c2e4-aaaa-7000-8000-000000000003\" },\n    { \"kind\": \"attendance_submitted\", \"sourceEventId\": \"debug-seed-0198c2e4-aaaa-7000-8000-000000000004\" },\n    { \"kind\": \"payment_recorded\", \"sourceEventId\": \"debug-seed-0198c2e4-aaaa-7000-8000-000000000005\" },\n    { \"kind\": \"manual_message\", \"sourceEventId\": \"debug-seed-0198c2e4-aaaa-7000-8000-000000000006\" },\n    { \"kind\": \"calendar_game_day\", \"sourceEventId\": \"debug-seed-0198c2e4-aaaa-7000-8000-000000000007\" },\n    { \"kind\": \"calendar_meeting\", \"sourceEventId\": \"debug-seed-0198c2e4-aaaa-7000-8000-000000000008\" }\n  ]\n}"
+        },
+        {
+         "name": "401 Unauthorized",
+         "originalRequest": {
+          "method": "POST",
+          "header": [
+           {
+            "key": "Content-Type",
+            "value": "application/json"
+           }
+          ],
+          "body": {
+           "mode": "raw",
+           "raw": "{\n  \"userId\": \"{{ACTOR_ID}}\"\n}"
+          },
+          "url": {
+           "raw": "{{NOTIFICATIONS_URL}}/notifications/debug/seed",
+           "host": [
+            "{{NOTIFICATIONS_URL}}"
+           ],
+           "path": [
+            "notifications",
+            "debug",
+            "seed"
+           ]
+          }
+         },
+         "status": "Unauthorized",
+         "code": 401,
+         "_postman_previewlanguage": "json",
+         "header": [
+          {
+           "key": "Content-Type",
+           "value": "application/json"
+          }
+         ],
+         "body": "{\n  \"code\": \"UNAUTHENTICATED\",\n  \"message\": \"Missing actor identity\"\n}"
+        },
+        {
+         "name": "403 Forbidden",
+         "originalRequest": {
+          "method": "POST",
+          "header": [
+           {
+            "key": "x-actor-id",
+            "value": "{{ACTOR_ID}}"
+           },
+           {
+            "key": "x-actor-role",
+            "value": "parent"
+           },
+           {
+            "key": "Content-Type",
+            "value": "application/json"
+           }
+          ],
+          "body": {
+           "mode": "raw",
+           "raw": "{\n  \"userId\": \"{{ACTOR_ID}}\"\n}"
+          },
+          "url": {
+           "raw": "{{NOTIFICATIONS_URL}}/notifications/debug/seed",
+           "host": [
+            "{{NOTIFICATIONS_URL}}"
+           ],
+           "path": [
+            "notifications",
+            "debug",
+            "seed"
+           ]
+          }
+         },
+         "status": "Forbidden",
+         "code": 403,
+         "_postman_previewlanguage": "json",
+         "header": [
+          {
+           "key": "Content-Type",
+           "value": "application/json"
+          }
+         ],
+         "body": "{\n  \"code\": \"FORBIDDEN\",\n  \"message\": \"Requires admin or head_coach role\"\n}"
+        },
+        {
+         "name": "404 Not Found (ENABLE_DEBUG_SEED disabled)",
+         "originalRequest": {
+          "method": "POST",
+          "header": [
+           {
+            "key": "x-actor-id",
+            "value": "{{ACTOR_ID}}"
+           },
+           {
+            "key": "x-actor-role",
+            "value": "admin"
+           },
+           {
+            "key": "Content-Type",
+            "value": "application/json"
+           }
+          ],
+          "body": {
+           "mode": "raw",
+           "raw": "{\n  \"userId\": \"{{ACTOR_ID}}\"\n}"
+          },
+          "url": {
+           "raw": "{{NOTIFICATIONS_URL}}/notifications/debug/seed",
+           "host": [
+            "{{NOTIFICATIONS_URL}}"
+           ],
+           "path": [
+            "notifications",
+            "debug",
+            "seed"
+           ]
+          }
+         },
+         "status": "Not Found",
+         "code": 404,
+         "_postman_previewlanguage": "json",
+         "header": [
+          {
+           "key": "Content-Type",
+           "value": "application/json"
+          }
+         ],
+         "body": "{\n  \"message\": \"Route POST:/notifications/debug/seed not found\",\n  \"error\": \"Not Found\",\n  \"statusCode\": 404\n}"
+        },
+        {
+         "name": "422 Unprocessable Entity",
+         "originalRequest": {
+          "method": "POST",
+          "header": [
+           {
+            "key": "x-actor-id",
+            "value": "{{ACTOR_ID}}"
+           },
+           {
+            "key": "x-actor-role",
+            "value": "admin"
+           },
+           {
+            "key": "Content-Type",
+            "value": "application/json"
+           }
+          ],
+          "body": {
+           "mode": "raw",
+           "raw": "{}"
+          },
+          "url": {
+           "raw": "{{NOTIFICATIONS_URL}}/notifications/debug/seed",
+           "host": [
+            "{{NOTIFICATIONS_URL}}"
+           ],
+           "path": [
+            "notifications",
+            "debug",
+            "seed"
+           ]
+          }
+         },
+         "status": "Unprocessable Entity",
+         "code": 422,
+         "_postman_previewlanguage": "json",
+         "header": [
+          {
+           "key": "Content-Type",
+           "value": "application/json"
+          }
+         ],
+         "body": "{\n  \"code\": \"VALIDATION_ERROR\",\n  \"message\": \"Required\"\n}"
         }
        ]
       }
