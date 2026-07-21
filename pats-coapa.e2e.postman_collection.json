@@ -7931,7 +7931,7 @@
           "name": "Game Day Notification (category)",
           "item": [
             {
-              "name": "POST /admin/users — crear coach categoría falcons",
+              "name": "Create Coach (Falcons)",
               "request": {
                 "method": "POST",
                 "header": [
@@ -7975,7 +7975,7 @@
               "response": []
             },
             {
-              "name": "POST /auth/login — coach falcons",
+              "name": "Login Coach (Falcons)",
               "request": {
                 "method": "POST",
                 "header": [
@@ -8022,7 +8022,7 @@
               "response": []
             },
             {
-              "name": "GET /calendar/:month — eventos existentes antes de game day",
+              "name": "Get Existing Month Events (Game Day Setup)",
               "request": {
                 "method": "GET",
                 "header": [
@@ -8063,7 +8063,7 @@
               "response": []
             },
             {
-              "name": "PUT /calendar/:month — agregar evento game day (falcons)",
+              "name": "Add Game Day Event (Falcons)",
               "event": [
                 {
                   "listen": "prerequest",
@@ -8133,7 +8133,7 @@
               "response": []
             },
             {
-              "name": "GET /notifications — coach falcons ve calendar_game_day",
+              "name": "List Notifications (Game Day)",
               "event": [
                 {
                   "listen": "prerequest",
@@ -8211,7 +8211,7 @@
           "name": "Avisos Notification (broadcast)",
           "item": [
             {
-              "name": "POST /admin/users — crear coach categoría ponys",
+              "name": "Create Coach (Ponys)",
               "request": {
                 "method": "POST",
                 "header": [
@@ -8255,7 +8255,7 @@
               "response": []
             },
             {
-              "name": "POST /auth/login — coach ponys",
+              "name": "Login Coach (Ponys)",
               "request": {
                 "method": "POST",
                 "header": [
@@ -8302,7 +8302,7 @@
               "response": []
             },
             {
-              "name": "GET /calendar/:month — eventos existentes antes de aviso",
+              "name": "Get Existing Month Events (Avisos Setup)",
               "request": {
                 "method": "GET",
                 "header": [
@@ -8343,7 +8343,7 @@
               "response": []
             },
             {
-              "name": "PUT /calendar/:month — agregar aviso broadcast (category_ids vacío)",
+              "name": "Add Broadcast Announcement Event",
               "event": [
                 {
                   "listen": "prerequest",
@@ -8412,7 +8412,7 @@
               "response": []
             },
             {
-              "name": "GET /notifications — coach ponys ve calendar_meeting (broadcast)",
+              "name": "List Notifications (Broadcast)",
               "event": [
                 {
                   "listen": "prerequest",
