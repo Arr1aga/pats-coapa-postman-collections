@@ -7900,6 +7900,65 @@
           "response": []
         },
         {
+          "name": "Seed Debug Notifications (Dev-Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-actor-id",
+                "value": "{{HC_USER_ID}}",
+                "type": "text"
+              },
+              {
+                "key": "x-actor-role",
+                "value": "head_coach",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"{{TUTOR_USER_ID}}\"\n}"
+            },
+            "url": {
+              "raw": "{{NOTIFICATIONS_URL}}/notifications/debug/seed",
+              "host": [
+                "{{NOTIFICATIONS_URL}}"
+              ],
+              "path": [
+                "notifications",
+                "debug",
+                "seed"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Dev-only route, gated by ENABLE_DEBUG_SEED (false by default in every env).",
+                  "// 201 when enabled, 404 when the route isn't registered — both are valid outcomes here.",
+                  "pm.test('Status is 201 (enabled) or 404 (disabled by default)', () => {",
+                  "  pm.expect([201, 404]).to.include(pm.response.code);",
+                  "});",
+                  "if (pm.response.code === 201) {",
+                  "  pm.test('Creates one notification per NotificationKind', () => {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.created).to.be.an('array').with.length(8);",
+                  "  });",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
           "name": "Unauthorized Without Actor Id",
           "request": {
             "method": "GET",
