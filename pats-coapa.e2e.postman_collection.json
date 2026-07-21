@@ -7926,6 +7926,565 @@
             }
           ],
           "response": []
+        },
+        {
+          "name": "Game Day Notification (category)",
+          "item": [
+            {
+              "name": "POST /admin/users — crear coach categoría falcons",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ADMIN_TOKEN}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"email\":\"coach-falcons-e2e@pats.test\",\"password\":\"Coach123!\",\"displayName\":\"Coach Falcons E2E\",\"role\":\"coach\",\"assignedCategories\":[\"falcons\"]}"
+                },
+                "url": {
+                  "raw": "{{AUTH_URL}}/admin/users",
+                  "host": [
+                    "{{AUTH_URL}}"
+                  ],
+                  "path": [
+                    "admin",
+                    "users"
+                  ]
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('status 201 or 409 (ok on re-runs)', () => pm.expect([201, 409]).to.include(pm.response.code));"
+                    ]
+                  }
+                }
+              ],
+              "response": []
+            },
+            {
+              "name": "POST /auth/login — coach falcons",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"email\":\"coach-falcons-e2e@pats.test\",\"password\":\"Coach123!\"}"
+                },
+                "url": {
+                  "raw": "{{AUTH_URL}}/auth/login",
+                  "host": [
+                    "{{AUTH_URL}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "login"
+                  ]
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('status 200', () => pm.response.to.have.status(200));",
+                      "const tok = pm.response.json().accessToken;",
+                      "pm.sendRequest({",
+                      "  url: (pm.environment.get('AUTH_URL') || 'http://localhost:3000') + '/auth/me',",
+                      "  method: 'GET',",
+                      "  header: [{ key: 'Authorization', value: 'Bearer ' + tok }]",
+                      "}, (err, res) => {",
+                      "  if (!err && res.code === 200) pm.collectionVariables.set('FALCONS_COACH_ID', res.json().id);",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "response": []
+            },
+            {
+              "name": "GET /calendar/:month — eventos existentes antes de game day",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "x-actor-id",
+                    "value": "{{HC_USER_ID}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-actor-role",
+                    "value": "head_coach",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{CALENDAR_URL}}/calendar/{{CAL_MONTH}}",
+                  "host": [
+                    "{{CALENDAR_URL}}"
+                  ],
+                  "path": [
+                    "calendar",
+                    "{{CAL_MONTH}}"
+                  ]
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('status 200', () => pm.response.to.have.status(200));",
+                      "pm.collectionVariables.set('GAMEDAY_EXISTING_EVENTS', JSON.stringify(pm.response.json().events));"
+                    ]
+                  }
+                }
+              ],
+              "response": []
+            },
+            {
+              "name": "PUT /calendar/:month — agregar evento game day (falcons)",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "const existing = JSON.parse(pm.collectionVariables.get('GAMEDAY_EXISTING_EVENTS') || '[]');",
+                      "const calMonth = pm.collectionVariables.get('CAL_MONTH');",
+                      "const newEvent = {",
+                      "  date: `${calMonth}-18`,",
+                      "  kind: 'game',",
+                      "  title: 'Partido vs Halcones (Game Day E2E)',",
+                      "  opponent: 'Halcones',",
+                      "  category_ids: [\"falcons\"],",
+                      "};",
+                      "pm.collectionVariables.set('GAMEDAY_EVENTS_BEFORE_COUNT', String(existing.length));",
+                      "pm.variables.set('GAMEDAY_PUT_BODY', JSON.stringify({ events: [...existing, newEvent] }));"
+                    ]
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('status 200', () => pm.response.to.have.status(200));",
+                      "const before = parseInt(pm.collectionVariables.get('GAMEDAY_EVENTS_BEFORE_COUNT') || '0', 10);",
+                      "pm.test('new event saved (previous events untouched)', () => pm.expect(pm.response.json().events).to.have.lengthOf(before + 1));"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "x-actor-id",
+                    "value": "{{HC_USER_ID}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-actor-role",
+                    "value": "head_coach",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{{GAMEDAY_PUT_BODY}}"
+                },
+                "url": {
+                  "raw": "{{CALENDAR_URL}}/calendar/{{CAL_MONTH}}",
+                  "host": [
+                    "{{CALENDAR_URL}}"
+                  ],
+                  "path": [
+                    "calendar",
+                    "{{CAL_MONTH}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GET /notifications — coach falcons ve calendar_game_day",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "const attempt = parseInt(pm.collectionVariables.get('GAMEDAY_POLL_ATTEMPT') || '0', 10);",
+                      "if (attempt > 0) {",
+                      "  // Eventual-consistency wait for the Redis Streams hop (calendar.event.created -> notifications",
+                      "  // consumer). No established setTimeout/delay pattern exists elsewhere in this collection",
+                      "  // (checked), so this uses a bounded busy-wait + self re-run via setNextRequest, which works",
+                      "  // consistently across Newman versions without relying on async sandbox timers.",
+                      "  const start = Date.now();",
+                      "  while (Date.now() - start < 500) { /* no-op wait */ }",
+                      "}"
+                    ]
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('status 200', () => pm.response.to.have.status(200));",
+                      "const body = pm.response.json();",
+                      "const item = (body.items || []).find((i) => i.kind === 'calendar_game_day' && i.data && i.data.eventId);",
+                      "const attempt = parseInt(pm.collectionVariables.get('GAMEDAY_POLL_ATTEMPT') || '0', 10);",
+                      "const MAX_ATTEMPTS = 10;",
+                      "if (!item && attempt < MAX_ATTEMPTS) {",
+                      "  pm.collectionVariables.set('GAMEDAY_POLL_ATTEMPT', String(attempt + 1));",
+                      "  pm.execution.setNextRequest(pm.info.requestName);",
+                      "  return;",
+                      "}",
+                      "pm.collectionVariables.unset('GAMEDAY_POLL_ATTEMPT');",
+                      "pm.test('calendar_game_day notification visible to falcons coach', () => pm.expect(item, 'expected an item with kind calendar_game_day').to.be.ok);",
+                      "pm.test('notification data.eventId is present', () => pm.expect(item && item.data && item.data.eventId).to.be.a('string'));"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "x-actor-id",
+                    "value": "{{FALCONS_COACH_ID}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-actor-role",
+                    "value": "coach",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-actor-categories",
+                    "value": "falcons",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{NOTIFICATIONS_URL}}/notifications",
+                  "host": [
+                    "{{NOTIFICATIONS_URL}}"
+                  ],
+                  "path": [
+                    "notifications"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Avisos Notification (broadcast)",
+          "item": [
+            {
+              "name": "POST /admin/users — crear coach categoría ponys",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{ADMIN_TOKEN}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"email\":\"coach-ponys-e2e@pats.test\",\"password\":\"Coach123!\",\"displayName\":\"Coach Ponys E2E\",\"role\":\"coach\",\"assignedCategories\":[\"ponys\"]}"
+                },
+                "url": {
+                  "raw": "{{AUTH_URL}}/admin/users",
+                  "host": [
+                    "{{AUTH_URL}}"
+                  ],
+                  "path": [
+                    "admin",
+                    "users"
+                  ]
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('status 201 or 409 (ok on re-runs)', () => pm.expect([201, 409]).to.include(pm.response.code));"
+                    ]
+                  }
+                }
+              ],
+              "response": []
+            },
+            {
+              "name": "POST /auth/login — coach ponys",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"email\":\"coach-ponys-e2e@pats.test\",\"password\":\"Coach123!\"}"
+                },
+                "url": {
+                  "raw": "{{AUTH_URL}}/auth/login",
+                  "host": [
+                    "{{AUTH_URL}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "login"
+                  ]
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('status 200', () => pm.response.to.have.status(200));",
+                      "const tok = pm.response.json().accessToken;",
+                      "pm.sendRequest({",
+                      "  url: (pm.environment.get('AUTH_URL') || 'http://localhost:3000') + '/auth/me',",
+                      "  method: 'GET',",
+                      "  header: [{ key: 'Authorization', value: 'Bearer ' + tok }]",
+                      "}, (err, res) => {",
+                      "  if (!err && res.code === 200) pm.collectionVariables.set('PONYS_COACH_ID', res.json().id);",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "response": []
+            },
+            {
+              "name": "GET /calendar/:month — eventos existentes antes de aviso",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "x-actor-id",
+                    "value": "{{HC_USER_ID}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-actor-role",
+                    "value": "head_coach",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{CALENDAR_URL}}/calendar/{{CAL_MONTH}}",
+                  "host": [
+                    "{{CALENDAR_URL}}"
+                  ],
+                  "path": [
+                    "calendar",
+                    "{{CAL_MONTH}}"
+                  ]
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('status 200', () => pm.response.to.have.status(200));",
+                      "pm.collectionVariables.set('AVISOS_EXISTING_EVENTS', JSON.stringify(pm.response.json().events));"
+                    ]
+                  }
+                }
+              ],
+              "response": []
+            },
+            {
+              "name": "PUT /calendar/:month — agregar aviso broadcast (category_ids vacío)",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "const existing = JSON.parse(pm.collectionVariables.get('AVISOS_EXISTING_EVENTS') || '[]');",
+                      "const calMonth = pm.collectionVariables.get('CAL_MONTH');",
+                      "const newEvent = {",
+                      "  date: `${calMonth}-22`,",
+                      "  kind: 'meeting',",
+                      "  title: 'Junta de directiva — Aviso general (E2E)',",
+                      "  category_ids: [],",
+                      "};",
+                      "pm.collectionVariables.set('AVISOS_EVENTS_BEFORE_COUNT', String(existing.length));",
+                      "pm.variables.set('AVISOS_PUT_BODY', JSON.stringify({ events: [...existing, newEvent] }));"
+                    ]
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('status 200', () => pm.response.to.have.status(200));",
+                      "const before = parseInt(pm.collectionVariables.get('AVISOS_EVENTS_BEFORE_COUNT') || '0', 10);",
+                      "pm.test('new event saved (previous events untouched)', () => pm.expect(pm.response.json().events).to.have.lengthOf(before + 1));"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "x-actor-id",
+                    "value": "{{HC_USER_ID}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-actor-role",
+                    "value": "head_coach",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{{AVISOS_PUT_BODY}}"
+                },
+                "url": {
+                  "raw": "{{CALENDAR_URL}}/calendar/{{CAL_MONTH}}",
+                  "host": [
+                    "{{CALENDAR_URL}}"
+                  ],
+                  "path": [
+                    "calendar",
+                    "{{CAL_MONTH}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GET /notifications — coach ponys ve calendar_meeting (broadcast)",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "const attempt = parseInt(pm.collectionVariables.get('AVISOS_POLL_ATTEMPT') || '0', 10);",
+                      "if (attempt > 0) {",
+                      "  // Eventual-consistency wait for the Redis Streams hop (calendar.event.created -> notifications",
+                      "  // consumer). No established setTimeout/delay pattern exists elsewhere in this collection",
+                      "  // (checked), so this uses a bounded busy-wait + self re-run via setNextRequest, which works",
+                      "  // consistently across Newman versions without relying on async sandbox timers.",
+                      "  const start = Date.now();",
+                      "  while (Date.now() - start < 500) { /* no-op wait */ }",
+                      "}"
+                    ]
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('status 200', () => pm.response.to.have.status(200));",
+                      "const body = pm.response.json();",
+                      "const item = (body.items || []).find((i) => i.kind === 'calendar_meeting' && i.data && i.data.eventId);",
+                      "const attempt = parseInt(pm.collectionVariables.get('AVISOS_POLL_ATTEMPT') || '0', 10);",
+                      "const MAX_ATTEMPTS = 10;",
+                      "if (!item && attempt < MAX_ATTEMPTS) {",
+                      "  pm.collectionVariables.set('AVISOS_POLL_ATTEMPT', String(attempt + 1));",
+                      "  pm.execution.setNextRequest(pm.info.requestName);",
+                      "  return;",
+                      "}",
+                      "pm.collectionVariables.unset('AVISOS_POLL_ATTEMPT');",
+                      "pm.test('calendar_meeting (broadcast) visible to a coach outside the event category', () => pm.expect(item, 'expected an item with kind calendar_meeting').to.be.ok);",
+                      "pm.test('notification data.eventId is present', () => pm.expect(item && item.data && item.data.eventId).to.be.a('string'));"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "x-actor-id",
+                    "value": "{{PONYS_COACH_ID}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-actor-role",
+                    "value": "coach",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-actor-categories",
+                    "value": "ponys",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{NOTIFICATIONS_URL}}/notifications",
+                  "host": [
+                    "{{NOTIFICATIONS_URL}}"
+                  ],
+                  "path": [
+                    "notifications"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
         }
       ]
     }
