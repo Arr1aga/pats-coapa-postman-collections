@@ -4005,6 +4005,53 @@
           }
         },
         {
+          "name": "List Internal Users (Broadcast)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is an array of users with deviceTokens', () => {",
+                  "  const body = pm.response.json();",
+                  "  pm.expect(Array.isArray(body)).to.be.true;",
+                  "  if (body.length > 0) {",
+                  "    pm.expect(body[0]).to.have.property('userId');",
+                  "    pm.expect(body[0]).to.have.property('deviceTokens');",
+                  "  }",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-actor-id",
+                "value": "system:pats-coapa-notifications"
+              }
+            ],
+            "url": {
+              "raw": "{{AUTH_URL}}/internal/users?all=true",
+              "host": [
+                "{{AUTH_URL}}"
+              ],
+              "path": [
+                "internal",
+                "users"
+              ],
+              "query": [
+                {
+                  "key": "all",
+                  "value": "true"
+                }
+              ]
+            }
+          }
+        },
+        {
           "name": "Remove Device Token (internal)",
           "event": [
             {
