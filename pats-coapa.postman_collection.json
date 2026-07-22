@@ -12485,6 +12485,39 @@
      ]
     }
    ]
+  },
+  {
+   "name": "Home Service",
+   "item": [
+    {
+     "name": "Home",
+     "item": [
+      {
+       "name": "Get Dashboard",
+       "request": {
+        "method": "GET",
+        "description": "Aggregated coach dashboard (today practices, 4 stats, reminders), scoped to the actor visible categories. Read-only BFF; a failing upstream degrades its block, endpoint stays 200.",
+        "header": [
+         {
+          "key": "Authorization",
+          "value": "Bearer {{ACCESS_TOKEN}}"
+         }
+        ],
+        "url": {
+         "raw": "{{GATEWAY_URL}}/home/dashboard",
+         "host": [
+          "{{GATEWAY_URL}}"
+         ],
+         "path": [
+          "home",
+          "dashboard"
+         ]
+        }
+       }
+      }
+     ]
+    }
+   ]
   }
  ]
 }

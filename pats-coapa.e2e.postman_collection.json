@@ -8705,6 +8705,60 @@
           ]
         }
       ]
+    },
+    {
+      "name": "Home Service",
+      "item": [
+        {
+          "name": "Get Dashboard",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-actor-id",
+                "value": "{{HC_USER_ID}}",
+                "type": "text"
+              },
+              {
+                "key": "x-actor-role",
+                "value": "head_coach",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{HOME_URL}}/home/dashboard",
+              "host": [
+                "{{HOME_URL}}"
+              ],
+              "path": [
+                "home",
+                "dashboard"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));",
+                  "const b = pm.response.json();",
+                  "pm.test(\"today_practices is array\", () => pm.expect(b.today_practices).to.be.an(\"array\"));",
+                  "pm.test(\"stats has the four ints\", () => {",
+                  "  pm.expect(b.stats.active_players).to.be.a(\"number\");",
+                  "  pm.expect(b.stats.avg_attendance).to.be.a(\"number\");",
+                  "  pm.expect(b.stats.pending_payments).to.be.a(\"number\");",
+                  "  pm.expect(b.stats.days_to_next_game).to.be.a(\"number\");",
+                  "});",
+                  "pm.test(\"reminders is array\", () => pm.expect(b.reminders).to.be.an(\"array\"));"
+                ]
+              }
+            }
+          ],
+          "response": []
+        }
+      ]
     }
   ],
   "event": [

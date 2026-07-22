@@ -45,6 +45,11 @@
       "key": "ADMIN_PASSWORD",
       "value": "b7AlTQSbn5eCib-6",
       "enabled": true
+    },
+    {
+      "key": "HOME_URL",
+      "value": "http://localhost:3008",
+      "enabled": true
     }
   ]
 }
