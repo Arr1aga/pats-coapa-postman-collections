@@ -5085,6 +5085,29 @@
         },
         {
           "name": "PUT Calendar June (head_coach)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.collectionVariables.set('CAL_IDEMP_KEY', 'cal-idemp-' + Date.now());"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('3 events saved', () => pm.expect(pm.response.json().events).to.have.lengthOf(3));",
+                  "pm.test('month_label español', () => pm.expect(pm.response.json().month_label).to.eql(pm.collectionVariables.get('CAL_MONTH_LABEL')));",
+                  "pm.test('not a replay on first call', () => pm.expect(pm.response.headers.get('Idempotent-Replay')).to.be.oneOf([null, undefined]));"
+                ]
+              }
+            }
+          ],
           "request": {
             "method": "PUT",
             "header": [
@@ -5099,6 +5122,10 @@
               {
                 "key": "Content-Type",
                 "value": "application/json"
+              },
+              {
+                "key": "Idempotency-Key",
+                "value": "{{CAL_IDEMP_KEY}}"
               }
             ],
             "url": {
@@ -5115,7 +5142,10 @@
               "mode": "raw",
               "raw": "{\"events\":[{\"date\":\"{{CAL_D1}}\",\"kind\":\"training\",\"title\":\"Entrenamiento Irons\",\"category_ids\":[\"irons\"]},{\"date\":\"{{CAL_D2}}\",\"kind\":\"game\",\"title\":\"Partido vs Aztecas\",\"opponent\":\"Aztecas\",\"category_ids\":[\"irons\",\"falcons\"]},{\"date\":\"{{CAL_D3}}\",\"kind\":\"meeting\",\"title\":\"Junta de padres\",\"category_ids\":[]}]}"
             }
-          },
+          }
+        },
+        {
+          "name": "PUT Calendar June — Idempotency Replay (same key+body)",
           "event": [
             {
               "listen": "test",
@@ -5123,12 +5153,97 @@
                 "type": "text/javascript",
                 "exec": [
                   "pm.test('status 200', () => pm.response.to.have.status(200));",
-                  "pm.test('3 events saved', () => pm.expect(pm.response.json().events).to.have.lengthOf(3));",
-                  "pm.test('month_label español', () => pm.expect(pm.response.json().month_label).to.eql(pm.collectionVariables.get('CAL_MONTH_LABEL')));"
+                  "pm.test('Idempotent-Replay header is true', () => pm.expect(pm.response.headers.get('Idempotent-Replay')).to.eql('true'));",
+                  "pm.test('replay still 3 events', () => pm.expect(pm.response.json().events).to.have.lengthOf(3));"
                 ]
               }
             }
-          ]
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "x-actor-id",
+                "value": "{{HC_USER_ID}}"
+              },
+              {
+                "key": "x-actor-role",
+                "value": "head_coach"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Idempotency-Key",
+                "value": "{{CAL_IDEMP_KEY}}"
+              }
+            ],
+            "url": {
+              "raw": "{{CALENDAR_URL}}/calendar/{{CAL_MONTH}}",
+              "host": [
+                "{{CALENDAR_URL}}"
+              ],
+              "path": [
+                "calendar",
+                "{{CAL_MONTH}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"events\":[{\"date\":\"{{CAL_D1}}\",\"kind\":\"training\",\"title\":\"Entrenamiento Irons\",\"category_ids\":[\"irons\"]},{\"date\":\"{{CAL_D2}}\",\"kind\":\"game\",\"title\":\"Partido vs Aztecas\",\"opponent\":\"Aztecas\",\"category_ids\":[\"irons\",\"falcons\"]},{\"date\":\"{{CAL_D3}}\",\"kind\":\"meeting\",\"title\":\"Junta de padres\",\"category_ids\":[]}]}"
+            }
+          }
+        },
+        {
+          "name": "PUT Calendar June — Idempotency Key Reuse Conflict (same key, different body)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 409', () => pm.response.to.have.status(409));",
+                  "pm.test('code is IDEMPOTENCY_KEY_REUSED', () => pm.expect(pm.response.json().code).to.eql('IDEMPOTENCY_KEY_REUSED'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "x-actor-id",
+                "value": "{{HC_USER_ID}}"
+              },
+              {
+                "key": "x-actor-role",
+                "value": "head_coach"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Idempotency-Key",
+                "value": "{{CAL_IDEMP_KEY}}"
+              }
+            ],
+            "url": {
+              "raw": "{{CALENDAR_URL}}/calendar/{{CAL_MONTH}}",
+              "host": [
+                "{{CALENDAR_URL}}"
+              ],
+              "path": [
+                "calendar",
+                "{{CAL_MONTH}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"events\":[{\"date\":\"{{CAL_D1}}\",\"kind\":\"training\",\"title\":\"Cambio de plan\",\"category_ids\":[\"irons\"]}]}"
+            }
+          }
         },
         {
           "name": "GET Calendar June (head_coach — ve todo)",

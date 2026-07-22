@@ -11168,7 +11168,7 @@
        "name": "Replace Month",
        "request": {
         "method": "PUT",
-        "description": "Replace all events for a given month (YYYY-MM)",
+        "description": "Replace all events for a given month (YYYY-MM). Optionally idempotent: send an `Idempotency-Key` header so a client retry returns the original response (`Idempotent-Replay: true`) instead of re-running the replace and re-emitting `calendar.event.created`. Same key + different body → 409 IDEMPOTENCY_KEY_REUSED.",
         "header": [
          {
           "key": "x-actor-id",
@@ -11185,6 +11185,11 @@
          {
           "key": "Content-Type",
           "value": "application/json"
+         },
+         {
+          "key": "Idempotency-Key",
+          "value": "replace-2026-07-001",
+          "description": "Optional. Client-generated key (1-255 printable ASCII) to make a retry idempotent."
          }
         ],
         "body": {
