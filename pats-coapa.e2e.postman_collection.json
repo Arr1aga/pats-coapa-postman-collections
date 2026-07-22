@@ -7462,6 +7462,50 @@
           "response": []
         },
         {
+          "name": "Resync Projection",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-actor-id",
+                "value": "{{HC_USER_ID}}",
+                "type": "text"
+              },
+              {
+                "key": "x-actor-role",
+                "value": "head_coach",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{PAYMENTS_URL}}/payments/admin/resync-projection",
+              "host": [
+                "{{PAYMENTS_URL}}"
+              ],
+              "path": [
+                "payments",
+                "admin",
+                "resync-projection"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));",
+                  "const b = pm.response.json();",
+                  "pm.test(\"upserted is a number\", () => pm.expect(b.upserted).to.be.a(\"number\"));",
+                  "pm.test(\"active_after is a number\", () => pm.expect(b.active_after).to.be.a(\"number\"));"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
           "name": "Get Month",
           "request": {
             "method": "GET",

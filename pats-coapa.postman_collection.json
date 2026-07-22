@@ -2,7 +2,7 @@
  "info": {
   "name": "Pats Coapa API Rest",
   "_postman_id": "7454a52d-ef61-4685-a6b8-5b5ed5cb48b0",
-  "description": "All Pats Coapa microservices \u2014 generated from openapi.yaml",
+  "description": "All Pats Coapa microservices — generated from openapi.yaml",
   "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
  },
  "variable": [
@@ -209,7 +209,7 @@
            "value": "application/json"
           }
          ],
-         "body": "{\n  \"accessToken\": \"eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ1c3JfYWJjMTIzIn0.signature\",\n  \"refreshToken\": \"eyJhbGciOiJSUzI1NiJ9.eyJqdGkiOiJydGtfZGVmNDU2In0.signature\",\n  \"user\": {\n    \"id\": \"usr_abc123\",\n    \"email\": \"tutor@patscoapa.mx\",\n    \"displayName\": \"Ana Garc\u00eda\",\n    \"phone\": null,\n    \"role\": \"parent\"\n  }\n}"
+         "body": "{\n  \"accessToken\": \"eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ1c3JfYWJjMTIzIn0.signature\",\n  \"refreshToken\": \"eyJhbGciOiJSUzI1NiJ9.eyJqdGkiOiJydGtfZGVmNDU2In0.signature\",\n  \"user\": {\n    \"id\": \"usr_abc123\",\n    \"email\": \"tutor@patscoapa.mx\",\n    \"displayName\": \"Ana García\",\n    \"phone\": null,\n    \"role\": \"parent\"\n  }\n}"
         },
         {
          "name": "401 Unauthorized",
@@ -340,7 +340,7 @@
            "value": "application/json"
           }
          ],
-         "body": "{\n  \"id\": \"usr_abc123\",\n  \"email\": \"tutor@patscoapa.mx\",\n  \"displayName\": \"Ana Garc\u00eda\",\n  \"phone\": null,\n  \"role\": \"parent\"\n}"
+         "body": "{\n  \"id\": \"usr_abc123\",\n  \"email\": \"tutor@patscoapa.mx\",\n  \"displayName\": \"Ana García\",\n  \"phone\": null,\n  \"role\": \"parent\"\n}"
         },
         {
          "name": "409 Conflict",
@@ -600,7 +600,7 @@
            "value": "application/json"
           }
          ],
-         "body": "{\n  \"id\": \"usr_abc123\",\n  \"email\": \"tutor@patscoapa.mx\",\n  \"displayName\": \"Ana Garc\u00eda\",\n  \"phone\": null,\n  \"role\": \"parent\"\n}"
+         "body": "{\n  \"id\": \"usr_abc123\",\n  \"email\": \"tutor@patscoapa.mx\",\n  \"displayName\": \"Ana García\",\n  \"phone\": null,\n  \"role\": \"parent\"\n}"
         },
         {
          "name": "401 Unauthorized",
@@ -2047,7 +2047,7 @@
            "value": "application/json"
           }
          ],
-         "body": "[\n  {\n    \"id\": \"usr_xyz789\",\n    \"email\": \"headcoach@patscoapa.mx\",\n    \"displayName\": \"Carlos L\u00f3pez\",\n    \"phone\": \"+52 55 1234 5678\",\n    \"role\": \"head_coach\"\n  },\n  {\n    \"id\": \"usr_abc123\",\n    \"email\": \"tutor@patscoapa.mx\",\n    \"displayName\": \"Ana Garc\u00eda\",\n    \"phone\": null,\n    \"role\": \"parent\"\n  }\n]"
+         "body": "[\n  {\n    \"id\": \"usr_xyz789\",\n    \"email\": \"headcoach@patscoapa.mx\",\n    \"displayName\": \"Carlos López\",\n    \"phone\": \"+52 55 1234 5678\",\n    \"role\": \"head_coach\"\n  },\n  {\n    \"id\": \"usr_abc123\",\n    \"email\": \"tutor@patscoapa.mx\",\n    \"displayName\": \"Ana García\",\n    \"phone\": null,\n    \"role\": \"parent\"\n  }\n]"
         },
         {
          "name": "401 Unauthorized",
@@ -2200,7 +2200,7 @@
            "value": "application/json"
           }
          ],
-         "body": "{\n  \"id\": \"usr_xyz789\",\n  \"email\": \"headcoach@patscoapa.mx\",\n  \"displayName\": \"Carlos L\u00f3pez\",\n  \"phone\": \"+52 55 1234 5678\",\n  \"role\": \"head_coach\"\n}"
+         "body": "{\n  \"id\": \"usr_xyz789\",\n  \"email\": \"headcoach@patscoapa.mx\",\n  \"displayName\": \"Carlos López\",\n  \"phone\": \"+52 55 1234 5678\",\n  \"role\": \"head_coach\"\n}"
         },
         {
          "name": "401 Unauthorized",
@@ -2483,7 +2483,7 @@
            "value": "application/json"
           }
          ],
-         "body": "{\n  \"id\": \"usr_xyz789\",\n  \"email\": \"headcoach@patscoapa.mx\",\n  \"displayName\": \"Carlos L\u00f3pez\",\n  \"phone\": \"+52 55 1234 5678\",\n  \"role\": \"head_coach\"\n}"
+         "body": "{\n  \"id\": \"usr_xyz789\",\n  \"email\": \"headcoach@patscoapa.mx\",\n  \"displayName\": \"Carlos López\",\n  \"phone\": \"+52 55 1234 5678\",\n  \"role\": \"head_coach\"\n}"
         },
         {
          "name": "401 Unauthorized",
@@ -2647,7 +2647,7 @@
        "name": "Delete User",
        "request": {
         "method": "DELETE",
-        "description": "Soft-delete a user \u2014 record remains in MongoDB (requires users:write permission)",
+        "description": "Soft-delete a user — record remains in MongoDB (requires users:write permission)",
         "header": [
          {
           "key": "Content-Type",
@@ -2979,7 +2979,7 @@
        "name": "List Internal Users (Broadcast)",
        "request": {
         "method": "GET",
-        "description": "Resolve every non-deleted user, unfiltered \u2014 used for broadcast notifications (e.g. global calendar events). Intra-cluster only, not exposed by the gateway. When all=true is present, userId/category/roles are ignored.",
+        "description": "Resolve every non-deleted user, unfiltered — used for broadcast notifications (e.g. global calendar events). Intra-cluster only, not exposed by the gateway. When all=true is present, userId/category/roles are ignored.",
         "header": [
          {
           "key": "x-actor-id",
@@ -3225,7 +3225,7 @@
   },
   {
    "name": "Gateway",
-   "description": "BFF gateway \u2014 \u00fanico punto de entrada de la app Flutter. Fase 1.",
+   "description": "BFF gateway — único punto de entrada de la app Flutter. Fase 1.",
    "item": [
     {
      "name": "System",
@@ -3284,7 +3284,7 @@
        "name": "Login",
        "request": {
         "method": "POST",
-        "description": "Proxy \u2192 auth-service POST /auth/login",
+        "description": "Proxy → auth-service POST /auth/login",
         "header": [
          {
           "key": "Content-Type",
@@ -3351,7 +3351,7 @@
            "value": "application/json"
           }
          ],
-         "body": "{\n  \"accessToken\": \"eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ1c3JfYWJjMTIzIn0.signature\",\n  \"refreshToken\": \"eyJhbGciOiJSUzI1NiJ9.eyJqdGkiOiJydGtfZGVmNDU2In0.signature\",\n  \"user\": {\n    \"id\": \"usr_abc123\",\n    \"email\": \"tutor@patscoapa.mx\",\n    \"displayName\": \"Ana Garc\u00eda\",\n    \"phone\": null,\n    \"role\": \"parent\"\n  }\n}"
+         "body": "{\n  \"accessToken\": \"eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ1c3JfYWJjMTIzIn0.signature\",\n  \"refreshToken\": \"eyJhbGciOiJSUzI1NiJ9.eyJqdGkiOiJydGtfZGVmNDU2In0.signature\",\n  \"user\": {\n    \"id\": \"usr_abc123\",\n    \"email\": \"tutor@patscoapa.mx\",\n    \"displayName\": \"Ana García\",\n    \"phone\": null,\n    \"role\": \"parent\"\n  }\n}"
         },
         {
          "name": "401 Unauthorized",
@@ -3415,7 +3415,7 @@
        "name": "Register",
        "request": {
         "method": "POST",
-        "description": "Proxy \u2192 auth-service POST /auth/register",
+        "description": "Proxy → auth-service POST /auth/register",
         "header": [
          {
           "key": "Content-Type",
@@ -3424,7 +3424,7 @@
         ],
         "body": {
          "mode": "raw",
-         "raw": "{\n  \"email\": \"tutor@patscoapa.mx\",\n  \"password\": \"password123\",\n  \"displayName\": \"Ana Garc\u00eda\",\n  \"phone\": \"+52 55 1234 5678\"\n}",
+         "raw": "{\n  \"email\": \"tutor@patscoapa.mx\",\n  \"password\": \"password123\",\n  \"displayName\": \"Ana García\",\n  \"phone\": \"+52 55 1234 5678\"\n}",
          "options": {
           "raw": {
            "language": "json"
@@ -3455,7 +3455,7 @@
           ],
           "body": {
            "mode": "raw",
-           "raw": "{\n  \"email\": \"tutor@patscoapa.mx\",\n  \"password\": \"password123\",\n  \"displayName\": \"Ana Garc\u00eda\",\n  \"phone\": \"+52 55 1234 5678\"\n}",
+           "raw": "{\n  \"email\": \"tutor@patscoapa.mx\",\n  \"password\": \"password123\",\n  \"displayName\": \"Ana García\",\n  \"phone\": \"+52 55 1234 5678\"\n}",
            "options": {
             "raw": {
              "language": "json"
@@ -3482,7 +3482,7 @@
            "value": "application/json"
           }
          ],
-         "body": "{\n  \"id\": \"usr_abc123\",\n  \"email\": \"tutor@patscoapa.mx\",\n  \"displayName\": \"Ana Garc\u00eda\",\n  \"phone\": null,\n  \"role\": \"parent\"\n}"
+         "body": "{\n  \"id\": \"usr_abc123\",\n  \"email\": \"tutor@patscoapa.mx\",\n  \"displayName\": \"Ana García\",\n  \"phone\": null,\n  \"role\": \"parent\"\n}"
         },
         {
          "name": "409 Conflict",
@@ -3496,7 +3496,7 @@
           ],
           "body": {
            "mode": "raw",
-           "raw": "{\n  \"email\": \"tutor@patscoapa.mx\",\n  \"password\": \"password123\",\n  \"displayName\": \"Ana Garc\u00eda\",\n  \"phone\": \"+52 55 1234 5678\"\n}",
+           "raw": "{\n  \"email\": \"tutor@patscoapa.mx\",\n  \"password\": \"password123\",\n  \"displayName\": \"Ana García\",\n  \"phone\": \"+52 55 1234 5678\"\n}",
            "options": {
             "raw": {
              "language": "json"
@@ -3531,7 +3531,7 @@
        "name": "Refresh Token",
        "request": {
         "method": "POST",
-        "description": "Proxy \u2192 auth-service POST /auth/refresh",
+        "description": "Proxy → auth-service POST /auth/refresh",
         "header": [
          {
           "key": "Content-Type",
@@ -3647,7 +3647,7 @@
        "name": "My Profile",
        "request": {
         "method": "GET",
-        "description": "Proxy \u2192 auth-service GET /auth/me",
+        "description": "Proxy → auth-service GET /auth/me",
         "header": [],
         "url": {
          "raw": "{{GATEWAY_URL}}/auth/me",
@@ -3701,7 +3701,7 @@
            "value": "application/json"
           }
          ],
-         "body": "{\n  \"id\": \"usr_abc123\",\n  \"email\": \"tutor@patscoapa.mx\",\n  \"displayName\": \"Ana Garc\u00eda\",\n  \"phone\": null,\n  \"role\": \"parent\"\n}"
+         "body": "{\n  \"id\": \"usr_abc123\",\n  \"email\": \"tutor@patscoapa.mx\",\n  \"displayName\": \"Ana García\",\n  \"phone\": null,\n  \"role\": \"parent\"\n}"
         },
         {
          "name": "401 Unauthorized",
@@ -4012,7 +4012,7 @@
        "name": "List Roles",
        "request": {
         "method": "GET",
-        "description": "Proxy \u2192 auth-service GET /roles",
+        "description": "Proxy → auth-service GET /roles",
         "header": [],
         "url": {
          "raw": "{{GATEWAY_URL}}/roles",
@@ -5063,7 +5063,7 @@
        "name": "List Categories",
        "request": {
         "method": "GET",
-        "description": "Proxy \u2192 roster-service GET /roster/categories",
+        "description": "Proxy → roster-service GET /roster/categories",
         "header": [],
         "url": {
          "raw": "{{GATEWAY_URL}}/roster/categories",
@@ -5225,7 +5225,7 @@
            "value": "application/json"
           }
          ],
-         "body": "{\n  \"players\": [\n    {\n      \"id\": \"plr_abc123\",\n      \"name\": \"Carlos P\u00e9rez\",\n      \"jerseyNumber\": 12,\n      \"position\": \"QB\",\n      \"age\": 8,\n      \"status\": \"active\"\n    },\n    {\n      \"id\": \"plr_def456\",\n      \"name\": \"Miguel Torres\",\n      \"jerseyNumber\": 77,\n      \"position\": \"RB\",\n      \"age\": 7,\n      \"status\": \"pending\"\n    }\n  ]\n}"
+         "body": "{\n  \"players\": [\n    {\n      \"id\": \"plr_abc123\",\n      \"name\": \"Carlos Pérez\",\n      \"jerseyNumber\": 12,\n      \"position\": \"QB\",\n      \"age\": 8,\n      \"status\": \"active\"\n    },\n    {\n      \"id\": \"plr_def456\",\n      \"name\": \"Miguel Torres\",\n      \"jerseyNumber\": 77,\n      \"position\": \"RB\",\n      \"age\": 7,\n      \"status\": \"pending\"\n    }\n  ]\n}"
         },
         {
          "name": "401 Unauthenticated",
@@ -5639,7 +5639,7 @@
            "value": "application/json"
           }
          ],
-         "body": "{\n  \"id\": \"plr_abc123\",\n  \"categoryId\": \"rabbits\",\n  \"name\": \"Carlos P\u00e9rez\",\n  \"jerseyNumber\": 12,\n  \"position\": \"QB\",\n  \"age\": 8,\n  \"height\": 130,\n  \"weight\": 35,\n  \"size\": \"S\",\n  \"status\": \"active\",\n  \"tutorName\": \"Luis P\u00e9rez\",\n  \"tutorPhone\": \"5512345678\",\n  \"tutorRelation\": \"Padre\",\n  \"medicalAlert\": null,\n  \"medicalDetail\": null,\n  \"createdAt\": \"2026-05-27T10:00:00.000Z\"\n}"
+         "body": "{\n  \"id\": \"plr_abc123\",\n  \"categoryId\": \"rabbits\",\n  \"name\": \"Carlos Pérez\",\n  \"jerseyNumber\": 12,\n  \"position\": \"QB\",\n  \"age\": 8,\n  \"height\": 130,\n  \"weight\": 35,\n  \"size\": \"S\",\n  \"status\": \"active\",\n  \"tutorName\": \"Luis Pérez\",\n  \"tutorPhone\": \"5512345678\",\n  \"tutorRelation\": \"Padre\",\n  \"medicalAlert\": null,\n  \"medicalDetail\": null,\n  \"createdAt\": \"2026-05-27T10:00:00.000Z\"\n}"
         },
         {
          "name": "401 Unauthenticated",
@@ -6078,7 +6078,7 @@
        ]
       },
       {
-       "name": "Register Player \u2014 Idempotency First",
+       "name": "Register Player — Idempotency First",
        "event": [
         {
          "listen": "prerequest",
@@ -6136,7 +6136,7 @@
        }
       },
       {
-       "name": "Register Player \u2014 Idempotency Replay (same key+body)",
+       "name": "Register Player — Idempotency Replay (same key+body)",
        "event": [
         {
          "listen": "test",
@@ -6184,7 +6184,7 @@
        }
       },
       {
-       "name": "Register Player \u2014 Idempotency Key Reuse Conflict",
+       "name": "Register Player — Idempotency Key Reuse Conflict",
        "event": [
         {
          "listen": "test",
@@ -6864,7 +6864,7 @@
        ]
       },
       {
-       "name": "Submit Session \u2014 Idempotency First",
+       "name": "Submit Session — Idempotency First",
        "event": [
         {
          "listen": "prerequest",
@@ -6915,7 +6915,7 @@
        }
       },
       {
-       "name": "Submit Session \u2014 Idempotency Replay (same key)",
+       "name": "Submit Session — Idempotency Replay (same key)",
        "event": [
         {
          "listen": "test",
@@ -7184,7 +7184,7 @@
        ]
       },
       {
-       "name": "Get Month \u2014 Invalid Format \u2014 422",
+       "name": "Get Month — Invalid Format — 422",
        "request": {
         "method": "GET",
         "description": "Returns 422 when the month format is invalid.",
@@ -7245,13 +7245,13 @@
     },
     {
      "name": "Admin Users",
-     "description": "Proxy \u2192 auth-service /admin/users routes. Requires admin Bearer token.",
+     "description": "Proxy → auth-service /admin/users routes. Requires admin Bearer token.",
      "item": [
       {
        "name": "List Users",
        "request": {
         "method": "GET",
-        "description": "Proxy \u2192 auth-service GET /admin/users",
+        "description": "Proxy → auth-service GET /admin/users",
         "header": [],
         "url": {
          "raw": "{{GATEWAY_URL}}/admin/users",
@@ -7377,7 +7377,7 @@
        "name": "Create User",
        "request": {
         "method": "POST",
-        "description": "Proxy \u2192 auth-service POST /admin/users",
+        "description": "Proxy → auth-service POST /admin/users",
         "header": [
          {
           "key": "Content-Type",
@@ -7556,7 +7556,7 @@
        "name": "Update User",
        "request": {
         "method": "PATCH",
-        "description": "Proxy \u2192 auth-service PATCH /admin/users/:id",
+        "description": "Proxy → auth-service PATCH /admin/users/:id",
         "header": [
          {
           "key": "Content-Type",
@@ -7764,7 +7764,7 @@
        "name": "Delete User",
        "request": {
         "method": "DELETE",
-        "description": "Proxy \u2192 auth-service DELETE /admin/users/:id",
+        "description": "Proxy → auth-service DELETE /admin/users/:id",
         "header": [],
         "url": {
          "raw": "{{GATEWAY_URL}}/admin/users/:id",
@@ -7991,7 +7991,7 @@
            "value": "application/json"
           }
          ],
-         "body": "{\n  \"players\": [\n    {\n      \"id\": \"plr_abc123\",\n      \"name\": \"Carlos P\u00e9rez\",\n      \"jerseyNumber\": 12,\n      \"categoryId\": \"rabbits\",\n      \"status\": \"active\"\n    },\n    {\n      \"id\": \"plr_def456\",\n      \"name\": \"Miguel Torres\",\n      \"jerseyNumber\": 77,\n      \"categoryId\": \"hornets\",\n      \"status\": \"pending\"\n    }\n  ]\n}"
+         "body": "{\n  \"players\": [\n    {\n      \"id\": \"plr_abc123\",\n      \"name\": \"Carlos Pérez\",\n      \"jerseyNumber\": 12,\n      \"categoryId\": \"rabbits\",\n      \"status\": \"active\"\n    },\n    {\n      \"id\": \"plr_def456\",\n      \"name\": \"Miguel Torres\",\n      \"jerseyNumber\": 77,\n      \"categoryId\": \"hornets\",\n      \"status\": \"pending\"\n    }\n  ]\n}"
         },
         {
          "name": "401 Unauthenticated",
@@ -8082,7 +8082,7 @@
        "name": "List Notifications",
        "request": {
         "method": "GET",
-        "description": "Proxy \u2192 notifications-service GET /notifications (bell list + unread count)",
+        "description": "Proxy → notifications-service GET /notifications (bell list + unread count)",
         "header": [],
         "url": {
          "raw": "{{GATEWAY_URL}}/notifications",
@@ -8134,7 +8134,7 @@
            "value": "application/json"
           }
          ],
-         "body": "{\n  \"items\": [\n    {\n      \"id\": \"019f16c3-619f-7888-9001-28cf8163798d\",\n      \"kind\": \"player_registered\",\n      \"title\": \"Nuevo jugador pendiente\",\n      \"body\": \"Juan P\u00e9rez \u2014 falcons \u2014 pendiente de aprobaci\u00f3n\",\n      \"refId\": \"019f16c3-6195-733c-bed5-0c3f5a786c0a\",\n      \"data\": {\n        \"categoryId\": \"falcons\",\n        \"playerId\": \"019f16c3-6195-733c-bed5-0c3f5a786c0a\"\n      },\n      \"read\": false,\n      \"createdAt\": \"2026-06-30T04:22:11.103Z\"\n    }\n  ],\n  \"unreadTotal\": 1\n}"
+         "body": "{\n  \"items\": [\n    {\n      \"id\": \"019f16c3-619f-7888-9001-28cf8163798d\",\n      \"kind\": \"player_registered\",\n      \"title\": \"Nuevo jugador pendiente\",\n      \"body\": \"Juan Pérez — falcons — pendiente de aprobación\",\n      \"refId\": \"019f16c3-6195-733c-bed5-0c3f5a786c0a\",\n      \"data\": {\n        \"categoryId\": \"falcons\",\n        \"playerId\": \"019f16c3-6195-733c-bed5-0c3f5a786c0a\"\n      },\n      \"read\": false,\n      \"createdAt\": \"2026-06-30T04:22:11.103Z\"\n    }\n  ],\n  \"unreadTotal\": 1\n}"
         },
         {
          "name": "401 Unauthorized",
@@ -8173,7 +8173,7 @@
        "name": "Mark Notifications Read",
        "request": {
         "method": "PATCH",
-        "description": "Proxy \u2192 notifications-service PATCH /notifications/read (empty ids = mark all)",
+        "description": "Proxy → notifications-service PATCH /notifications/read (empty ids = mark all)",
         "header": [
          {
           "key": "Content-Type",
@@ -8392,7 +8392,7 @@
        "name": "Dashboard Live Feed",
        "request": {
         "method": "GET",
-        "description": "Open SSE stream for real-time attendance dashboard stats (admin/head_coach all categories, coach own; parent \u2192 403)",
+        "description": "Open SSE stream for real-time attendance dashboard stats (admin/head_coach all categories, coach own; parent → 403)",
         "header": [
          {
           "key": "Authorization",
@@ -8572,7 +8572,7 @@
   },
   {
    "name": "Roster Service",
-   "description": "Roster service \u2014 categories, player registration, status lifecycle",
+   "description": "Roster service — categories, player registration, status lifecycle",
    "item": [
     {
      "name": "System",
@@ -8793,7 +8793,7 @@
            "value": "application/json"
           }
          ],
-         "body": "{\n  \"players\": [\n    {\n      \"id\": \"plr_abc123\",\n      \"name\": \"Carlos P\u00e9rez\",\n      \"jerseyNumber\": 12,\n      \"position\": \"QB\",\n      \"age\": 8,\n      \"status\": \"active\"\n    },\n    {\n      \"id\": \"plr_def456\",\n      \"name\": \"Miguel Torres\",\n      \"jerseyNumber\": 77,\n      \"position\": \"RB\",\n      \"age\": 7,\n      \"status\": \"pending\"\n    }\n  ]\n}"
+         "body": "{\n  \"players\": [\n    {\n      \"id\": \"plr_abc123\",\n      \"name\": \"Carlos Pérez\",\n      \"jerseyNumber\": 12,\n      \"position\": \"QB\",\n      \"age\": 8,\n      \"status\": \"active\"\n    },\n    {\n      \"id\": \"plr_def456\",\n      \"name\": \"Miguel Torres\",\n      \"jerseyNumber\": 77,\n      \"position\": \"RB\",\n      \"age\": 7,\n      \"status\": \"pending\"\n    }\n  ]\n}"
         },
         {
          "name": "401 Unauthenticated",
@@ -9207,7 +9207,7 @@
            "value": "application/json"
           }
          ],
-         "body": "{\n  \"id\": \"plr_abc123\",\n  \"categoryId\": \"rabbits\",\n  \"name\": \"Carlos P\u00e9rez\",\n  \"jerseyNumber\": 12,\n  \"position\": \"QB\",\n  \"age\": 8,\n  \"height\": 130,\n  \"weight\": 35,\n  \"size\": \"S\",\n  \"status\": \"active\",\n  \"tutorName\": \"Luis P\u00e9rez\",\n  \"tutorPhone\": \"5512345678\",\n  \"tutorRelation\": \"Padre\",\n  \"medicalAlert\": null,\n  \"medicalDetail\": null,\n  \"createdAt\": \"2026-05-27T10:00:00.000Z\"\n}"
+         "body": "{\n  \"id\": \"plr_abc123\",\n  \"categoryId\": \"rabbits\",\n  \"name\": \"Carlos Pérez\",\n  \"jerseyNumber\": 12,\n  \"position\": \"QB\",\n  \"age\": 8,\n  \"height\": 130,\n  \"weight\": 35,\n  \"size\": \"S\",\n  \"status\": \"active\",\n  \"tutorName\": \"Luis Pérez\",\n  \"tutorPhone\": \"5512345678\",\n  \"tutorRelation\": \"Padre\",\n  \"medicalAlert\": null,\n  \"medicalDetail\": null,\n  \"createdAt\": \"2026-05-27T10:00:00.000Z\"\n}"
         },
         {
          "name": "401 Unauthenticated",
@@ -9722,7 +9722,7 @@
            "value": "application/json"
           }
          ],
-         "body": "{\n  \"players\": [\n    {\n      \"id\": \"plr_abc123\",\n      \"name\": \"Carlos P\u00e9rez\",\n      \"jerseyNumber\": 12,\n      \"categoryId\": \"rabbits\",\n      \"status\": \"active\"\n    },\n    {\n      \"id\": \"plr_def456\",\n      \"name\": \"Miguel Torres\",\n      \"jerseyNumber\": 77,\n      \"categoryId\": \"hornets\",\n      \"status\": \"pending\"\n    }\n  ]\n}"
+         "body": "{\n  \"players\": [\n    {\n      \"id\": \"plr_abc123\",\n      \"name\": \"Carlos Pérez\",\n      \"jerseyNumber\": 12,\n      \"categoryId\": \"rabbits\",\n      \"status\": \"active\"\n    },\n    {\n      \"id\": \"plr_def456\",\n      \"name\": \"Miguel Torres\",\n      \"jerseyNumber\": 77,\n      \"categoryId\": \"hornets\",\n      \"status\": \"pending\"\n    }\n  ]\n}"
         },
         {
          "name": "401 Unauthenticated",
@@ -9810,7 +9810,7 @@
   },
   {
    "name": "Attendance Service",
-   "description": "Attendance service \u2014 session marks, optimistic updates, session submission",
+   "description": "Attendance service — session marks, optimistic updates, session submission",
    "item": [
     {
      "name": "System",
@@ -10316,7 +10316,7 @@
        "name": "Submit Session",
        "request": {
         "method": "POST",
-        "description": "Stamps submitted_at on the session. Idempotent \u2014 calling again returns the already-submitted session.",
+        "description": "Stamps submitted_at on the session. Idempotent — calling again returns the already-submitted session.",
         "header": [
          {
           "key": "Authorization",
@@ -10342,7 +10342,7 @@
          "name": "200 OK",
          "originalRequest": {
           "method": "POST",
-          "description": "Stamps submitted_at on the session. Idempotent \u2014 calling again returns the already-submitted session.",
+          "description": "Stamps submitted_at on the session. Idempotent — calling again returns the already-submitted session.",
           "header": [
            {
             "key": "Authorization",
@@ -10378,7 +10378,7 @@
          "name": "401 Unauthorized",
          "originalRequest": {
           "method": "POST",
-          "description": "Stamps submitted_at on the session. Idempotent \u2014 calling again returns the already-submitted session.",
+          "description": "Stamps submitted_at on the session. Idempotent — calling again returns the already-submitted session.",
           "header": [
            {
             "key": "Authorization",
@@ -10414,7 +10414,7 @@
          "name": "403 Forbidden",
          "originalRequest": {
           "method": "POST",
-          "description": "Stamps submitted_at on the session. Idempotent \u2014 calling again returns the already-submitted session.",
+          "description": "Stamps submitted_at on the session. Idempotent — calling again returns the already-submitted session.",
           "header": [
            {
             "key": "Authorization",
@@ -10450,7 +10450,7 @@
          "name": "422 Unprocessable Entity",
          "originalRequest": {
           "method": "POST",
-          "description": "Stamps submitted_at on the session. Idempotent \u2014 calling again returns the already-submitted session.",
+          "description": "Stamps submitted_at on the session. Idempotent — calling again returns the already-submitted session.",
           "header": [
            {
             "key": "Authorization",
@@ -10802,7 +10802,7 @@
       },
       {
        "id": "ec23338d-2620-4ca0-9010-c4edd2c8822c",
-       "name": "Update Session \u2014 Date Not In Calendar \u2014 422",
+       "name": "Update Session — Date Not In Calendar — 422",
        "request": {
         "method": "PUT",
         "description": "Returns 422 SESSION_DATE_NOT_IN_CALENDAR when the requested date is not present in the allowed_session_dates list for the category. The allowed_session_dates list is populated by the calendar service when a month is published.",
@@ -11691,6 +11691,30 @@
          }
         }
        ]
+      },
+      {
+       "name": "Resync Projection",
+       "request": {
+        "method": "POST",
+        "description": "Admin-only maintenance. Re-fetches active players from roster and bulk-upserts them into the local projection, bypassing the one-time bootstrap guard. Idempotent and non-destructive. Only admin/head_coach. Recovers GET /payments/{month} returning empty when the projection was bootstrapped before any player was approved.",
+        "header": [
+         {
+          "key": "Authorization",
+          "value": "Bearer {{ACCESS_TOKEN}}"
+         }
+        ],
+        "url": {
+         "raw": "{{GATEWAY_URL}}/payments/admin/resync-projection",
+         "host": [
+          "{{GATEWAY_URL}}"
+         ],
+         "path": [
+          "payments",
+          "admin",
+          "resync-projection"
+         ]
+        }
+       }
       }
      ]
     },
@@ -11960,7 +11984,7 @@
            "value": "application/json"
           }
          ],
-         "body": "{\n  \"items\": [\n    {\n      \"id\": \"019f16c3-619f-7888-9001-28cf8163798d\",\n      \"kind\": \"player_registered\",\n      \"title\": \"Nuevo jugador pendiente\",\n      \"body\": \"Juan P\u00e9rez \u2014 falcons \u2014 pendiente de aprobaci\u00f3n\",\n      \"refId\": \"019f16c3-6195-733c-bed5-0c3f5a786c0a\",\n      \"data\": {\n        \"categoryId\": \"falcons\",\n        \"playerId\": \"019f16c3-6195-733c-bed5-0c3f5a786c0a\"\n      },\n      \"read\": false,\n      \"createdAt\": \"2026-06-30T04:22:11.103Z\"\n    }\n  ],\n  \"unreadTotal\": 1\n}"
+         "body": "{\n  \"items\": [\n    {\n      \"id\": \"019f16c3-619f-7888-9001-28cf8163798d\",\n      \"kind\": \"player_registered\",\n      \"title\": \"Nuevo jugador pendiente\",\n      \"body\": \"Juan Pérez — falcons — pendiente de aprobación\",\n      \"refId\": \"019f16c3-6195-733c-bed5-0c3f5a786c0a\",\n      \"data\": {\n        \"categoryId\": \"falcons\",\n        \"playerId\": \"019f16c3-6195-733c-bed5-0c3f5a786c0a\"\n      },\n      \"read\": false,\n      \"createdAt\": \"2026-06-30T04:22:11.103Z\"\n    }\n  ],\n  \"unreadTotal\": 1\n}"
         }
        ]
       },
@@ -12207,7 +12231,7 @@
        "name": "Seed Debug Notifications (Dev-only)",
        "request": {
         "method": "POST",
-        "description": "Dev-only: creates one notification of each of the 8 NotificationKind values, all targeted at a single userId \u2014 used for manual QA of the push notification branding pipeline on a real device. Gated by ENABLE_DEBUG_SEED (false by default in every environment); when disabled, the route is not registered and returns 404. Same actor-role gate as /notifications/send (admin/head_coach, or x-actor-id: system:<service>).",
+        "description": "Dev-only: creates one notification of each of the 8 NotificationKind values, all targeted at a single userId — used for manual QA of the push notification branding pipeline on a real device. Gated by ENABLE_DEBUG_SEED (false by default in every environment); when disabled, the route is not registered and returns 404. Same actor-role gate as /notifications/send (admin/head_coach, or x-actor-id: system:<service>).",
         "header": [
          {
           "key": "x-actor-id",
